@@ -427,3 +427,16 @@ h3 {
   width: 100%;
   display: block;
 }
+
+/* ________ ADVANTAGES __________ */
+.advantages {
+  border-radius: 2rem;
+  background-color: #fdd168;
+}
+
+.advantages h3 {
+  color: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}

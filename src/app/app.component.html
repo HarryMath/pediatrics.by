@@ -99,7 +99,31 @@
 </div>
 
 <!-- advantages -->
-<div class="sect s2"></div>
+<div class="content-w sect s2">
+  <div class="content">
+
+    <div class="advantages">
+      <div class="adv-content">
+        <h3 class="h sect-h">НАШИ ПРЕИМУЩЕСТВА</h3>
+        <div class="adv-list">
+          <div *ngFor="let adv of advantages" class="adv-wrap">
+            <div class="adv-icon"></div>
+            <div>
+              <h4 class="adv-h" [innerText]="adv.name"></h4>
+              <p class="adv-txt" [innerText]="adv.description"></p>
+            </div>
+          </div>
+        </div>
+        <button class="action-btn">
+          <svg><use xlink:href="#calendar"></use></svg>
+          <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
+        </button>
+      </div>
+      <div class="adv-image"></div>
+    </div>
+
+  </div>
+</div>
 
 <!-- instagram -->
 <div class="sect s2"></div>

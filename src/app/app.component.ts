@@ -102,7 +102,30 @@ export class AppComponent implements OnInit, AfterViewInit {
       includes: ['Консультацию аллерголога']
     }
   ];
-  advantages: IAdvantage[] = [];
+
+  advantages: IAdvantage[] = [
+    {
+      name: 'УСПОКОИМ ТРЕВОЖНЫХ РОДИТЕЛЕЙ',
+      description: 'Мы разговариваем с родителями на одном языке  и с хорошим настроением',
+      icon: 'calm.png'
+    },
+    {
+      name: 'ИНДИВИДУАЛЬНЫЙ ПОДХОД',
+      description: 'Мы знаем, что каждый человек уникален и ищем общий язык',
+      icon: 'individual'
+    },
+    {
+      name: 'СОВРЕМЕННОЕ ОБРАЗОВАНИЕ',
+      description: 'Мы постоянно обновляем свои знания на основании актуальных рекомендаций',
+      icon: 'education'
+    },
+    {
+      name: 'КОЛЛЕКТИВ ЕДИНОМЫШЕННИКОВ',
+      description: 'Наши специалисты работают в едином ключе, без противоречий',
+      icon: 'friendly'
+    }
+  ];
+
   programs: IProgram[] = [
     {
       name: '365 вопросов первого года жизни',
