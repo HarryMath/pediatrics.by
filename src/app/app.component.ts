@@ -7,6 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 import { random, remToPX, toRadians } from 'src/app/shared/utils';
+import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
 
 const HEART_SIZE_REM = 10
 
@@ -211,10 +212,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+  isMobile: boolean;
+
+  constructor(private readonly cdr: ChangeDetectorRef) {
+    this.isMobile = innerWidth <= 600;
+  }
 
   ngOnInit(): void {
     this.buildHead();
+    document.body.addEventListener('scroll', this.handleScroll.bind(this));
   }
 
   ngAfterViewInit() {
@@ -276,6 +282,16 @@ export class AppComponent implements OnInit, AfterViewInit {
         s.isOpened = false;
         this.cdr.markForCheck();
       }, 200);
+    }
+  }
+
+  isHeaderVisible = false;
+
+  handleScroll(): void {
+    const isHeaderVisible = document.body.scrollTop > 230;
+    if (isHeaderVisible !== this.isHeaderVisible) {
+      this.isHeaderVisible = isHeaderVisible;
+      this.cdr.markForCheck();
     }
   }
 

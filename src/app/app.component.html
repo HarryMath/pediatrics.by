@@ -1,4 +1,25 @@
+<header class="content-w" *ngIf="isMobile" [ngClass]="isHeaderVisible ? 'visible' : ''">
+  <div class="content">
+    <img class="icon-main" src="/assets/logo.svg" alt="logo">
+    <div class="header-right">
+      <div class="header-item call-btn">
+        <div class="a-c">
+          <svg><use xlink:href="#phone"></use></svg>
+        </div>
+      </div>
+      <div class="header-item menu-btn h">МЕНЮ</div>
+    </div>
+  </div>
+</header>
+<header *ngIf="!isMobile" [ngClass]="isHeaderVisible ? 'visible' : ''"></header>
+
 <div class="sect s0">
+  <div class="header content-w">
+    <div class="content">
+      <img class="icon-main" src="/assets/logo.svg" alt="logo">
+    </div>
+  </div>
+
   <div id="back0" class="back">
     <img src="assets/wave.svg" class="wave" alt="">
   </div>
