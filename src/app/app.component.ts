@@ -113,17 +113,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     {
       name: 'ИНДИВИДУАЛЬНЫЙ ПОДХОД',
       description: 'Мы знаем, что каждый человек уникален и ищем общий язык',
-      icon: 'individual'
+      icon: 'individual.png'
     },
     {
       name: 'СОВРЕМЕННОЕ ОБРАЗОВАНИЕ',
       description: 'Мы постоянно обновляем свои знания на основании актуальных рекомендаций',
-      icon: 'education'
+      icon: 'education.png'
     },
     {
       name: 'КОЛЛЕКТИВ ЕДИНОМЫШЕННИКОВ',
       description: 'Наши специалисты работают в едином ключе, без противоречий',
-      icon: 'friendly'
+      icon: 'friendly.png'
     }
   ];
 
@@ -212,6 +212,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   ];
 
+  appearElements: SVGElement[] = [];
+
   isMobile: boolean;
 
   constructor(private readonly cdr: ChangeDetectorRef) {
@@ -221,6 +223,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.buildHead();
     document.body.addEventListener('scroll', this.handleScroll.bind(this));
+    setTimeout(() => {
+      this.appearElements = Array.from(document.querySelectorAll('.p-icon')).map(el => el.querySelector('svg')!)
+        .concat(Array.from(document.querySelectorAll('.adv-icon')));
+    }, 100);
   }
 
   ngAfterViewInit() {
@@ -292,6 +298,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (isHeaderVisible !== this.isHeaderVisible) {
       this.isHeaderVisible = isHeaderVisible;
       this.cdr.markForCheck();
+    }
+    for (let i = 0; i < this.appearElements.length; i++) {
+      const el = this.appearElements[i];
+      const rect = el.getBoundingClientRect();
+      if (rect.top < innerHeight - 50 && rect.bottom > 10) {
+        el.classList.add('visible');
+        this.appearElements.splice(i--, 1);
+        break;
+      }
     }
   }
 

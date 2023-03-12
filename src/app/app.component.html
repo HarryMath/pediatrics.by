@@ -128,7 +128,9 @@
         <h3 class="h sect-h">НАШИ ПРЕИМУЩЕСТВА</h3>
         <div class="adv-list">
           <div *ngFor="let adv of advantages" class="adv-wrap">
-            <div class="adv-icon"></div>
+            <div class="adv-icon">
+              <img class="a-c" [src]="'/assets/advantages/' + adv.icon" alt="">
+            </div>
             <div>
               <h4 class="adv-h" [innerText]="adv.name"></h4>
               <p class="adv-txt" [innerText]="adv.description"></p>
@@ -152,6 +154,26 @@
 <!-- reviews -->
 <div class="sect s2"></div>
 
-<footer>
+<footer class="content-w">
+  <div class="content">
+    <div class="f-block">
+      <img class="icon-main" src="/assets/logo.svg" alt="logo">
+      <div class="rights"></div>
+      <div class="social"></div>
+    </div>
+    <div class="f-block">
+      <div class="h">Контакты</div>
+      <div class="phones">
 
+      </div>
+      <div class="mails"></div>
+    </div>
+    <div class="f-block">
+      <div style="width: 100%; position:relative;overflow:hidden;">
+        <a href="https://yandex.by/maps/org/tsentr_sovremennoy_pediatrii/212895119324/?utm_medium=mapframe&amp;utm_source=maps" style="display:none;visibility:hidden;">Центр Современной Педиатрии</a>
+        <a href="https://yandex.by/maps/157/minsk/category/medical_center_clinic/184106108/?utm_medium=mapframe&amp;utm_source=maps" style="display:none;visibility:hidden;">Медцентр, клиника в Минске</a>
+        <iframe loading="lazy" src="https://yandex.by/map-widget/v1/-/CCUqEIWV0C" width="560" height="400" allowfullscreen="" style="position:relative; max-width: 100%; width: 100%"></iframe>
+      </div>
+    </div>
+  </div>
 </footer>
