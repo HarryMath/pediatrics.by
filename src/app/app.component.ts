@@ -308,6 +308,14 @@ export class AppComponent implements OnInit, AfterViewInit {
         break;
       }
     }
+
+    const footer = document.querySelector('footer')!;
+    const rect = footer.getBoundingClientRect();
+    if (rect.bottom < innerHeight + 50) {
+      footer.classList.add('end');
+    } else {
+      footer.classList.remove('end');
+    }
   }
 
   private updateService(isOpened: boolean, div: HTMLElement): void {

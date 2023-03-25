@@ -614,6 +614,7 @@ footer {
   padding-bottom: 3rem;
   position: relative;
   padding-top: 10rem;
+  transition: 1s linear;
 }
 
 .footer2 {
@@ -705,12 +706,20 @@ footer h3 {
   width: 120%;
   transform: scaleX(1.4);
   height: 13rem;
-  left: 0; top: -2px;
+  left: 0; top: -1px;
   background-image: url(assets/wave/footer.svg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: 55%;
   background-position-y: 100%;
+  transition: 1s linear;
+}
+
+footer.end .footer1 {
+  padding-top: 5rem;
+}
+footer.end .footer1::before {
+  height: 1rem;
 }
 
 @media screen and (max-width: 600px) {
