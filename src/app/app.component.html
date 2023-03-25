@@ -1,4 +1,4 @@
-<header class="content-w" *ngIf="isMobile" [ngClass]="isHeaderVisible ? 'visible' : ''">
+<header class="content-w" *ngIf="isMobile" [ngClass]="{visible: isHeaderVisible, end: touchedFooter}">
   <div class="content">
     <img class="icon-main" src="/assets/logo/big_txt.svg" alt="logo">
     <div class="header-right">
@@ -11,7 +11,7 @@
     </div>
   </div>
 </header>
-<header *ngIf="!isMobile" [ngClass]="isHeaderVisible ? 'visible' : ''"></header>
+<header *ngIf="!isMobile" [ngClass]="{visible: isHeaderVisible, end: touchedFooter}"></header>
 
 <section class="s0">
   <div class="header content-w">
@@ -154,7 +154,7 @@
 <!-- reviews -->
 <section class="s2"></section>
 
-<footer>
+<footer [ngClass]="{end: touchedFooter}">
   <div class="footer1 content-w">
     <div class="content">
       <div class="flex-between">

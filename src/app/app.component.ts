@@ -292,6 +292,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   isHeaderVisible = false;
+  touchedFooter = false;
 
   handleScroll(): void {
     const isHeaderVisible = document.body.scrollTop > 230;
@@ -311,10 +312,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const footer = document.querySelector('footer')!;
     const rect = footer.getBoundingClientRect();
-    if (rect.bottom < innerHeight + 50) {
-      footer.classList.add('end');
-    } else {
-      footer.classList.remove('end');
+
+    const touchedFooter = rect.bottom < innerHeight * 1.5;
+    if (this.touchedFooter !== touchedFooter) {
+      this.touchedFooter = touchedFooter;
+      if (touchedFooter) {
+        footer.scrollIntoView({ behavior: "smooth", block: "end" })
+      }
+      this.cdr.markForCheck();
     }
   }
 
