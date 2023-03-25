@@ -1,6 +1,9 @@
 <header class="content-w" *ngIf="isMobile" [ngClass]="{visible: isHeaderVisible, end: touchedFooter}">
   <div class="content">
-    <img class="icon-main" src="/assets/logo/big_txt.svg" alt="logo">
+    <div class="flex-center">
+      <img class="icon-main" src="/assets/logo/no_txt.svg" alt="logo">
+      <svg id="logo-t"><use xlink:href="#txt"></use></svg>
+    </div>
     <div class="header-right">
       <div class="header-item call-btn">
         <div class="a-c">

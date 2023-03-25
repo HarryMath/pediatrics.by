@@ -313,11 +313,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     const footer = document.querySelector('footer')!;
     const rect = footer.getBoundingClientRect();
 
-    const touchedFooter = rect.bottom < innerHeight * 1.5;
+    const touchedFooter = rect.bottom < innerHeight * 1.2 + 45;
     if (this.touchedFooter !== touchedFooter) {
       this.touchedFooter = touchedFooter;
       if (touchedFooter) {
-        footer.scrollIntoView({ behavior: "smooth", block: "end" })
+        document.body.scrollTo({ behavior: "smooth", top: document.body.scrollHeight })
       }
       this.cdr.markForCheck();
     }
