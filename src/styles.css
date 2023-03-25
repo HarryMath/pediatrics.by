@@ -180,6 +180,11 @@ header .content {
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='6' ry='6' stroke='%23BBBCC0' stroke-width='2' stroke-dasharray='3%2c 5' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e");
 }
 
+.br {
+  width: 100%;
+  height: .6rem;
+}
+
 .h {
   font-family: 'art';
 }
@@ -700,10 +705,27 @@ footer h3 {
   width: 120%;
   transform: scaleX(1.4);
   height: 13rem;
-  left: 0; top: -.1px;
+  left: 0; top: -2px;
   background-image: url(assets/wave/footer.svg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: 55%;
   background-position-y: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .footer1 {
+    padding-top: 6rem;
+  }
+  .footer1 .flex-between {
+    display: block;
+  }
+  .footer1::before {
+    background-position-x: 85%;
+    transform: scaleX(1.1);
+  }
+  .f-block {
+    width: 100%;
+    margin: 1rem 0;
+  }
 }
