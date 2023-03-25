@@ -1,6 +1,6 @@
 <header class="content-w" *ngIf="isMobile" [ngClass]="isHeaderVisible ? 'visible' : ''">
   <div class="content">
-    <img class="icon-main" src="/assets/logo.svg" alt="logo">
+    <img class="icon-main" src="/assets/logo/big_txt.svg" alt="logo">
     <div class="header-right">
       <div class="header-item call-btn">
         <div class="a-c">
@@ -13,7 +13,7 @@
 </header>
 <header *ngIf="!isMobile" [ngClass]="isHeaderVisible ? 'visible' : ''"></header>
 
-<div class="sect s0">
+<section class="s0">
   <div class="header content-w">
     <div class="content">
       <img class="icon-main" src="/assets/logo.svg" alt="logo">
@@ -46,10 +46,10 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- services -->
-<div class="content-w sect s1">
+<section class="content-w s1">
   <div class="content">
 
     <h2 class="h sect-h">Наши услуги</h2>
@@ -76,10 +76,10 @@
     </div>
 
   </div>
-</div>
+</section>
 
 <!-- programs -->
-<div class="content-w sect s2">
+<section class="content-w s2">
   <div class="content">
 
     <h2 class="h sect-h">Годовые программы</h2>
@@ -117,10 +117,10 @@
     </div>
 
   </div>
-</div>
+</section>
 
 <!-- advantages -->
-<div class="content-w sect s2">
+<section class="content-w s2">
   <div class="content">
 
     <div class="advantages">
@@ -146,61 +146,73 @@
     </div>
 
   </div>
-</div>
+</section>
 
 <!-- instagram -->
-<div class="sect s2"></div>
+<section class="content-w s2"></section>
 
 <!-- reviews -->
-<div class="sect s2"></div>
+<section class="s2"></section>
 
 <footer>
   <div class="footer1 content-w">
     <div class="content">
-      <div class="f-block">
-        <h3 class="h">Режим работы</h3>
-        <p>пн - пт 09:00 — 21:00</p>
-        <p>сб, вс 09:00 — 15:00</p>
-      </div>
-      <div class="f-block contacts-list">
-        <h3 class="h">Контакты</h3>
-        <p class="flex-center">
-          <svg><use xlink:href="#phone"></use></svg>
-          <a href="tel:+375293795050" target="_blank">+375 (29) 379-50-50</a>
-        </p>
-        <p class="flex-center">
-          <svg><use xlink:href="#phone"></use></svg>
-          <a href="tel:+375333795050" target="_blank">+375 (33) 379-50-50</a>
-        </p>
-        <p class="flex-center">
-          <svg><use xlink:href="#phone"></use></svg>
-          <a href="tel:+375173795050" target="_blank">+375 (17) 379-50-50</a>
-        </p>
-        <p class="flex-center">
-          <svg><use xlink:href="#mail"></use></svg>
-          <a href="mailto:care@pediatrics.by" target="_blank">care@pediatrics.by</a>
-        </p>
-        <p class="flex-center">
-          <svg><use xlink:href="#map"></use></svg>
-          <span>г. Минск, ул. Червякова 55 <br>(вход с улицы Урожайная)</span>
-        </p>
-      </div>
-      <div class="f-block">
-        <div class="map">
-          <a href="https://yandex.by/maps/org/tsentr_sovremennoy_pediatrii/212895119324/?utm_medium=mapframe&amp;utm_source=maps" style="display:none;visibility:hidden;">Центр Современной Педиатрии</a>
-          <a href="https://yandex.by/maps/157/minsk/category/medical_center_clinic/184106108/?utm_medium=mapframe&amp;utm_source=maps" style="display:none;visibility:hidden;">Медцентр, клиника в Минске</a>
-          <iframe loading="lazy" src="https://yandex.by/map-widget/v1/-/CCUqEIWV0C" allowfullscreen=""></iframe>
+      <div class="flex-between">
+        <div class="fb1 f-block">
+          <h3>Контакты</h3>
+          <p class="flex-center">
+            <svg><use xlink:href="#mail"></use></svg>
+            <a href="mailto:care@pediatrics.by" target="_blank">care@pediatrics.by</a>
+          </p>
+          <p class="flex-center">
+            <svg><use xlink:href="#phone"></use></svg>
+            <a href="tel:+375293795050" target="_blank">+375 (29) 379-50-50</a>
+          </p>
+          <p class="flex-center">
+            <svg><use xlink:href="#phone"></use></svg>
+            <a href="tel:+375333795050" target="_blank">+375 (33) 379-50-50</a>
+          </p>
+          <p class="flex-center">
+            <svg><use xlink:href="#phone"></use></svg>
+            <a href="tel:+375173795050" target="_blank">+375 (17) 379-50-50</a>
+          </p>
         </div>
-
-        <img class="icon-main" src="/assets/logo-plain.svg" alt="logo">
+        <div class="fb2 f-block">
+          <h3>Режим работы</h3>
+          <p class="flex-center">
+            <svg><use xlink:href="#clock"></use></svg>
+            <span>пн - пт 09:00 — 21:00</span>
+          </p>
+          <p class="flex-center">
+            <svg><use xlink:href="#clock-15"></use></svg>
+            <span>сб, вс 09:00 — 15:00</span>
+          </p>
+          <br>
+          <p class="flex-center">
+            <svg><use xlink:href="#map"></use></svg>
+            <span>г. Минск, ул. Червякова 55 <br>(вход с улицы Урожайная)</span>
+          </p>
+        </div>
+        <div class="fb3 f-block">
+          <div class="map">
+            <a href="https://yandex.by/maps/org/tsentr_sovremennoy_pediatrii/212895119324/?utm_medium=mapframe&amp;utm_source=maps" style="display:none;visibility:hidden;">Центр Современной Педиатрии</a>
+            <a href="https://yandex.by/maps/157/minsk/category/medical_center_clinic/184106108/?utm_medium=mapframe&amp;utm_source=maps" style="display:none;visibility:hidden;">Медцентр, клиника в Минске</a>
+            <iframe loading="lazy" src="https://yandex.by/map-widget/v1/-/CCUqEIWV0C" allowfullscreen=""></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="footer2 content-w">
-    <div class="content">
-      <p class="comp-name">© 2020, Минск, Центр Современной Педиатрии</p>
-      <div class="flex-center">
-        <p>Лицензия</p><div class="sep"> | </div><p>Публичный договор</p>
+    <div class="content flex-center flex-between">
+      <div>
+        <img class="icon-main" src="assets/logo/green.svg" alt="logo">
+      </div>
+      <div>
+        <p class="comp-name">© 2020, Минск, Центр Современной Педиатрии</p>
+        <div class="flex-center">
+          <p>Лицензия</p><div class="sep"> | </div><p>Публичный договор</p>
+        </div>
       </div>
     </div>
   </div>
