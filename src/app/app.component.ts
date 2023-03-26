@@ -221,7 +221,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.buildHead();
-    document.body.addEventListener('scroll', this.handleScroll.bind(this));
     setTimeout(() => {
       this.appearElements = Array.from(document.querySelectorAll('.p-icon')).map(el => el.querySelector('svg')!)
         .concat(Array.from(document.querySelectorAll('.adv-icon')));
@@ -275,8 +274,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       t = 200 + i * 10 + Math.random() * (i * 40 + 300);
       tLeft = t + Math.random() * 400 - 200;
       tRight = t + Math.random() * 400 - 200;
-      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l1')!.style.opacity = '1', tLeft);
-      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l2')!.style.opacity = '1', tRight);
+      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l1')!.style.opacity = '1', tLeft / 3);
+      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l2')!.style.opacity = '1', tRight / 3);
     }
   }
 
@@ -307,8 +306,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   isHeaderVisible = false;
   touchedFooter = false;
 
+  @HostListener('window:scroll')
   handleScroll(): void {
-    const isHeaderVisible = document.body.scrollTop > 230;
+    const isHeaderVisible = window.scrollY > 230;
     if (isHeaderVisible !== this.isHeaderVisible) {
       this.isHeaderVisible = isHeaderVisible;
       this.cdr.markForCheck();
@@ -330,7 +330,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.touchedFooter !== touchedFooter) {
       this.touchedFooter = touchedFooter;
       if (touchedFooter) {
-        document.body.scrollTo({ behavior: "smooth", top: document.body.scrollHeight })
+        window.scrollTo({ behavior: "smooth", top: document.body.scrollHeight })
       }
       this.cdr.markForCheck();
     }
