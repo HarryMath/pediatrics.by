@@ -4,3 +4,6 @@ export const remToPX = (rem: number): number =>
 export const random = (min: number, max: number): number => min + Math.random() * (max - min);
 
 export const toRadians = Math.PI / 180;
+
+export const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+

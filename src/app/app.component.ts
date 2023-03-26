@@ -6,8 +6,7 @@ import {
   HostListener,
   OnInit
 } from '@angular/core';
-import { random, remToPX, toRadians } from 'src/app/shared/utils';
-import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
+import { random, remToPX, toRadians, wait } from 'src/app/shared/utils';
 
 const HEART_SIZE_REM = 10
 
@@ -234,13 +233,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     setTimeout(() => this.prepareServices(), 1000);
   }
 
-  buildHead(): void {
+  async buildHead(): Promise<void> {
     const container = document.getElementById('back0')!;
     const rect = container.getBoundingClientRect();
     const hearSize = remToPX(HEART_SIZE_REM);
     const amountX = Math.round(rect.width / hearSize);
     const amountY = Math.round(rect.height / hearSize);
     const offsetSize = hearSize / 8;
+
     let hearts = '';
     for (let i = 0; i <= amountX; i++) {
       for (let j = 0; j <= amountY; j++) {
@@ -254,8 +254,10 @@ export class AppComponent implements OnInit, AfterViewInit {
         const dy = d * Math.sin(rotation * toRadians)
           + d2 * Math.sin((rotation - 90) * toRadians);
         // hearts += `<svg class="heart" style="transform:translate(${translateX}px,${translateY}px) rotate(${random(0, 360)}deg)"><use xlink:href="#like"></use></svg>`
-        hearts += `<div class="heart l1" style="transform:translate(${translateX - dx}px,${translateY - dy}px) rotate(${rotation}deg)"></div>`
-        hearts += `<div class="heart l2" style="transform:translate(${translateX + dx}px,${translateY + dy}px) rotate(${rotation + random(-40, 10)}deg)"></div>`
+        hearts += '<div class="h-wrap">'
+          + `<div class="heart l1" style="transform:translate(${translateX - dx}px,${translateY - dy}px) rotate(${rotation}deg)"></div>`
+          + `<div class="heart l2" style="transform:translate(${translateX + dx}px,${translateY + dy}px) rotate(${rotation + random(-40, 10)}deg)"></div>`
+          + '</div>'
       }
     }
     container.innerHTML += hearts;
@@ -264,6 +266,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (innerWidth <= 650) {
       const size = innerWidth - remToPX(4);
       baby.style.cssText = `width: ${size}px;height:${size * 1.3}px`
+    }
+
+    await wait(100);
+    const blocks = Array.from(document.querySelectorAll('.h-wrap'));
+    let t, tLeft, tRight;
+    for (let i = 1; i <= blocks.length; i++) {
+      t = 200 + i * 10 + Math.random() * (i * 40 + 300);
+      tLeft = t + Math.random() * 400 - 200;
+      tRight = t + Math.random() * 400 - 200;
+      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l1')!.style.opacity = '1', tLeft);
+      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l2')!.style.opacity = '1', tRight);
     }
   }
 

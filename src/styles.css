@@ -1,6 +1,6 @@
 :root {
   --g-ll: #E1C3BC;
-  --g-l: #D9B2A7;
+  --g-l: #dcb9af;
   --g-2: #acefad;
   --g: #8ad797;
   --max-w: 90rem;
@@ -213,18 +213,24 @@ section.content-w {
   background-color: var(--g-ll);
 }
 
+.s0 .content-w {
+  overflow: hidden;
+}
+
 #back0 {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   overflow: hidden;
 }
-#back0 .heart {
+.heart {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
   position: absolute;
   top: 0; left: 0;
+  opacity: 0;
+  transition: opacity .2s;
   pointer-events: none;
   color: var(--g-l);
   width: 9rem;
@@ -287,8 +293,9 @@ h3 {
   position: relative;
 }
 .baby-wrapper svg {
-  height: 95%;
-  transform: translate(-55%, -40%) rotate(-30deg);
+  height: 150%;
+  width: 100%;
+  transform: translate(-43%, -40%) rotate(-13deg) scaleY(1.2);
   color: var(--g-l);
 }
 
