@@ -263,7 +263,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const baby = document.getElementById("baby")!;
     if (innerWidth <= 650) {
       const size = innerWidth - remToPX(4);
-      baby.style.cssText = `width: ${size}px;height:${size}px`
+      baby.style.cssText = `width: ${size}px;height:${size * 1.3}px`
     }
   }
 
