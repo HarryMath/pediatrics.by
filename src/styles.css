@@ -212,6 +212,9 @@ section.content-w {
   width: 100%;
   background-color: var(--g-ll);
 }
+.s0 .action-btn {
+  box-shadow: 0 10px 20px 0 #2209584d, inset 0 -3px 6px 0 #221e8d5d;
+}
 
 .s0 .content-w {
   overflow: hidden;
@@ -303,7 +306,7 @@ h3 {
   position: relative;
   height: 100%; width: 100%;
 
-  background-image: url(assets/child/2.png);
+  background-image: url(assets/child/2.webp);
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;
