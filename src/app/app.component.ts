@@ -7,6 +7,8 @@ import {
   OnInit
 } from '@angular/core';
 import { random, remToPX, toRadians, wait } from 'src/app/shared/utils';
+import { DoctorDto } from 'src/app/sdk/dto/Doctor';
+import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
 
 const HEART_SIZE_REM = 10
 
@@ -213,6 +215,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   appearElements: SVGElement[] = [];
 
+  doctors: DoctorDto[] = [];
+
   isMobile: boolean;
 
   constructor(private readonly cdr: ChangeDetectorRef) {
@@ -221,6 +225,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.buildHead();
+    this.loadDoctors();
     setTimeout(() => {
       this.appearElements = Array.from(document.querySelectorAll('.p-icon')).map(el => el.querySelector('svg')!)
         .concat(Array.from(document.querySelectorAll('.adv-icon')));
@@ -241,8 +246,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     const offsetSize = hearSize / 8;
 
     let hearts = '';
+    let t, tLeft, tRight;
     for (let i = 0; i <= amountX; i++) {
       for (let j = 0; j <= amountY; j++) {
+        t = 200 + (i + j) * 50 + Math.random() * ((i * j) * 20 + 300);
+        tLeft = t + Math.random() * 400 - 200;
+        tRight = t + Math.random() * 400 - 200;
         const rotation = random(0, 360);
         const translateX = (i - 0.34 * (j % 3)) * hearSize + random(-offsetSize, offsetSize);
         const translateY = j * hearSize + random(-offsetSize, offsetSize);
@@ -254,8 +263,8 @@ export class AppComponent implements OnInit, AfterViewInit {
           + d2 * Math.sin((rotation - 90) * toRadians);
         // hearts += `<svg class="heart" style="transform:translate(${translateX}px,${translateY}px) rotate(${random(0, 360)}deg)"><use xlink:href="#like"></use></svg>`
         hearts += '<div class="h-wrap">'
-          + `<div class="heart l1" style="transform:translate(${translateX - dx}px,${translateY - dy}px) rotate(${rotation}deg)"></div>`
-          + `<div class="heart l2" style="transform:translate(${translateX + dx}px,${translateY + dy}px) rotate(${rotation + random(-40, 10)}deg)"></div>`
+          + `<div class="heart l1" style="transition-delay:${tLeft}ms;transform:translate(${translateX - dx}px,${translateY - dy}px) rotate(${rotation}deg)"></div>`
+          + `<div class="heart l2" style="transition-delay:${tRight}ms;transform:translate(${translateX + dx}px,${translateY + dy}px) rotate(${rotation + random(-40, 10)}deg)"></div>`
           + '</div>'
       }
     }
@@ -268,15 +277,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     await wait(100);
-    const blocks = Array.from(document.querySelectorAll('.h-wrap'));
-    let t, tLeft, tRight;
-    for (let i = 1; i <= blocks.length; i++) {
-      t = 200 + i * 10 + Math.random() * (i * 40 + 300);
-      tLeft = t + Math.random() * 400 - 200;
-      tRight = t + Math.random() * 400 - 200;
-      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l1')!.style.opacity = '1', tLeft / 3);
-      setTimeout(() => blocks.at(-i)!.querySelector<HTMLDivElement>('.l2')!.style.opacity = '1', tRight / 3);
-    }
+    document.querySelectorAll<HTMLDivElement>('.heart').forEach(h => h.style.opacity = '1');
   }
 
   @HostListener('window:resize')
@@ -343,5 +344,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const h = element.getBoundingClientRect().height;
     div.style.cssText = `height: ${h}px`;
+  }
+
+  private async loadDoctors(): Promise<void> {
+    this.doctors = await ScheduleSdk.getDoctors();
+    this.cdr.markForCheck();
   }
 }

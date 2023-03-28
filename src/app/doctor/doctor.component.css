@@ -1,0 +1,16 @@
+h3 {
+  margin-top: 0;
+  font-size: 1.75rem;
+}
+.doc {
+  padding: 1rem;
+  background: #fff;
+  /*box-shadow: 0 0 0 1px #0000101d, 0 4px 6px -1px #0000102d, 0 2px 4px -2px #0000102d;*/
+  box-shadow: 0 1rem 2.5rem -.1rem #0000101d, 0 .25rem 1.1rem -.25rem #0000102d;
+  border-radius: .4rem;
+  margin-bottom: 1rem;
+}
+
+.doc-name {
+  text-align: center;
+}

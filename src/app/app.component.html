@@ -115,8 +115,18 @@
   </div>
 </section>
 
+<section class="content-w s3">
+  <div class="content">
+
+    <h2 class="h sect-h">Наши специалисты</h2>
+    <div class="sect-cont">
+      <app-doctor *ngFor="let d of doctors" [d]="d"></app-doctor>
+    </div>
+  </div>
+</section>
+
 <!-- advantages -->
-<section class="content-w s2">
+<section class="content-w s4">
   <div class="content">
 
     <div class="advantages">
@@ -145,10 +155,7 @@
 </section>
 
 <!-- instagram -->
-<section class="content-w s2"></section>
-
-<!-- reviews -->
-<section class="s2"></section>
+<section class="content-w s5"></section>
 
 <footer [ngClass]="{end: touchedFooter}">
   <div class="footer1 content-w">

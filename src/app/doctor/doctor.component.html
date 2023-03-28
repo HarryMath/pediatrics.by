@@ -1,0 +1,18 @@
+<div class="doc">
+  <div>
+    <div class="flex-center justify-center">
+      <avatar [data]="d" [size]="getAvatarSize()" class="avatar" borderRadius="1rem"></avatar>
+    </div>
+    <h3 class="doc-name" [innerText]="getName(d)"></h3>
+    <div class="">
+
+      <div class="">
+        <span [innerText]="d.speciality"></span>
+        &#x2022;
+        <span *ngIf="d.category" [innerText]="d.category"></span>
+      </div>
+
+      <div class="text-lines" [innerText]="d.description"></div>
+    </div>
+  </div>
+</div>

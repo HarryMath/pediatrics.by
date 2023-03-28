@@ -98,6 +98,11 @@ p {
 .justify-center {
   justify-content: center;
 }
+
+.text-lines {
+  white-space: pre-line;
+}
+
 /*__________________ STYLES ______________*/
 
 
@@ -223,6 +228,11 @@ section.content-w {
 
 .s0 .content-w {
   overflow: hidden;
+}
+
+.s1 {
+  box-shadow: 0 -10px 0 0 #fff;
+  z-index: 2;
 }
 
 #back0 {
