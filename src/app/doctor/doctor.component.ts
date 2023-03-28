@@ -28,5 +28,5 @@ export class DoctorComponent {
   }
 }
 
-const AVATAR_SIZE_REM = 20;
+const AVATAR_SIZE_REM = 17;
 const MAX_AVATAR_WIDTH_PART = .8;

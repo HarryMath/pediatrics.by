@@ -96,6 +96,7 @@ p {
 }
 
 .justify-center {
+  display: flex;
   justify-content: center;
 }
 
@@ -740,6 +741,27 @@ footer h3 {
   background-position-y: 100%;
   transition: 1s linear;
 }
+
+
+.s3 .sect-cont {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  position: relative;
+}
+
+.sect-cont::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.s3 .sect-cont>* {
+  scroll-snap-align: center;
+}
+
 
 @media screen and (min-width: 600px) {
   ::-webkit-scrollbar {

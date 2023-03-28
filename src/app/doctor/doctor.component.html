@@ -1,18 +1,27 @@
-<div class="doc">
-  <div>
-    <div class="flex-center justify-center">
-      <avatar [data]="d" [size]="getAvatarSize()" class="avatar" borderRadius="1rem"></avatar>
-    </div>
-    <h3 class="doc-name" [innerText]="getName(d)"></h3>
-    <div class="">
+<div class="doc-wrap">
 
-      <div class="">
-        <span [innerText]="d.speciality"></span>
-        &#x2022;
-        <span *ngIf="d.category" [innerText]="d.category"></span>
+  <div class="doc">
+    <div class="doc-content">
+      <div class="justify-center">
+        <avatar [data]="d" [size]="getAvatarSize()" class="avatar" borderRadius="1rem"></avatar>
       </div>
+      <div class="doc-inf">
+        <h3 class="doc-name" [innerText]="getName(d)"></h3>
+        <p class="doc-spec">
+          <span [innerText]="d.speciality"></span>
+          &#x2022;
+          <span *ngIf="d.category" [innerText]="d.category"></span>
+        </p>
 
-      <div class="text-lines" [innerText]="d.description"></div>
+        <p class="text-lines" [innerText]="d.description"></p>
+      </div>
+    </div>
+    <div class="justify-center btn-wrap">
+      <button class="action-btn">
+        <svg><use xlink:href="#calendar"></use></svg>
+        ЗАПИСАТЬСЯ НА ПРИЁМ
+      </button>
     </div>
   </div>
+
 </div>

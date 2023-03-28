@@ -1,16 +1,61 @@
 h3 {
-  margin-top: 0;
-  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-bottom: .5rem;
 }
-.doc {
+.doc-wrap {
+  width: calc(100vw - 4rem);
   padding: 1rem;
-  background: #fff;
-  /*box-shadow: 0 0 0 1px #0000101d, 0 4px 6px -1px #0000102d, 0 2px 4px -2px #0000102d;*/
-  box-shadow: 0 1rem 2.5rem -.1rem #0000101d, 0 .25rem 1.1rem -.25rem #0000102d;
-  border-radius: .4rem;
-  margin-bottom: 1rem;
 }
 
-.doc-name {
+.doc {
+  padding: 2rem;
+  background: #fff;
+  /*box-shadow: 0 0 0 1px #0000101d, 0 4px 6px -1px #0000102d, 0 2px 4px -2px #0000102d;*/
+  box-shadow: 0 .8rem 2rem -.1rem #0000101d, 0 .2rem 1rem -.25rem #0000102d;
+  height: 100%;
+  border-radius: .4rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.ready .btn-wrap {
+  width: 100%;
+  position: absolute;
+  bottom: 1.7rem;
+  left: 0;
+}
+
+button {
+  margin: 1.3rem 0 0;
+  font-weight: bold;
+  height: fit-content;
+  line-height: unset;
+  background-color: var(--footer-l);
+  border-radius: 1rem;
+  padding: 1.2rem 2rem;
+  color: #fff;
+}
+
+.doc-name, .doc-spec {
   text-align: center;
+}
+
+.doc-spec {
+  color: #88a;
+  margin-bottom: 1.5rem;
+}
+
+@media screen and (min-width: 600px) {
+  .doc-wrap {
+    width: 100%;
+  }
+  .doc-content {
+    display: flex;
+  }
+  .avatar {
+    margin-right: 2rem;
+  }
+  .doc-name, .doc-spec {
+    text-align: left;
+  }
 }
