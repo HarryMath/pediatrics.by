@@ -1,0 +1,29 @@
+<label class="w-full input" [ngClass]="disabled?'disabled':''">
+  <input #el [id]="id||label"
+         [ngClass]="error?'err':''"
+         [attr.val]="valueObject.display"
+         type="text"
+         [required]="required"
+         (blur)="handleBlur()"
+         (keydown.enter)="handleEnter($event)"
+         [value]="valueObject.display"
+         autocomplete="off"
+         aria-autocomplete="none"
+         (focus)="handleFocus()"
+         (click)="handleFocus()"
+         (input)="handleChange($event, 'input')"
+  >
+  <span>{{required?label+'*':label}}</span>
+
+  <div *ngIf="showDataList && dataList && dataList.length > 0" class="fixed screen z-1" (mousedown)="showDataList = false"></div>
+
+  <div class="fixed datalist shadow-xl py-2" *ngIf="showDataList && dataList && dataList.length > 0" [style.width]="this.width">
+    <div class="datalist-option flex items-center py-2 px-4" *ngFor="let o of dataList" (click)="select(o)" [ngClass]="o.toSelect === valueObject.display ? 'selected' : ''">
+      <avatar *ngIf="withPhotos" [data]="o.entity" [size]="2" class="mr-2"></avatar>
+      <div class="overflow-hidden">
+        <div class="display text-sm text-ellipsis whitespace-nowrap overflow-hidden">{{o.display}}</div>
+        <div class="text-xs text-9 label" *ngIf="!!o.label">{{o.label}}</div>
+      </div>
+    </div>
+  </div>
+</label>

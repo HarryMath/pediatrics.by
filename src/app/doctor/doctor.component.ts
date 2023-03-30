@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
-import { DomUtils } from 'src/app/shared/utils';
+import { DomUtils, getName } from 'src/app/shared/utils';
 
 @Component({
   selector: 'app-doctor',
@@ -15,7 +15,7 @@ export class DoctorComponent {
   constructor() { }
 
   getName(d: DoctorDto): string {
-    return d.lastName + ' ' + d.firstName + ' ' + d.fatherName
+    return getName(d);
   }
 
   getAvatarSize(): number {

@@ -1,0 +1,22 @@
+.datalist {
+  border-radius: .3rem;
+  background-color: var(--light-color);
+  z-index: 2;
+  margin-top: .5rem;
+}
+
+.datalist-option {
+  cursor: pointer;
+}
+
+.datalist-option:hover {
+  background-color: var(--accent-2);
+}
+
+.datalist-option:hover .display {
+  color: var(--accent);
+}
+
+.datalist-option:hover .label {
+  color: var(--accent-a);
+}

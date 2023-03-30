@@ -1,0 +1,41 @@
+.calendar {
+  cursor: default;
+}
+
+.loading-days:after {
+  border-color: var(--shadow-5);
+  border-top-color: transparent;
+}
+
+.date {
+  text-align: center;
+  border-radius: 2px;
+}
+
+.today {
+  background-color: #eeb16b;
+  color: #fff;
+}
+
+.canSelect {
+  cursor: pointer;
+  background-color: var(--accent-3);
+}
+
+.canSelect:hover {
+  background-color: var(--accent-7);
+}
+
+.selected, .selected:hover {
+  background-color: var(--accent-a);
+  color: var(--light-color);
+}
+
+.calendar-days {
+  text-align: center;
+  box-shadow: 0 1px 0 0 var(--border-7), 0 -1px 0 0 var(--border-7);
+}
+
+.another {
+  opacity: .5;
+}

@@ -48,3 +48,13 @@ export const DomUtils = {
     px / parseFloat(getComputedStyle(document.documentElement).fontSize),
 }
 
+export const getName = (object: any) => {
+  if (!object) {
+    return ""
+  }
+  if (object.name) {
+    return object.name;
+  }
+  return ((object.firstName?.trim() || "") + " " + (object.lastName?.trim() || "") + " " + (object.fatherName?.trim() || "")).trim();
+}
+

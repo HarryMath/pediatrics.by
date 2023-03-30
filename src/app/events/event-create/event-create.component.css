@@ -1,0 +1,50 @@
+.loading-days:after {
+  border-color: var(--shadow-5);
+  border-top-color: transparent;
+}
+
+.card-h {
+  font-weight: 500;
+  padding-top: 1rem;
+  @apply text-lg;
+}
+
+.right {
+  padding: .5rem 1rem .5rem 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 50%;
+}
+
+.date-wrapper {
+  height: 200%;
+  transition: transform .2s ease-in-out;
+}
+
+.date-wrapper>div {
+  height: 50%;
+}
+
+.date-wrapper .card-h {
+  padding-bottom: 1rem;
+}
+
+.time {
+  padding: .5rem 1rem;
+  border-radius: 3px;
+  margin-bottom: .5rem;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--border-3);
+}
+
+.time-options {
+  overflow-y: scroll;
+}
+
+.s-i {
+  background-color: var(--light-color);
+  box-shadow: inset 0 0 0 1px var(--accent-6);
+}

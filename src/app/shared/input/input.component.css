@@ -1,0 +1,51 @@
+.disabled {
+  cursor: initial;
+  pointer-events: none;
+  opacity: .9;
+}
+
+input, textarea {
+  border-radius: .3rem;
+  box-shadow: 0 0 0 1px var(--border-7);
+  transition: box-shadow .2s, background .2s;
+  width: 100%;
+  padding: 0 .5rem;
+  font-size: 1rem;
+  appearance: none;
+}
+
+input {
+  height: var(--input-h);
+  line-height: var(--input-h);
+}
+
+span {
+  opacity: .7;
+}
+
+input:focus + span,
+textarea:focus + span,
+input:not([val=""]):valid + span,
+textarea:not([val=""]):valid + span,
+.disabled span,
+.disabled span {
+  top: 0;
+  font-size: .85rem;
+  transform: translateY(-100%);
+}
+
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 2px var(--accent-a);
+  color: var(--text-3);
+  background: var(--back-color);
+}
+
+.err:not(:focus) {
+  box-shadow: 0 0 0 2px var(--danger-8)!important;
+}
+
+.err:not(:focus) + span {
+  color: var(--danger-8);
+  opacity: 1!important;
+}
