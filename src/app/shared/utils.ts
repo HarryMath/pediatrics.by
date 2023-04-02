@@ -1,3 +1,5 @@
+export const mobileWidth = 600;
+
 export const remToPX = (rem: number): number =>
     rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
 

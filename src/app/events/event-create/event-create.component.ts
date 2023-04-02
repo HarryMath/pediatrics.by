@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDes
 import {Subscription} from 'rxjs';
 import {EventsService} from 'src/app/events/events.service';
 import {ScheduleSdk} from 'src/app/sdk/schedule.sdk';
-import {getName} from 'src/app/shared/utils';
+import {getName, mobileWidth} from 'src/app/shared/utils';
 import {ClientCreateDto, ClientDto} from 'src/app/sdk/dto/Client';
 import {DoctorMin, DoctorRole} from 'src/app/sdk/dto/Doctor';
 import {TimestampInterval} from 'src/app/sdk/dto/Interval';
@@ -370,6 +370,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
 
   selectTicket(i: number) {
     this.selectedTicket = i;
+    this.cdr.markForCheck();
   }
 
   selectTime(i: number): void {
@@ -384,5 +385,11 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       this.client.name.length > 1 && this.client.primaryPhone.length > 8;
 
     return !hasClient || (!this.start || ! this.end || !this.doctor?.id);
+  }
+
+  getPopUpStyle(): string {
+    return this.isOpened ? '' :
+      window.innerWidth < mobileWidth ? 'transform: translate(-50%, 50%); scale .95' :
+        'transform: translate(-50%, -20%) scale(.1); opacity: .5'
   }
 }

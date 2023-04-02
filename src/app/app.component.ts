@@ -6,7 +6,7 @@ import {
   HostListener,
   OnInit
 } from '@angular/core';
-import { random, remToPX, toRadians, wait } from 'src/app/shared/utils';
+import {mobileWidth, random, remToPX, toRadians, wait} from 'src/app/shared/utils';
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
 import {EventsService} from "./events/events.service";
@@ -224,7 +224,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private readonly cdr: ChangeDetectorRef,
     public readonly eventsService: EventsService
   ) {
-    this.isMobile = innerWidth <= 600;
+    this.isMobile = innerWidth <= mobileWidth;
   }
 
   ngOnInit(): void {
