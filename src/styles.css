@@ -95,6 +95,11 @@ p {
   align-items: center;
 }
 
+.flex-between {
+  display: flex;
+  justify-content: space-between;;
+}
+
 .justify-center {
   display: flex;
   justify-content: center;
@@ -102,6 +107,14 @@ p {
 
 .text-lines {
   white-space: pre-line;
+}
+
+.w-full, .full {
+  width: 100%;
+}
+
+.h-full, .full {
+  height: 100%;
 }
 
 /*__________________ STYLES ______________*/
@@ -702,11 +715,6 @@ iframe {
 
 .comp-name {
   margin-right: 1rem;
-}
-
-.flex-between {
-  display: flex;
-  justify-content: space-between;;
 }
 
 .logo-h {

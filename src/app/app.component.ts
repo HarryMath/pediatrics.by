@@ -9,6 +9,7 @@ import {
 import { random, remToPX, toRadians, wait } from 'src/app/shared/utils';
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
+import {EventsService} from "./events/events.service";
 
 const HEART_SIZE_REM = 10
 
@@ -219,7 +220,10 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   isMobile: boolean;
 
-  constructor(private readonly cdr: ChangeDetectorRef) {
+  constructor(
+    private readonly cdr: ChangeDetectorRef,
+    public readonly eventsService: EventsService
+  ) {
     this.isMobile = innerWidth <= 600;
   }
 

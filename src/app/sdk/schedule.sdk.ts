@@ -3,7 +3,10 @@ import {ClientCreateDto, ClientDto} from "./dto/Client";
 import {EventCreateDto} from "./dto/Event";
 import {TimestampInterval} from "./dto/Interval";
 
-export const endpoint = 'http://localhost:80/api/'
+export const endpoint = 'http://localhost:80/api/';
+export const headers = {
+  "Content-Type": "application/json",
+};
 
 export class ScheduleSdk {
 
@@ -50,7 +53,7 @@ export class ScheduleSdk {
 
   static async post<Res = void, Req extends {} = {}>(path: string, payload?: Req): Promise<Res> {
     const body = JSON.stringify(payload || {});
-    const response = await fetch(endpoint + path, { method: 'POST', body });
+    const response = await fetch(endpoint + path, { method: 'POST', body, headers });
     return await response.json();
   }
 }
