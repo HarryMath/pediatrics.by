@@ -8,7 +8,7 @@ import { SelectDateComponent } from 'src/app/shared/date/select-date.component';
 
 @NgModule({
   declarations: [EventCreateComponent],
-  imports: [CommonModule, SharedModule, IconDirective, TooltipDirective, SelectDateComponent],
+  imports: [CommonModule, SharedModule, IconDirective, TooltipDirective],
   exports: [EventCreateComponent]
 })
 export class EventCreateModule {}

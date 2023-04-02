@@ -1,13 +1,10 @@
 <div *ngIf="isVisible" class="fixed full overflow-y-auto z-10" style="top:0;left:0;padding:3rem 0">
-  <div [style.opacity]="isFullScreen ? 1 : 0" class="overlay"></div>
-  <div class="entity-card max z-10"
-       [ngClass]="(isFullScreen ? 'card-full ' : '') + (isFinished ? 'open' : '')"
-       [style]="getRectStyle()" style="margin:auto"
-  >
-    <div class="card-inner transparent">
-      <div class="m-header flex items-center justify-between">
+  <div [style.opacity]="isOpened ? 1 : 0" class="overlay"></div>
+  <div class="pop-up">
+    <div class="card-inner">
+      <div class="p-header flex-center flex-between">
         <div>Новая запись</div>
-        <svg class="h-6 w-6 cursor-pointer opacity-50" icon="cross" (click)="close()"></svg>
+        <svg icon="cross" (click)="close()"></svg>
       </div>
 
       <div class="m-body relative flex">
@@ -15,12 +12,12 @@
         <div class="w-[50%] pr-4">
           <div class="m-card">
             <div class="card-h">Клиент</div>
-            <search-input
+            <ng-input
               type="phone"
               label="Телефон"
               next="ФИО"
               [(value)]="client.primaryPhone"
-            ></search-input>
+            ></ng-input>
             <search-input
               type="text"
               label="ФИО"
@@ -54,13 +51,13 @@
           </div>
         </div>
 
-        <div class="h-full m-card right">
+        <div>
           <ng-container [ngTemplateOutlet]="single"></ng-container>
         </div>
 
       </div>
 
-      <div class="m-footer flex justify-end items-center">
+      <div class="p-footer flex-center flex-between">
         <div class="btn btn-cancel" (click)="close()">Отмена</div>
         <div class="btn ml-4 btn-primary" [ngClass]="{loading: isLoading, disabled: isDisabled()}" (click)="save()">Записаться</div>
       </div>
@@ -74,7 +71,7 @@
   <div class="w-full date-wrapper" [style]="getDateStyle()">
     <div>
       <div class="card-h text-center" [style.opacity]="!!doctor ? 1 : 0">Выберите день</div>
-      <select-date class="w-full" *ngIf="isFinished"
+      <select-date class="w-full" *ngIf="isOpened"
                    [data]="days"
                    [canSelect]="!!doctor"
                    [loading]="loadingDays"

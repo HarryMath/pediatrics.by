@@ -1,16 +1,16 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { EventsService } from 'src/app/events/events.service';
-import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
-import { getName } from 'src/app/shared/utils';
-import { ClientCreateDto, ClientDto } from 'src/app/sdk/dto/Client';
-import { DoctorMin, DoctorRole } from 'src/app/sdk/dto/Doctor';
-import { TimestampInterval } from 'src/app/sdk/dto/Interval';
-import { AvailableDoctor } from 'src/app/sdk/dto/Workday';
-import { DateUtils } from 'src/app/shared/utils/date.utils';
-import { ObjectUtils } from 'src/app/shared/utils/object.utils';
-import { Time, TimeInterval, TimeUtils } from 'src/app/shared/utils/TimeInterval';
-import { SelectOption } from 'src/app/shared/search-input/search-input.component';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {EventsService} from 'src/app/events/events.service';
+import {ScheduleSdk} from 'src/app/sdk/schedule.sdk';
+import {getName} from 'src/app/shared/utils';
+import {ClientCreateDto, ClientDto} from 'src/app/sdk/dto/Client';
+import {DoctorMin, DoctorRole} from 'src/app/sdk/dto/Doctor';
+import {TimestampInterval} from 'src/app/sdk/dto/Interval';
+import {AvailableDoctor} from 'src/app/sdk/dto/Workday';
+import {DateUtils} from 'src/app/shared/utils/date.utils';
+import {ObjectUtils} from 'src/app/shared/utils/object.utils';
+import {Time, TimeInterval, TimeUtils} from 'src/app/shared/utils/TimeInterval';
+import {SelectOption} from 'src/app/shared/search-input/search-input.component';
 
 const createClientDto = (): ClientCreateDto => ({
   birthDate: undefined,
@@ -38,9 +38,13 @@ interface FreeDay {
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.component.html',
-  styleUrls: ['./event-create.component.css']
+  styleUrls: ['./event-create.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventCreateComponent implements OnDestroy, OnInit {
+  isVisible = false;
+  isOpened = false;
+
   el?: ElementRef;
   subscription!: Subscription;
 
@@ -65,23 +69,21 @@ export class EventCreateComponent implements OnDestroy, OnInit {
 
   allRoles: SelectOption<DoctorRole>[] = [];
   doctors: SelectOption<DoctorMin>[] = [];
-  suitableOptions: SelectOption<DoctorMin | DoctorRole>[] = [];
 
-  clientsMatchName: SelectOption<ClientDto>[] = [];
-  clientsMatchPhone: SelectOption<ClientDto>[] = [];
   days: FreeDay[] = [];
   possibleEvents: PossibleEvent[] = [];
 
   constructor(
     private readonly eventCreateService: EventsService,
-    private readonly toast: ToastService,
+    private readonly cdr: ChangeDetectorRef,
+    // private readonly toast: ToastService,
   ) {
-    ScheduleSdk.getRoles().then(r => {
+    ScheduleSdk.doctors.getRoles().then(r => {
       this.allRoles = r.map(s => ({
         display: s,
         entity: s
       }));
-      this.suitableOptions = this.getTagsDataList();
+      // this.suitableOptions = this.getTagsDataList();
     })
   }
 
@@ -122,20 +124,31 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     });
   }
 
+  openFullScreen(): void {
+    this.isVisible = true;
+    this.cdr.markForCheck();
+    requestAnimationFrame(() => {
+      this.isOpened = true;
+      this.cdr.markForCheck();
+    })
+  }
+
   async saveClient(): Promise<void> {
     if (this.isLoading) {
       return;
     }
     if (this.client.name.length < 2 || this.client.primaryPhone.length < 9) {
-      this.toast.show('Заполните информацию о клинете', 0);
+      // this.toast.show('Заполните информацию о клинете', 0);
+      alert('Заполните информацию о себе');
       return;
     }
     this.isLoading = true;
     try {
-      const client = await ScheduleSdk.createClient(this.client) as ClientDto | number;
+      const client = await ScheduleSdk.clients.save(this.client) as ClientDto | number;
       this.clientId = typeof client === 'number' ? client : client.id;
     } catch (e) {
-      this.toast.showError('Не удалось создать запись', e);
+      // this.toast.showError('Не удалось создать запись', e);
+      alert('Не удалось создать запись');
     }
     this.isLoading = false;
   }
@@ -155,16 +168,18 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     }
     this.isLoading = true;
     try {
-      const event = await ScheduleSdk.createEvent({
+      const event = await ScheduleSdk.events.create({
         clientId: this.clientId,
         doctorId: this.doctor.id,
         start: this.start,
         end: this.end
       });
-      this.toast.show('Запись сохранена', 1);
+      // this.toast.show('Запись сохранена', 1);
+      alert('Запись сохранена');
       this.close();
     } catch (e) {
-      this.toast.showError('Не удалось создать запись', e);
+      // this.toast.showError('Не удалось создать запись', e);
+      alert('Не удалось создать запись');
     }
     this.isLoading = false;
   }
@@ -179,7 +194,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
   }
 
   async searchDoctor(doctorSearch: string): Promise<void> {
-    const doctors = await ScheduleSdk.searchDoctor(doctorSearch);
+    const doctors = await ScheduleSdk.doctors.get(doctorSearch);
     this.doctors = doctors.map(d => {
       const name = d.lastName + ' ' + d.firstName + ' ' + d.fatherName;
       return {
@@ -189,7 +204,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
         entity: { ...d, name }
       }
     });
-    this.suitableOptions = this.getTagsDataList();
+    // this.suitableOptions = this.getTagsDataList();
   }
 
   handleRoleSelect(role: DoctorRole): void {
@@ -280,7 +295,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
   async loadDays(): Promise<void> {
     this.loadingDays = true;
     try {
-      const intervals = await ScheduleSdk.getDoctorFreeDays(this.doctor!.id, this.daysPage);
+      const intervals = await ScheduleSdk.doctors.getFreeDays(this.doctor!.id, this.daysPage);
       this.days = [];
       let lastDay = '', currentDay = '';
       intervals.forEach(i => {
@@ -297,7 +312,8 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       });
       console.log('days: ', this.days);
     } catch (e) {
-      this.toast.showError("Не удалось зугрузить расписание", e);
+      // this.toast.showError("Не удалось зугрузить расписание", e);
+      alert("Не удалось зугрузить расписание");
     }
     this.loadingDays = false;
   }

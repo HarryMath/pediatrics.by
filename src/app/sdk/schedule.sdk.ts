@@ -1,6 +1,7 @@
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import {ClientCreateDto, ClientDto} from "./dto/Client";
 import {EventCreateDto} from "./dto/Event";
+import {TimestampInterval} from "./dto/Interval";
 
 export const endpoint = 'http://localhost:80/api/'
 
@@ -13,6 +14,10 @@ export class ScheduleSdk {
 
     getRoles(): Promise<string[]> {
       return ScheduleSdk.get<string[]>('doctors/roles');
+    },
+
+    getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
+      return ScheduleSdk.get<TimestampInterval[]>(`doctors/${id}/free-time/${monthIndex}`);
     }
   }
 
@@ -39,7 +44,7 @@ export class ScheduleSdk {
     if (queryString) {
       finalUrl += '?' + queryString;
     }
-    const response = await fetch(endpoint, { method: 'GET' });
+    const response = await fetch(finalUrl, { method: 'GET' });
     return await response.json();
   }
 

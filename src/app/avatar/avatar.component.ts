@@ -13,6 +13,7 @@ interface AvatarData {
 }
 
 @Component({
+  standalone: true,
   selector: 'avatar',
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.css'],

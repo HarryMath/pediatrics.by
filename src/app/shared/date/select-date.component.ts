@@ -2,7 +2,6 @@ import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@
 import { BaseCalendarComponent } from 'src/app/shared/base.calendar.component';
 
 @Component({
-  standalone: true,
   selector: 'select-date',
   templateUrl: './select-date.component.html',
   styleUrls: ['./select-date.component.css']
