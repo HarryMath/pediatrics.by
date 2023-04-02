@@ -26,7 +26,7 @@
         <div class="welcome_left">
           <h1 class="h">Центр современной<br>педиатрии</h1>
           <p class="t-b">Медицинский центр для детей и взрослых в Минске</p>
-          <button class="action-btn">
+          <button class="action-btn" (click)="eventsService.requestEvent()">
             <svg><use xlink:href="#calendar"></use></svg>
             <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
           </button>
@@ -220,3 +220,4 @@
     </div>
   </div>
 </footer>
+<app-event-create></app-event-create>

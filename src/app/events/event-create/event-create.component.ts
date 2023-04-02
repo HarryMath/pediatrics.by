@@ -185,8 +185,13 @@ export class EventCreateComponent implements OnDestroy, OnInit {
   }
 
   close(): void {
-    this.clearRole();
-    this.isVisible = false;
+    this.isOpened = false;
+    this.cdr.markForCheck();
+    setTimeout(() => {
+      this.isVisible = false;
+      this.clearRole();
+      this.cdr.markForCheck();
+    }, 200);
   }
 
   ngOnDestroy(): void {

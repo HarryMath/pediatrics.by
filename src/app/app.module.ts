@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { DoctorComponent } from './doctor/doctor.component';
 import { AvatarComponent } from 'src/app/avatar/avatar.component';
-import {EventCreateModule} from "./events/event-create/event-create.module";
+import { EventCreateModule } from "./events/event-create/event-create.module";
 
 @NgModule({
   declarations: [
