@@ -1,6 +1,6 @@
 <div *ngIf="isVisible" class="full pop-up-wrap">
   <div [style.opacity]="isOpened ? 1 : 0" class="full overlay"></div>
-  <div class="pop-up">
+  <div class="a-c pop-up" [style]="isOpened ? '' : 'transform: translate(-50%, -20%) scale(.1)'">
     <div class="card-inner">
       <div class="p-header flex-center flex-between">
         <div>Новая запись</div>

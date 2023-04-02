@@ -15,8 +15,11 @@
 
 
 .pop-up {
-  position: absolute;
   z-index: 1;
+  background: #fff;
+  border-radius: .3rem;
+  overflow: hidden;
+  transition: transform .2s;
 }
 
 .loading-days:after {
