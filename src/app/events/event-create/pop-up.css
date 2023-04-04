@@ -28,7 +28,7 @@
   transition: .2s;
 }
 
-.pop-up .collapsed {
+.pop-up.collapsed {
   transform: translate(-50%, -20%) scale(.1);
   opacity: .5;
 }
