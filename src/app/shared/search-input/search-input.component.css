@@ -1,22 +1,45 @@
+.select-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vh;
+  height: 100vh;
+  opacity: 0;
+  z-index: 1;
+}
+
 .datalist {
-  border-radius: .3rem;
-  background-color: var(--light-color);
+  position: fixed;
+  border-radius: .4rem;
+  background-color: #fff;
+  box-shadow: 0 .8rem 2rem -.1rem #0000101d, 0 .2rem 1rem -.25rem #0000102d;
   z-index: 2;
-  margin-top: .5rem;
+  margin-top: .6rem;
+  overflow-y: scroll;
 }
 
 .datalist-option {
+  padding: .6rem 1.2rem;
   cursor: pointer;
 }
 
+.datalist-option avatar {
+  margin-right: 1rem;
+}
+
+.label {
+  opacity: .7;
+}
+
 .datalist-option:hover {
-  background-color: var(--accent-2);
+  background-color: var(--footer1-1);
 }
 
 .datalist-option:hover .display {
-  color: var(--accent);
+  color: var(--footer1);
 }
 
 .datalist-option:hover .label {
-  color: var(--accent-a);
+  color: var(--footer-l);
+  opacity: .9;
 }

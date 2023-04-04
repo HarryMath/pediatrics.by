@@ -1,10 +1,18 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {EventsService} from 'src/app/events/events.service';
 import {ScheduleSdk} from 'src/app/sdk/schedule.sdk';
 import {getName, mobileWidth} from 'src/app/shared/utils';
 import {ClientCreateDto, ClientDto} from 'src/app/sdk/dto/Client';
-import {DoctorMin, DoctorRole} from 'src/app/sdk/dto/Doctor';
+import {DoctorDto, DoctorMin, DoctorRole} from 'src/app/sdk/dto/Doctor';
 import {TimestampInterval} from 'src/app/sdk/dto/Interval';
 import {AvailableDoctor} from 'src/app/sdk/dto/Workday';
 import {DateUtils} from 'src/app/shared/utils/date.utils';
@@ -35,13 +43,20 @@ interface FreeDay {
   doctors?: AvailableDoctor[]; // for multi event
 }
 
+const ANY_ROLE = 'Не выбрано';
+const ANY_DOCTOR = 'Любой врач';
+const ANY_DOCTOR_ID = 0;
+
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.component.html',
-  styleUrls: ['./event-create.component.css'],
+  styleUrls: ['./pop-up.css', './event-create.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventCreateComponent implements OnDestroy, OnInit {
+
+  step: 0 | 1 | 2 = 0;
+
   isVisible = false;
   isOpened = false;
 
@@ -70,6 +85,28 @@ export class EventCreateComponent implements OnDestroy, OnInit {
   allRoles: SelectOption<DoctorRole>[] = [];
   doctors: SelectOption<DoctorMin>[] = [];
 
+  @Input() set doctorsList(doctors: DoctorDto[]) {
+    if (!doctors.length) {
+      this.loadDoctors().catch();
+      return;
+    }
+    this.doctors = doctors.map(d => {
+      const name = d.lastName + ' ' + d.firstName + ' ' + d.fatherName;
+      return {
+        display: name,
+        label: d.speciality,
+        photoUrl: d.avatar,
+        entity: { ...d, name }
+      }
+    });
+    this.doctors.unshift({
+      display: this.doctorRole?.length ? 'Любой ' +  this.doctorRole : ANY_DOCTOR,
+      label: this.doctorRole,
+      entity: { id: ANY_DOCTOR_ID, name: ANY_DOCTOR }
+    })
+    this.cdr.markForCheck();
+  }
+
   days: FreeDay[] = [];
   possibleEvents: PossibleEvent[] = [];
 
@@ -83,11 +120,16 @@ export class EventCreateComponent implements OnDestroy, OnInit {
         display: s,
         entity: s
       }));
+      this.allRoles.push({ display: ANY_ROLE, entity: ANY_ROLE });
+      this.cdr.markForCheck();
       // this.suitableOptions = this.getTagsDataList();
     })
   }
 
   ngOnInit(): void {
+    if (!this.doctors.length) {
+      this.loadDoctors().catch();
+    }
     this.subscription = this.eventCreateService.subject.subscribe(input => {
       this.clientId = undefined;
       this.doctorName = getName(input)
@@ -198,24 +240,27 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     this.subscription.unsubscribe();
   }
 
-  async searchDoctor(doctorSearch: string): Promise<void> {
-    const doctors = await ScheduleSdk.doctors.get(doctorSearch);
-    this.doctors = doctors.map(d => {
-      const name = d.lastName + ' ' + d.firstName + ' ' + d.fatherName;
-      return {
-        display: name,
-        label: d.speciality,
-        photoUrl: d.avatar,
-        entity: { ...d, name }
-      }
-    });
-    // this.suitableOptions = this.getTagsDataList();
+  async loadDoctors(doctorSearch?: string): Promise<void> {
+    this.doctorsList = await ScheduleSdk.doctors.get(doctorSearch);
   }
 
   handleRoleSelect(role: DoctorRole): void {
     if (this.doctorRole !== role) {
-      this.clearDoctor();
+      if (this.doctor?.id !== ANY_DOCTOR_ID) {
+        this.clearDoctor();
+      } else {
+        console.log('set name;')
+        this.doctor.name = 'Любой ' + role;
+        this.doctor.speciality = role;
+      }
+      const anyDoctor = this.doctors.find(d => d.entity.id === ANY_DOCTOR_ID);
+      if (anyDoctor) {
+        console.log('set name;')
+        anyDoctor.display = 'Любой ' + role;
+        anyDoctor.entity.name = 'Любой ' + role;
+      }
       this.doctorRole = role;
+      this.cdr.markForCheck();
     }
   }
 
@@ -226,6 +271,9 @@ export class EventCreateComponent implements OnDestroy, OnInit {
 
   handleDoctorSelect(doctor: DoctorMin): void {
     this.daysPage = 0;
+    if (doctor.name === ANY_DOCTOR && doctor.id === ANY_DOCTOR_ID) {
+      doctor.speciality = this.doctorRole;
+    }
     this.doctor = doctor;
     this.doctorRole = doctor.speciality || '';
     this.day = undefined;
@@ -387,9 +435,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     return !hasClient || (!this.start || ! this.end || !this.doctor?.id);
   }
 
-  getPopUpStyle(): string {
-    return this.isOpened ? '' :
-      window.innerWidth < mobileWidth ? 'transform: translate(-50%, 50%); scale .95' :
-        'transform: translate(-50%, -20%) scale(.1); opacity: .5'
+  getPopUpClass(): string {
+    return this.isOpened ? '' : 'collapsed';
   }
 }

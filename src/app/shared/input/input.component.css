@@ -10,7 +10,6 @@ input, textarea {
   transition: box-shadow .2s, background .2s;
   width: 100%;
   padding: 0 .5rem;
-  font-size: 1rem;
   appearance: none;
 }
 
@@ -30,7 +29,7 @@ textarea:not([val=""]):valid + span,
 .disabled span,
 .disabled span {
   top: 0;
-  font-size: .85rem;
+  font-size: 1rem;
   transform: translateY(-100%);
 }
 

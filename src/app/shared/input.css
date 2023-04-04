@@ -1,0 +1,21 @@
+.input {
+  cursor: text;
+  display: block;
+  margin-top: 1.5rem;
+  margin-bottom: .2rem;
+  position: relative;
+}
+.input span {
+  position: absolute;
+  transition: .15s;
+  top: 50%;
+  cursor: text;
+  left: .5rem;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+}
+.input input, .input textarea, .input select {
+  background: #f0f0f5;
+  -webkit-text-fill-color: var(--text)!important;
+  border-radius: .3rem;
+}

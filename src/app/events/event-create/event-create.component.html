@@ -1,73 +1,61 @@
 <div *ngIf="isVisible" class="full pop-up-wrap">
   <div [style.opacity]="isOpened ? 1 : 0" class="full overlay"></div>
-  <div class="a-c pop-up" [style]="getPopUpStyle()">
-    <div class="card-inner">
+  <div class="a-c pop-up" [ngClass]="getPopUpClass()">
+
+    <div class="p-inner">
+
       <div class="p-header flex-center flex-between">
-        <div>Новая запись</div>
-        <svg icon="cross" (click)="close()"></svg>
+        <h3 class="h">Новая запись</h3>
+        <svg class="p-cross" icon="cross" (click)="close()"></svg>
       </div>
 
-      <div class="m-body relative flex">
+      <div class="p-body flex">
 
-        <div class="w-[50%] pr-4">
-          <div class="m-card">
-            <div class="card-h">Клиент</div>
-            <ng-input
-              type="phone"
-              label="Телефон"
-              next="ФИО"
-              [(value)]="client.primaryPhone"
-            ></ng-input>
-            <search-input
-              type="text"
-              label="ФИО"
-              [(value)]="client.name"
-            ></search-input>
-          </div>
-          <div class="m-card">
-            <div class="card-h flex">
-              <div>Врач</div>
-            </div>
 
-            <div>
-              <search-input
-                type="text"
-                label="Специализация"
-                [required]='false'
-                (onSelect)="handleRoleSelect($event)"
-                [dataList]="allRoles"
-                [(value)]="doctorRole"
-              ></search-input>
-              <search-input
-                [type]="'text'"
-                [label]="'Врач'"
-                [dataList]="doctors"
-                [withPhotos]="true"
-                [(value)]="doctorName"
-                (onSelect)="handleDoctorSelect($event)"
-                (valueChange)="searchDoctor($event)"
-              ></search-input>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <ng-container [ngTemplateOutlet]="single"></ng-container>
-        </div>
+        <ng-container [ngTemplateOutlet]="step == 0 ? doctorTemplate : step == 1 ? ticketTemplate : clientTemplate"></ng-container>
 
       </div>
 
       <div class="p-footer flex-center flex-between">
-        <div class="btn btn-cancel" (click)="close()">Отмена</div>
-        <div class="btn ml-4 btn-primary" [ngClass]="{loading: isLoading, disabled: isDisabled()}" (click)="save()">Записаться</div>
+        <button class="btn-cancel" (click)="close()">Отмена</button>
+        <button class="btn-primary" [ngClass]="{loading: isLoading, disabled: isDisabled()}" (click)="save()">Записаться</button>
       </div>
 
     </div>
+
   </div>
 </div>
 
 
-<ng-template #single>
+<ng-template #doctorTemplate>
+  <div class="step">
+    <h4 class="h">Выберите врача</h4>
+
+    <div>
+      <search-input
+        type="text"
+        label="Специализация"
+        [required]='false'
+        (onSelect)="handleRoleSelect($event)"
+        [dataList]="allRoles"
+        [(value)]="doctorRole"
+        [canType]="false"
+      ></search-input>
+      <search-input
+        [type]="'text'"
+        [label]="'Врач'"
+        [dataList]="doctors"
+        [withPhotos]="true"
+        [(value)]="doctorName"
+        (onSelect)="handleDoctorSelect($event)"
+        [canType]="false"
+      ></search-input>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #ticketTemplate>
   <div class="w-full date-wrapper" [style]="getDateStyle()">
     <div>
       <div class="card-h text-center" [style.opacity]="!!doctor ? 1 : 0">Выберите день</div>
@@ -97,4 +85,25 @@
       </div>
     </div>
   </div>
+</ng-template>
+
+
+<ng-template #clientTemplate>
+  <div class="w-[50%] pr-4">
+    <div class="m-card">
+      <div class="card-h">Клиент</div>
+      <ng-input
+        type="phone"
+        label="Телефон"
+        next="ФИО"
+        [(value)]="client.primaryPhone"
+      ></ng-input>
+      <search-input
+        type="text"
+        label="ФИО"
+        [(value)]="client.name"
+      ></search-input>
+    </div>
+  </div>
+
 </ng-template>

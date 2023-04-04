@@ -23,11 +23,12 @@ export interface SelectOption<Entity extends any> {
 @Component({
   selector: 'search-input',
   templateUrl: './search-input.component.html',
-  styleUrls: ['../input/input.component.css', 'search-input.component.css']
+  styleUrls: ['../input.css', '../input/input.component.css', 'search-input.component.css']
 })
 export class SearchInputComponent<T> extends BaseInputComponent<string> implements AfterViewInit {
 
   @ViewChild('el') element!: ElementRef;
+  @ViewChild('datalist') datalist!: ElementRef;
 
   @Input() id?: string;
   @Input() label!: string;
@@ -41,8 +42,10 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   @Input() next?: string;
   @Input() dataList: SelectOption<T>[] = [];
   @Input() withPhotos = false;
+  @Input() canType = true;
   showDataList = false;
   width = 'fit-content';
+  maxHeightStyle = '40rem';
 
   @Input() set value(val: string) {
     this.valueObject.display = val;
@@ -74,7 +77,7 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   }
 
   handleFocus(): void {
-    if (this.valueObject.display?.length > 0) {
+    if (this.canType && this.valueObject.display?.length > 0) {
       return;
     }
     this.showOptions();
@@ -82,7 +85,9 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
 
   showOptions(): void {
     if (this.element) {
-      this.width = this.element.nativeElement.getBoundingClientRect().width + 'px';
+      const rect = this.element.nativeElement.getBoundingClientRect();
+      this.width = rect.width + 'px';
+      this.maxHeightStyle = `min(40rem, ${innerHeight - rect.bottom - 30}px)`;
     }
     this.showDataList = true;
   }
@@ -103,4 +108,11 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   //   console.log("key up pressed");
   //   this.showDataList = false;
   // }
+  handleClick($event: any) {
+    if (!this.canType) {
+      $event.preventDefault();
+      this.element?.nativeElement.blur();
+    }
+    this.handleFocus();
+  }
 }

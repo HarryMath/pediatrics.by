@@ -7,8 +7,13 @@
   --header: 6rem;
   --btn-h: 5rem;
 
+
+  --input-h: 3rem;
+  --search-h: 3rem;
+
   --text: #200952;
   --button: #200952;
+  --footer1-1: #6AD76D1D;
   --footer1: #375d38;
   --footer2: #274829;
   --footer-l: #3d703f;
@@ -37,6 +42,34 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+
+input, textarea, select {
+  font-family: Poppins,apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+  appearance: none;
+  outline: none!important;
+  font-size: 1.3rem;
+  border: none;
+  background-color: unset;
+  color: var(--text);
+  -webkit-user-select: initial;
+  -moz-user-select: initial;
+  -ms-user-select: initial;
+  user-select: initial;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  visibility: hidden;
+}
+
+textarea {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+}
+
 
 
 html {
@@ -68,6 +101,14 @@ body {
   font-size: 1.3rem;
   font-weight: 400;
   color: var(--text);
+}
+
+.text-sm {
+  font-size: 1.1rem;
+}
+
+.text-xs {
+  font-size: .9rem;
 }
 
 .t-b {
