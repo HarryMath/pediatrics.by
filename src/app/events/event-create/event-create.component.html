@@ -2,23 +2,21 @@
   <div [style.opacity]="isOpened ? 1 : 0" class="full overlay"></div>
   <div class="a-c pop-up" [ngClass]="getPopUpClass()">
 
-    <div class="p-inner">
+    <div class="p-inner full">
 
       <div class="p-header flex-center flex-between">
         <h3 class="h">Новая запись</h3>
         <svg class="p-cross" icon="cross" (click)="close()"></svg>
       </div>
 
-      <div class="p-body flex">
-
-
+      <div class="pop-body">
         <ng-container [ngTemplateOutlet]="step == 0 ? doctorTemplate : step == 1 ? ticketTemplate : clientTemplate"></ng-container>
-
       </div>
 
       <div class="p-footer flex-center flex-between">
-        <button class="btn-cancel" (click)="close()">Отмена</button>
-        <button class="btn-primary" [ngClass]="{loading: isLoading, disabled: isDisabled()}" (click)="save()">Записаться</button>
+        <button *ngIf="step > 0" class="btn-cancel" (click)="back()">Назад</button>
+        <button *ngIf="step < 2" class="action-btn" [ngClass]="{loading: isLoadingStep, disabled: isDisabled()}" (click)="next()">Далее</button>
+        <button *ngIf="step == 2" class="action-btn" [ngClass]="{loading: isLoadingSave, disabled: isDisabled()}" (click)="save()">Записаться</button>
       </div>
 
     </div>

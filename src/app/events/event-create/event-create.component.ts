@@ -46,6 +46,7 @@ interface FreeDay {
 const ANY_ROLE = 'Не выбрано';
 const ANY_DOCTOR = 'Любой врач';
 const ANY_DOCTOR_ID = 0;
+let animationDuration = 200;
 
 @Component({
   selector: 'app-event-create',
@@ -80,7 +81,8 @@ export class EventCreateComponent implements OnDestroy, OnInit {
 
   loadingDays = false;
   daysPage = 0;
-  isLoading = false;
+  isLoadingSave = false;
+  isLoadingStep = false;
 
   allRoles: SelectOption<DoctorRole>[] = [];
   doctors: SelectOption<DoctorMin>[] = [];
@@ -115,6 +117,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     private readonly cdr: ChangeDetectorRef,
     // private readonly toast: ToastService,
   ) {
+    animationDuration = innerWidth < mobileWidth ? 400 : 200;
     ScheduleSdk.doctors.getRoles().then(r => {
       this.allRoles = r.map(s => ({
         display: s,
@@ -131,6 +134,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       this.loadDoctors().catch();
     }
     this.subscription = this.eventCreateService.subject.subscribe(input => {
+      this.step = 0;
       this.clientId = undefined;
       this.doctorName = getName(input)
       this.doctorRole = input?.speciality || '';
@@ -139,27 +143,12 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       this.end = undefined;
       this.client = createClientDto();
       if (this.doctor) {
+        this.isLoadingStep = true;
         this.daysPage = this.start ? DateUtils.getMothOffset(this.start) : 0;
         this.loadDays().then(() => {
-          if (this.start && this.end) {
-            const freeDay = this.days.find(d => d.date.getDate() === this.start?.getDate() && d.date.getMonth() === this.start.getMonth());
-            if (freeDay) {
-              this.handleDaySelect([freeDay]);
-              const interval = freeDay.intervals!.findIndex(i => i.start.getTime() === this.start?.getTime());
-              if (interval >= 0) {
-                this.selectTime(interval);
-                setTimeout(() => {
-                  const timeOptions = document.getElementById('time-options')!;
-                  const rect = timeOptions.getBoundingClientRect();
-                  const top = (timeOptions.scrollHeight + rect.height) * interval / freeDay.intervals!.length - rect.height;
-                  timeOptions.scrollTo({
-                    top: Math.max(0, top),
-                    behavior: 'smooth',
-                  });
-                }, 200)
-              }
-            }
-          }
+          this.isLoadingStep = false;
+          this.step = 1;
+          this.cdr.markForCheck();
         });
       }
       this.openFullScreen();
@@ -176,7 +165,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
   }
 
   async saveClient(): Promise<void> {
-    if (this.isLoading) {
+    if (this.isLoadingSave) {
       return;
     }
     if (this.client.name.length < 2 || this.client.primaryPhone.length < 9) {
@@ -184,7 +173,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       alert('Заполните информацию о себе');
       return;
     }
-    this.isLoading = true;
+    this.isLoadingSave = true;
     try {
       const client = await ScheduleSdk.clients.save(this.client) as ClientDto | number;
       this.clientId = typeof client === 'number' ? client : client.id;
@@ -192,11 +181,11 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       // this.toast.showError('Не удалось создать запись', e);
       alert('Не удалось создать запись');
     }
-    this.isLoading = false;
+    this.isLoadingSave = false;
   }
 
   async save(): Promise<void> {
-    if (this.isLoading) {
+    if (this.isLoadingSave) {
       return;
     }
     if (!this.doctor?.id || !this.start || !this.end) {
@@ -208,7 +197,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     if (!this.clientId) {
       return;
     }
-    this.isLoading = true;
+    this.isLoadingSave = true;
     try {
       const event = await ScheduleSdk.events.create({
         clientId: this.clientId,
@@ -223,7 +212,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       // this.toast.showError('Не удалось создать запись', e);
       alert('Не удалось создать запись');
     }
-    this.isLoading = false;
+    this.isLoadingSave = false;
   }
 
   close(): void {
@@ -233,7 +222,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       this.isVisible = false;
       this.clearRole();
       this.cdr.markForCheck();
-    }, 200);
+    }, animationDuration);
   }
 
   ngOnDestroy(): void {
@@ -264,11 +253,6 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     }
   }
 
-  handleClientSelect(client: ClientDto): void {
-    this.clientId = client.id;
-    this.client = client;
-  }
-
   handleDoctorSelect(doctor: DoctorMin): void {
     this.daysPage = 0;
     if (doctor.name === ANY_DOCTOR && doctor.id === ANY_DOCTOR_ID) {
@@ -277,7 +261,6 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     this.doctor = doctor;
     this.doctorRole = doctor.speciality || '';
     this.day = undefined;
-    this.loadDays().then();
   }
 
   buildTicketsForDoctors(day: FreeDay[]): void {
@@ -429,13 +412,58 @@ export class EventCreateComponent implements OnDestroy, OnInit {
   }
 
   isDisabled(): boolean {
+    if (this.step === 0) {
+      return !this.hasSelectedDoctor() && !this.hasSelectedRole();
+    }
+    if (this.step === 1) {
+      return !this.start || ! this.end;
+    }
     const hasClient = this.client.name && this.client.primaryPhone &&
       this.client.name.length > 1 && this.client.primaryPhone.length > 8;
 
-    return !hasClient || (!this.start || ! this.end || !this.doctor?.id);
+    return !hasClient;
   }
 
   getPopUpClass(): string {
     return this.isOpened ? '' : 'collapsed';
+  }
+
+  back(): void {
+    if (this.step > 0) {
+      this.step--;
+      this.cdr.markForCheck();
+    }
+  }
+
+  hasSelectedRole(): boolean {
+    return !!this.doctorRole?.length && this.doctorRole != ANY_ROLE;
+  }
+
+  hasSelectedDoctor(): boolean {
+    return !!this.doctor?.id;
+  }
+
+  async next(): Promise<void> {
+    if (this.step === 0) {
+      if (this.hasSelectedRole() || this.hasSelectedDoctor()) {
+        this.isLoadingStep = true;
+        this.cdr.markForCheck();
+        try {
+          await this.loadDays();
+          this.step++;
+        } catch (e) {
+          // TODO show toast
+          alert('Не удалось загрузить дни');
+        }
+        this.isLoadingStep = false;
+        this.cdr.markForCheck();
+      }
+    }
+    else if (this.step === 1) {
+      if (this.start && this.end) {
+        this.step++;
+        this.cdr.markForCheck();
+      }
+    }
   }
 }

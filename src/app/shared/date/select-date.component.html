@@ -1,18 +1,18 @@
 <div class="w-full" #el>
 
   <div class="calendar" *ngIf="canSelect && !loading && dayData.length > 0">
-    <div class="calendar-head w-full flex items-center justify-between" [style.height]="headerH">
+    <div class="calendar-head w-full flex-center flex-between" [style.height]="headerH">
       <div (click)="loadPage(selectedYear, selectedMonth - 1)"><</div>
-      <div class="text-center">
-        <div>{{months[selectedMonth]}}</div>
-        <div class="text-xs">{{selectedYear}}</div>
+      <div class="month-view">
+        <div [innerText]="months[selectedMonth]"></div>
+        <div class="text-xs" [innerText]="selectedYear"></div>
       </div>
       <div (click)="loadPage(selectedYear, selectedMonth + 1)">></div>
     </div>
-    <div class="calendar-days w-full flex items-center" [style.height]="dayH + 'px'">
+    <div class="calendar-days w-full flex-center" [style.height]="dayH + 'px'">
       <div *ngFor="let d of this.columns" style="width:14.286%">{{d.name}}</div>
     </div>
-    <div class="calendar-month py-4 w-full flex">
+    <div class="calendar-month w-full flex">
       <div class="column" *ngFor="let c of this.columns; index as cInd" style="width:14.286%">
         <div class="date w-full" (click)="select(cInd, dInd)"
              *ngFor="let d of c.days; index as dInd"
@@ -28,14 +28,10 @@
     </div>
   </div>
 
-  <div class="h-20 loading loading-days" *ngIf="loading"></div>
+  <div class="loading loading-days" *ngIf="loading"></div>
 
-  <div class="pt-4 flex-center flex-col opacity-50" *ngIf='!canSelect'>
-    <div class="mt-4">Врач не выбран</div>
-  </div>
+  <div class="flex-center opacity-50" *ngIf='!canSelect'>Врач не выбран</div>
 
-  <div class="pt-10 text-center" *ngIf="canSelect && !loading && dayData.length === 0">
-    Нет свободных дат
-  </div>
+  <div class="text-center" *ngIf="canSelect && !loading && dayData.length === 0">Нет свободных дат</div>
 
 </div>

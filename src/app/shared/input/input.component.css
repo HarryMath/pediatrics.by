@@ -9,7 +9,7 @@ input, textarea {
   box-shadow: 0 0 0 1px var(--border-7);
   transition: box-shadow .2s, background .2s;
   width: 100%;
-  padding: 0 .5rem;
+  padding: 0 1rem;
   appearance: none;
 }
 
