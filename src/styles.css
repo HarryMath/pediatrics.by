@@ -131,17 +131,23 @@ p {
   margin: 0;
 }
 
-.flex {
+.flex, .flex-center, .flex-col, .flex-between, .justify-center, .flex-wrap {
   display: flex;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
 .flex-center {
-  display: flex;
   align-items: center;
 }
 
 .flex-between {
-  display: flex;
   justify-content: space-between;;
 }
 

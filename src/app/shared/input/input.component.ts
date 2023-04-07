@@ -9,7 +9,7 @@ export type InputType =
 @Component({
   selector: 'ng-input',
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css']
+  styleUrls: ['../input.css', './input.component.css']
 })
 export class InputComponent<T> extends BaseInputComponent<T> implements AfterViewInit {
 

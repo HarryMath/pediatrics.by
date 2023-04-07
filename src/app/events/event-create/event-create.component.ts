@@ -174,6 +174,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       return;
     }
     this.isLoadingSave = true;
+    this.cdr.markForCheck();
     try {
       const client = await ScheduleSdk.clients.save(this.client) as ClientDto | number;
       this.clientId = typeof client === 'number' ? client : client.id;
@@ -182,6 +183,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       alert('Не удалось создать запись');
     }
     this.isLoadingSave = false;
+    this.cdr.markForCheck();
   }
 
   async save(): Promise<void> {
@@ -198,6 +200,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       return;
     }
     this.isLoadingSave = true;
+    this.cdr.markForCheck();
     try {
       const event = await ScheduleSdk.events.create({
         clientId: this.clientId,
@@ -213,6 +216,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       alert('Не удалось создать запись');
     }
     this.isLoadingSave = false;
+    this.cdr.markForCheck();
   }
 
   close(): void {
@@ -362,18 +366,12 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       return;
     }
     this.day = day[0];
+    this.start = this.end = undefined;
+    this.cdr.markForCheck();
   }
 
   getStartString(t: TimestampInterval): string {
     return Time.fromDate(t.start).toString()
-  }
-
-  getIntervalString(t: TimestampInterval): string {
-    return TimeInterval.fromTimestamp(t).toString();
-  }
-
-  getDateStyle(): string {
-    return !!this.day ? 'height:200%;transform: translateY(-50%)' : 'height:200%';
   }
 
   clearRole(): void {

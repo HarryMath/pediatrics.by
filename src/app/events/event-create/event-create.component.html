@@ -54,9 +54,9 @@
 
 
 <ng-template #ticketTemplate>
-  <div class="w-full date-wrapper" [style]="getDateStyle()">
+  <div class="w-full date-wrapper">
     <div>
-      <div class="card-h text-center" [style.opacity]="!!doctor ? 1 : 0">Выберите день</div>
+      <div class="card-h h" [style.opacity]="!!doctor ? 1 : 0">Выберите день</div>
       <select-date class="w-full" *ngIf="isOpened"
                    [data]="days"
                    [canSelect]="!!doctor"
@@ -65,19 +65,15 @@
       ></select-date>
     </div>
     <div>
-      <div *ngIf="!!day" class="flex flex-col h-full">
-        <div class="card-h flex items-center justify-center flex-shrink-0">
-          <div class="cursor-pointer mr-4" tooltip="Выбрать другой день" [zIndex]="10" (click)="clearDate()">
-            <svg icon="back" class="h-4 w-4"></svg>
-          </div>
-          <div [innerText]="day.display"></div>
-        </div>
+      <div *ngIf="!!day" class="flex-col h-full">
+        <div class="card-h h" [innerText]="day.display"></div>
 
-        <div class="time-options h-full" id="time-options">
+        <div class="flex-wrap">
           <div class="time" *ngFor="let t of day.intervals; index as i"
-               (click)="selectTime(i)" [ngClass]="i === selectedInterval ? 's-i' : ''">
-            {{getIntervalString(t)}}
-          </div>
+               (click)="selectTime(i)"
+               [ngClass]="i === selectedInterval ? 's-i' : ''"
+               [innerText]="getStartString(t)"
+          ></div>
         </div>
 
       </div>
