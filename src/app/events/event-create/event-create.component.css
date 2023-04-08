@@ -41,16 +41,28 @@
   padding-bottom: 1rem;
 }
 
+.time-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+  margin-top: 3rem;
+}
+
 .time {
   padding: .5rem 1rem;
-  border-radius: 3px;
-  margin-bottom: .5rem;
+  border-radius: .3rem;
   cursor: pointer;
+  text-align: center;
   box-shadow: inset 0 0 0 1px #609D653d;
 }
 
 .s-i {
-  background-color: #609D651d;
+  background-color: #85D28C1D;
   box-shadow: inset 0 0 0 1px #609D657d;
   color: #3d6b42;
+}
+
+.ticket-info h4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

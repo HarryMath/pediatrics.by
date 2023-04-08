@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { BaseCalendarComponent } from 'src/app/shared/base.calendar.component';
 
 @Component({
@@ -6,7 +6,10 @@ import { BaseCalendarComponent } from 'src/app/shared/base.calendar.component';
   templateUrl: './select-date.component.html',
   styleUrls: ['./select-date.component.css']
 })
-export class SelectDateComponent<T extends { date: Date }> extends BaseCalendarComponent<T> {
+export class SelectDateComponent<T extends { date: Date }> extends BaseCalendarComponent<T> implements OnInit {
+
+  @ViewChild('calendar') calendar!: ElementRef<HTMLDivElement>;
+  heightCalculated = false;
 
   @ViewChild('el') el!: ElementRef;
   @Input() loading = false;
@@ -23,6 +26,7 @@ export class SelectDateComponent<T extends { date: Date }> extends BaseCalendarC
       this.headerH = val * 1.3 + this.dayH.replace('' + val, '');
     }
     this.selectedDay = [-1, -1];
+    setTimeout(() => this.calculateHeight(), 10);
   }
   @Output() onSelect: EventEmitter<T[]> = new EventEmitter();
   dayH = '2.2rem';
@@ -51,5 +55,23 @@ export class SelectDateComponent<T extends { date: Date }> extends BaseCalendarC
 
   isAvailable(data: T[]): boolean {
     return data?.length > 0;
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => this.calculateHeight(), 10);
+  }
+
+  calculateHeight(): void {
+    if (this.heightCalculated) {
+      return;
+    }
+    const element = this.calendar?.nativeElement;
+    if (element) {
+      const h = element.querySelector('.date')!.getBoundingClientRect().width;
+      Array.from(element.querySelectorAll<HTMLDivElement>('.date'))
+        .forEach(el => el.style.cssText = 'height: ' + h + 'px');
+      this.heightCalculated = true;
+
+    }
   }
 }

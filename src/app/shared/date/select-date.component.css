@@ -1,5 +1,6 @@
 .calendar {
   cursor: default;
+  position: relative;
 }
 
 .loading-days:after {
@@ -7,19 +8,55 @@
   border-top-color: transparent;
 }
 
+.column {
+  width: 14.286%;
+}
+
 .date {
   text-align: center;
-  border-radius: 2px;
+  aspect-ratio: 1;
+  opacity: .8;
+}
+
+.date>div {
+  z-index: 1;
 }
 
 .today {
-  background-color: #eeb16b;
-  color: #fff;
+  position: relative;
+  color: #5bab60;
+  opacity: 1;
+}
+.today::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+  width: 70%;
+  height: 70%;
+  box-shadow: 0 0 0 .2rem #5bab607d;
 }
 
 .canSelect {
   cursor: pointer;
-  background-color: var(--accent-3);
+  opacity: 1;
+  position: relative;
+  transition: color .3s;
+}
+
+.canSelect::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  width: .4rem;
+  height: .4rem;
+  background-color: #5bab60;
+  transition: .3s;
 }
 
 .canSelect:hover {
@@ -27,8 +64,18 @@
 }
 
 .selected, .selected:hover {
-  background-color: var(--accent-a);
-  color: var(--light-color);
+  color: #fff;
+}
+.selected::before {
+  color: #fff;
+  top: 50%;
+  width: 70%;
+  height: 70%;
+  border-radius: 1rem;
+}
+
+.date-h {
+  opacity: .5;
 }
 
 .calendar-days {
@@ -38,4 +85,11 @@
 
 .another {
   opacity: .5;
+}
+
+.no-data {
+  z-index: 2;
+  max-width: 80%;
+  text-align: center;
+  top: 60%;
 }

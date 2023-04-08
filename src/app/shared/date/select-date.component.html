@@ -1,37 +1,39 @@
 <div class="w-full" #el>
 
-  <div class="calendar" *ngIf="canSelect && !loading && dayData.length > 0">
+  <div #calendar class="calendar" *ngIf="canSelect">
     <div class="calendar-head w-full flex-center flex-between" [style.height]="headerH">
-      <div (click)="loadPage(selectedYear, selectedMonth - 1)"><</div>
-      <div class="month-view">
-        <div [innerText]="months[selectedMonth]"></div>
-        <div class="text-xs" [innerText]="selectedYear"></div>
+      <div (click)="loadPage(selectedYear, selectedMonth - 1, true)"><</div>
+      <div class="month-view" [innerText]="months[selectedMonth] + ' ' + selectedYear"></div>
+      <div (click)="loadPage(selectedYear, selectedMonth + 1, true)">></div>
+    </div>
+    <div [style.opacity]="loading ? '0' : dayData.length === 0 ? '.1' : ''">
+      <div class="calendar-days w-full flex-center" [style.height]="dayH + 'px'">
+        <div *ngFor="let d of this.columns" class="column">
+          <div class="date date-h flex-center justify-center">
+            <div [innerText]="d.name"></div>
+          </div>
+        </div>
       </div>
-      <div (click)="loadPage(selectedYear, selectedMonth + 1)">></div>
-    </div>
-    <div class="calendar-days w-full flex-center" [style.height]="dayH + 'px'">
-      <div *ngFor="let d of this.columns" style="width:14.286%">{{d.name}}</div>
-    </div>
-    <div class="calendar-month w-full flex">
-      <div class="column" *ngFor="let c of this.columns; index as cInd" style="width:14.286%">
-        <div class="date w-full" (click)="select(cInd, dInd)"
-             *ngFor="let d of c.days; index as dInd"
-             [ngClass]="{
+      <div class="calendar-month w-full flex">
+        <div class="column" *ngFor="let c of this.columns; index as cInd">
+          <div class="date w-full flex-center justify-center" (click)="select(cInd, dInd)"
+               *ngFor="let d of c.days; index as dInd"
+               [ngClass]="{
             today: d.isToday,
-            another: d.month != this.selectedMonth,
+            another: d.month !== this.selectedMonth,
             canSelect: isAvailable(d.data),
             selected: isSelected(cInd, dInd)
             }">
-          {{d.date}}
+            <div class="date-content" [innerText]="d.date"></div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="loading loading-days" *ngIf="loading"></div>
+    <div class="a-c no-data" *ngIf="!loading && dayData.length === 0">Нет свободных дат</div>
   </div>
 
-  <div class="loading loading-days" *ngIf="loading"></div>
-
   <div class="flex-center opacity-50" *ngIf='!canSelect'>Врач не выбран</div>
-
-  <div class="text-center" *ngIf="canSelect && !loading && dayData.length === 0">Нет свободных дат</div>
 
 </div>

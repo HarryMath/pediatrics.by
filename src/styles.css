@@ -103,6 +103,10 @@ body {
   color: var(--text);
 }
 
+.text-lg {
+  font-size: 1.6rem;
+}
+
 .text-sm {
   font-size: 1.1rem;
 }

@@ -21,7 +21,7 @@
   <div #datalist class="datalist" *ngIf="showDataList && dataList && dataList.length > 0" [style.width]="this.width" [style.max-height]="maxHeightStyle">
     <div class="datalist-option flex-center" *ngFor="let o of dataList" (click)="select(o, $event)" [ngClass]="o.toSelect === valueObject.display ? 'selected' : ''">
       <avatar *ngIf="withPhotos" [data]="o.entity" [size]="3.5"></avatar>
-      <div class="overflow-hidden">
+      <div>
         <div class="display text-ellipsis whitespace-nowrap overflow-hidden">{{o.display}}</div>
         <div class="text-sm label" *ngIf="!!o.label">{{o.label}}</div>
       </div>

@@ -5,7 +5,7 @@
     <div class="p-inner full">
 
       <div class="p-header flex-center flex-between">
-        <h3 class="h">Новая запись</h3>
+        <h3 class="h">Запись на приём</h3>
         <svg class="p-cross" icon="cross" (click)="close()"></svg>
       </div>
 
@@ -27,7 +27,7 @@
 
 <ng-template #doctorTemplate>
   <div class="step">
-    <h4 class="h">Выберите врача</h4>
+    <h3 class="h" style="opacity:.8">Выберите врача</h3>
 
     <div>
       <search-input
@@ -56,27 +56,20 @@
 <ng-template #ticketTemplate>
   <div class="w-full date-wrapper">
     <div>
-      <div class="card-h h" [style.opacity]="!!doctor ? 1 : 0">Выберите день</div>
       <select-date class="w-full" *ngIf="isOpened"
                    [data]="days"
                    [canSelect]="!!doctor"
                    [loading]="loadingDays"
+                   (onChangeMonth)="handleMonthChange($event)"
                    (onSelect)="handleDaySelect($event)"
       ></select-date>
     </div>
-    <div>
-      <div *ngIf="!!day" class="flex-col h-full">
-        <div class="card-h h" [innerText]="day.display"></div>
-
-        <div class="flex-wrap">
-          <div class="time" *ngFor="let t of day.intervals; index as i"
-               (click)="selectTime(i)"
-               [ngClass]="i === selectedInterval ? 's-i' : ''"
-               [innerText]="getStartString(t)"
-          ></div>
-        </div>
-
-      </div>
+    <div *ngIf="!!day" class="time-list">
+      <div class="time" *ngFor="let t of day.intervals; index as i"
+           (click)="selectTime(i)"
+           [ngClass]="i === selectedInterval ? 's-i' : ''"
+           [innerText]="getStartString(t)"
+      ></div>
     </div>
   </div>
 </ng-template>
@@ -84,20 +77,40 @@
 
 <ng-template #clientTemplate>
   <div class="w-[50%] pr-4">
-    <div class="m-card">
-      <div class="card-h">Клиент</div>
-      <ng-input
-        type="phone"
-        label="Телефон"
-        next="ФИО"
-        [(value)]="client.primaryPhone"
-      ></ng-input>
-      <search-input
-        type="text"
-        label="ФИО"
-        [(value)]="client.name"
-      ></search-input>
-    </div>
+    <div class="ticket-info">
+        <div *ngIf="!!doctor">
+          <h4 style="margin-top:0">Врач:</h4>
+          <div class="flex-center">
+            <avatar [data]="doctor" [size]="3.5" style="margin-right: 1rem"></avatar>
+            <div>
+              <div class="text-lg" [innerText]="doctor.name"></div>
+              <div class="text-sm" style="opacity:.7" *ngIf="!!doctor.speciality" [innerText]="doctor.speciality"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4>Дата и время:</h4>
+          <div [innerText]="getFullEventTime()"></div>
+        </div>
+        <div>
+          <h4>Адресс:</h4>
+          <div>г. Минск, ул. Червякова 55 (вход с улицы Урожайная)</div>
+        </div>
+        <div>
+          <h4 style="margin-top: 3rem">Контактная информация:</h4>
+          <ng-input
+            type="phone"
+            label="Телефон"
+            next="ФИО пациента"
+            [(value)]="client.primaryPhone"
+          ></ng-input>
+          <search-input
+            type="text"
+            label="ФИО пациента"
+            [(value)]="client.name"
+          ></search-input>
+        </div>
+      </div>
   </div>
 
 </ng-template>

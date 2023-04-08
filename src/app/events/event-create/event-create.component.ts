@@ -334,6 +334,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
 
   async loadDays(): Promise<void> {
     this.loadingDays = true;
+    this.cdr.markForCheck();
     try {
       const intervals = await ScheduleSdk.doctors.getFreeDays(this.doctor!.id, this.daysPage);
       this.days = [];
@@ -346,16 +347,18 @@ export class EventCreateComponent implements OnDestroy, OnInit {
           lastDay = currentDay;
           this.days.push({ date: i.start, display: lastDay, intervals: [] });
         }
-        this.days.at(-1)!.intervals!.push(
+        this.days[this.days.length - 1]!.intervals!.push(
           ...TimeUtils.splitByPeriods(i, this.doctor?.admissionMinutes || 30)
         );
       });
       console.log('days: ', this.days);
     } catch (e) {
       // this.toast.showError("Не удалось зугрузить расписание", e);
-      alert("Не удалось зугрузить расписание");
+      alert("Не удалось загрузить расписание");
+      console.log(e);
     }
     this.loadingDays = false;
+    this.cdr.markForCheck();
   }
 
   handleDaySelect(day: FreeDay[]) {
@@ -366,8 +369,15 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       return;
     }
     this.day = day[0];
-    this.start = this.end = undefined;
+    this.clearTime();
     this.cdr.markForCheck();
+  }
+
+  getFullEventTime(): string {
+    if (!this.day || !this.start) {
+      return "";
+    }
+    return this.day.display + ', в ' + Time.fromDate(this.start).toString();
   }
 
   getStartString(t: TimestampInterval): string {
@@ -395,11 +405,6 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     this.selectedInterval = this.selectedTicket = -1;
     this.start = this.end = undefined;
     this.possibleEvents = [];
-  }
-
-  selectTicket(i: number) {
-    this.selectedTicket = i;
-    this.cdr.markForCheck();
   }
 
   selectTime(i: number): void {
@@ -463,5 +468,13 @@ export class EventCreateComponent implements OnDestroy, OnInit {
         this.cdr.markForCheck();
       }
     }
+  }
+
+  handleMonthChange(data: {year: number; month: number}) {
+    const now = new Date();
+    const yearOffset = data.year - now.getFullYear();
+    const monthOffset = data.month - now.getMonth();
+    this.daysPage = monthOffset + yearOffset * 12;
+    this.loadDays().catch();
   }
 }
