@@ -78,7 +78,8 @@ export abstract class BaseCalendarComponent<DayData extends { date: Date }> {
       }
 
       currentData = [];
-      for (let i = 0, m = 0, d = 0; i < dayDataCopy.length; i++) {
+      let m, d;
+      for (let i = 0; i < dayDataCopy.length; i++) {
         m = dayDataCopy[i].date.getMonth();
         d = dayDataCopy[i].date.getDate();
         if (m === month + monthIndex && d === currentDate) {

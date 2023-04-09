@@ -10,7 +10,7 @@ import {
 import {Subscription} from 'rxjs';
 import {EventsService} from 'src/app/events/events.service';
 import {ScheduleSdk} from 'src/app/sdk/schedule.sdk';
-import {getName, mobileWidth} from 'src/app/shared/utils';
+import {getName, isMailValid, mobileWidth} from 'src/app/shared/utils';
 import {ClientCreateDto, ClientDto} from 'src/app/sdk/dto/Client';
 import {DoctorDto, DoctorMin, DoctorRole} from 'src/app/sdk/dto/Doctor';
 import {TimestampInterval} from 'src/app/sdk/dto/Interval';
@@ -65,6 +65,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
   subscription!: Subscription;
 
   clientId?: number;
+  useEmail = false;
   client = createClientDto();
 
   doctorRole = '';
@@ -168,9 +169,13 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     if (this.isLoadingSave) {
       return;
     }
-    if (this.client.name.length < 2 || this.client.primaryPhone.length < 9) {
+    if (!this.hasClientName()) {
       // this.toast.show('Заполните информацию о клинете', 0);
-      alert('Заполните информацию о себе');
+      alert('Заполните ФИО');
+      return;
+    }
+    if (!this.hasClientIdentity()) {
+      alert(this.useEmail ? 'Заполните Email' : 'Телефон');
       return;
     }
     this.isLoadingSave = true;
@@ -267,81 +272,20 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     this.day = undefined;
   }
 
-  buildTicketsForDoctors(day: FreeDay[]): void {
-    if (day.length != 1) return;
-    console.time('build tickets');
-
-    this.possibleEvents = [];
-    const doctors = (day[0].doctors || []);
-
-    const combinations = ObjectUtils.groupBy(doctors, d => d.speciality);
-
-    const intervalsCombinations = combinations.map(comb => {
-      const allIntervals: Ticket[] = comb.reduce((accum, doctor) => {
-          const { freeTime, ...d } = doctor;
-          const doctorIntervals = freeTime.reduce((all, i) => {
-              i.start = new Date(i.start);
-              i.end = new Date(i.end);
-              all.push(...TimeUtils.splitByPeriods(i, d.admissionMinutes || 30));
-              return all;
-            },
-            [] as TimestampInterval[]
-          );
-
-          accum.push(...doctorIntervals.map(time => ({ doctor: d as DoctorMin, time })))
-          return accum;
-        },
-        [] as Ticket[]
-      );
-
-      // sort events by end time as remove tickets which has intersections
-      let possibleEvents: PossibleEvent[] = ObjectUtils.groupBy(allIntervals, i => i.doctor);
-      possibleEvents.forEach(e => e.sort((t1, t2) => t1.time.end.getTime() - t2.time.end.getTime()));
-      possibleEvents = possibleEvents.filter(e => !TimeUtils.hasIntersections(e.map(c => c.time)))
-
-      // remove duplicates where only doctors order differs
-      return this.selectedDoctors.length < 2 ? possibleEvents : ObjectUtils.dropDuplicatesBy(
-        possibleEvents,
-        e => {
-          const startTime = e[0].time.start.getTime();
-          const waitTime = TimeUtils.getWaitingTime(e.map(t => t.time));
-          return startTime + ' ' + waitTime;
-        }
-      )
-    });
-
-    // merge all combinations
-    this.possibleEvents = intervalsCombinations.length > 1 ?
-      intervalsCombinations.reduce((acc, val) => [...acc, ...val], []) :
-      intervalsCombinations[0];
-
-    // sort by waiting time if there are more than 1 session
-    // and by start time is waiting time is equal
-    if (this.selectedDoctors.length > 1) {
-      this.possibleEvents.sort((c1, c2) => {
-          const waitingTime1 = TimeUtils.getWaitingTime(c1.map(t => t.time));
-          const waitingTime2 = TimeUtils.getWaitingTime(c2.map(t => t.time));
-          const diff = waitingTime1 - waitingTime2;
-          return diff === 0 ? c1[0].time.start.getTime() - c2[0].time.start.getTime() : diff;
-        }
-      );
-    }
-
-    console.timeEnd('build tickets');
-    console.log('\npossibleEvents: ', this.possibleEvents);
-    this.day = day[0];
-  }
-
   async loadDays(): Promise<void> {
     this.loadingDays = true;
     this.cdr.markForCheck();
     try {
       const intervals = await ScheduleSdk.doctors.getFreeDays(this.doctor!.id, this.daysPage);
-      this.days = [];
-      let lastDay = '', currentDay = '';
       intervals.forEach(i => {
         i.start = new Date(i.start);
         i.end = new Date(i.end);
+      })
+      intervals.sort((i1, i2) => i1.start.getTime() - i2.start.getTime())
+
+      this.days = [];
+      let lastDay = '', currentDay = '';
+      intervals.forEach(i => {
         currentDay = DateUtils.toString(i.start) + ', ' + DateUtils.getWeekDay(i.start);
         if (currentDay !== lastDay) {
           lastDay = currentDay;
@@ -421,10 +365,7 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     if (this.step === 1) {
       return !this.start || ! this.end;
     }
-    const hasClient = this.client.name && this.client.primaryPhone &&
-      this.client.name.length > 1 && this.client.primaryPhone.length > 8;
-
-    return !hasClient;
+    return !this.hasClientName() || !this.hasClientIdentity();
   }
 
   getPopUpClass(): string {
@@ -444,6 +385,15 @@ export class EventCreateComponent implements OnDestroy, OnInit {
 
   hasSelectedDoctor(): boolean {
     return !!this.doctor?.id;
+  }
+
+  hasClientName(): boolean {
+    return this.client.name?.length > 5 && this.client.name.trim().split(' ').length > 0;
+  }
+
+  hasClientIdentity(): boolean {
+    return this.useEmail ? isMailValid(this.client.email) :
+      this.client.primaryPhone.length > 8;
   }
 
   async next(): Promise<void> {

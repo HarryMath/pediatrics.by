@@ -54,6 +54,11 @@ export class ScheduleSdk {
   static async post<Res = void, Req extends {} = {}>(path: string, payload?: Req): Promise<Res> {
     const body = JSON.stringify(payload || {});
     const response = await fetch(endpoint + path, { method: 'POST', body, headers });
-    return await response.json();
+    const result = await response.json();
+    if (!response.ok) {
+      console.log('error: ', result);
+      throw new Error(result)
+    }
+    return result;
   }
 }

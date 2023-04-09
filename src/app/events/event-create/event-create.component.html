@@ -99,16 +99,23 @@
         <div>
           <h4 style="margin-top: 3rem">Контактная информация:</h4>
           <ng-input
-            type="phone"
-            label="Телефон"
-            next="ФИО пациента"
-            [(value)]="client.primaryPhone"
-          ></ng-input>
-          <search-input
             type="text"
             label="ФИО пациента"
+            [next]="useEmail ? 'Эл. почта' : 'Телефон'"
             [(value)]="client.name"
-          ></search-input>
+          ></ng-input>
+          <ng-input *ngIf="!useEmail"
+            type="phone"
+            label="Телефон"
+            [(value)]="client.primaryPhone"
+          ></ng-input>
+          <ng-input *ngIf="useEmail"
+            type="email"
+            label="Эл. почта"
+            [(value)]="client.email"
+          ></ng-input>
+          <p *ngIf="!useEmail">Нету номера? <span class="a" (click)="useEmail=true">Записаться с помошью email</span></p>
+          <p *ngIf="useEmail" (click)="useEmail=false">Записаться с помошью мобильного телефона</p>
         </div>
       </div>
   </div>

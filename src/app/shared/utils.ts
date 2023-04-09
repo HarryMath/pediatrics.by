@@ -9,36 +9,22 @@ export const toRadians = Math.PI / 180;
 
 export const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-export class HSL {
-  constructor(public h: number, public s: number, public l: number) {}
-
-  toString(s?: number, l?: number, opacity = 1): string {
-    return `hsla(${this.h} ${s || this.s}% ${l || this.l}% / ${opacity})`;
+export const getName = (object: any) => {
+  if (!object) {
+    return ""
   }
-
-  rotate(deg: number): HSL {
-    let newH = this.h + deg;
-    if (newH < 0) {
-      newH += 360;
-    }
-    return new HSL(newH % 360, this.s, this.l);
+  if (object.name) {
+    return object.name;
   }
-
+  return ((object.firstName?.trim() || "") + " " + (object.lastName?.trim() || "") + " " + (object.fatherName?.trim() || "")).trim();
 }
 
-export const colorUtils = {
-
-  generateHSL: (id: number): HSL => {
-    const num = colorUtils.normalizeNumber(id);
-    const h = Math.abs(130 + num * 0.5) % 361;
-    const s = Math.abs(35 + ((num % 120) / 120) * (60 - 35)) % 61;
-    const l = Math.abs(67 + ((num % 120) / 120) * (77 - 67)) % 78;
-    return new HSL(h, s, l);
-  },
-
-  normalizeNumber: (n: number): number => {
-    const m = (n * 737091 + 9123) % 391371;
-    return (m * 319 + 13) % 39171;
+export const isMailValid = (value?: string): boolean => {
+  if (!value?.includes('@')) {
+    return false;
+  } else {
+    const parts = value.split('@');
+    return parts.length === 2 && parts[0].length > 1 && parts[1].length > 2 && parts[1].split('.').length === 2
   }
 }
 
@@ -50,13 +36,4 @@ export const DomUtils = {
     px / parseFloat(getComputedStyle(document.documentElement).fontSize),
 }
 
-export const getName = (object: any) => {
-  if (!object) {
-    return ""
-  }
-  if (object.name) {
-    return object.name;
-  }
-  return ((object.firstName?.trim() || "") + " " + (object.lastName?.trim() || "") + " " + (object.fatherName?.trim() || "")).trim();
-}
 

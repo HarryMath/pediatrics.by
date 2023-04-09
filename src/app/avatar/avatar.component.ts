@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { colorUtils } from 'src/app/shared/utils';
+import {colorUtils} from "../shared/utils/Color";
 
 interface AvatarData {
   id?: number,
