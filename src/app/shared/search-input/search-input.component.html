@@ -1,4 +1,4 @@
-<label class="w-full input" [ngClass]="disabled?'disabled':''">
+<label class="w-full input" [ngClass]="disabled?'disabled':''" (click)="handleClick($event)">
   <input #el [id]="id||label"
          [ngClass]="error?'err':''"
          [attr.val]="valueObject.display"
@@ -12,11 +12,10 @@
          aria-autocomplete="none"
          (mousedown)="handleTouch($event)"
          (touchstart)="handleTouch($event)"
-         (click)="handleClick($event)"
          (focus)="handleFocus()"
          (input)="handleChange($event, 'input')"
   >
-  <span (click)="handleClick($event)">{{required?label+'*':label}}</span>
+  <span>{{required?label+'*':label}}</span>
 
   <div *ngIf="showDataList" class="select-overlay" (mousedown)="hideOptions()"></div>
 

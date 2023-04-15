@@ -64,12 +64,14 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
     this.prevDisplay = this.valueObject.display;
   }
 
-  select(o: SelectOption<T>, $event: any): void {
+  select(o: SelectOption<T>, e: any): void {
     console.log('select called');
     this.valueObject.display = o.toSelect || o.display;
     this.valueObject.value = o.toSelect || o.display;
     this.showDataList = this.error = false;
-    $event?.preventDefault();
+
+    e?.preventDefault();
+    e?.stopPropagation();
     this.onSelect.next(o.entity)
   }
 
