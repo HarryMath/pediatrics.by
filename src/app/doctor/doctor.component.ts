@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { DomUtils, getName } from 'src/app/shared/utils';
+import {EventsService} from "../events/events.service";
 
 @Component({
   selector: 'app-doctor',
@@ -12,7 +13,7 @@ export class DoctorComponent {
 
   @Input() d!: DoctorDto;
 
-  constructor() { }
+  constructor(public readonly eventsService: EventsService) { }
 
   getName(d: DoctorDto): string {
     return getName(d);

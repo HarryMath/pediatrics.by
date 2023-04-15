@@ -48,6 +48,12 @@ const ANY_DOCTOR = 'Любой врач';
 const ANY_DOCTOR_ID = 0;
 let animationDuration = 200;
 
+const toDoctorMin = (d: DoctorDto): DoctorMin => {
+  const { lastName, firstName, fatherName, ...doctorInfo } = d;
+  const name = lastName + ' ' + firstName + ' ' + fatherName;
+  return { ...doctorInfo, name }
+}
+
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.component.html',
@@ -139,13 +145,13 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       this.clientId = undefined;
       this.doctorName = getName(input)
       this.doctorRole = input?.speciality || '';
-      this.doctor = input;
+      this.doctor = input && toDoctorMin(input);
       this.start = undefined;
       this.end = undefined;
       this.client = createClientDto();
       if (this.doctor) {
         this.isLoadingStep = true;
-        this.daysPage = this.start ? DateUtils.getMothOffset(this.start) : 0;
+        this.daysPage = 0;
         this.loadDays().then(() => {
           this.isLoadingStep = false;
           this.step = 1;

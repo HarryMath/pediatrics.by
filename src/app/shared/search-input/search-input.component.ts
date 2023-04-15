@@ -100,17 +100,6 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
     this.showDataList = false;
   }
 
-  // @HostListener('document:keydown.arrowdown')
-  // selectNext(): void {
-  //   console.log("key down pressed");
-  //   this.showDataList = true;
-  // }
-  //
-  // @HostListener('document:keydown.arrowup')
-  // selectPrev(): void {
-  //   console.log("key up pressed");
-  //   this.showDataList = false;
-  // }
   handleClick(e: any) {
     if (!this.canType) {
       e?.stopPropagation();
