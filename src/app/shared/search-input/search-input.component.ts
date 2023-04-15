@@ -65,6 +65,7 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   }
 
   select(o: SelectOption<T>, $event: any): void {
+    console.log('select called');
     this.valueObject.display = o.toSelect || o.display;
     this.valueObject.value = o.toSelect || o.display;
     this.showDataList = this.error = false;
@@ -78,6 +79,7 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   }
 
   handleFocus(): void {
+    console.log('handle focus called');
     if (this.canType && this.valueObject.display?.length > 0) {
       return;
     }
@@ -109,11 +111,19 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   //   console.log("key up pressed");
   //   this.showDataList = false;
   // }
-  handleClick($event: any) {
+  handleClick(e: any) {
     if (!this.canType) {
-      $event.preventDefault();
+      e?.stopPropagation();
+      e?.preventDefault();
       this.element?.nativeElement.blur();
     }
     this.handleFocus();
+  }
+
+  handleTouch(e: MouseEvent | TouchEvent) {
+    if (!this.canType) {
+      e?.preventDefault();
+      e?.stopPropagation();
+    }
   }
 }
