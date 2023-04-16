@@ -15,7 +15,7 @@
          (focus)="handleFocus()"
          (input)="handleChange($event, 'input')"
   >
-  <span>{{required?label+'*':label}}</span>
+  <span class="w-full">{{required?label+'*':label}}</span>
 
   <div *ngIf="showDataList" class="select-overlay" (mousedown)="hideOptions()"></div>
 

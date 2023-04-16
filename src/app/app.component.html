@@ -1,24 +1,33 @@
-<header class="content-w" *ngIf="isMobile" [ngClass]="{visible: isHeaderVisible, end: touchedFooter}">
-  <div class="content">
+<ng-template #header class="content">
+  <div class="content flex-between flex-center">
     <div class="flex-center">
-      <img class="icon-main" src="/assets/logo/no_txt.svg" alt="logo">
-      <svg id="logo-t"><use xlink:href="#txt"></use></svg>
+      <img class="icon-main" ngSrc="/assets/logo/no_txt.svg" alt="logo" height="16" width="18">
+      <svg id="logo-t" icon="txt"></svg>
+    </div>
+    <div *ngIf="!isMobile" class="flex-center justify-center">
+      <a class="nav-link" *ngFor="let m of menu" [href]="'#' + m" [innerText]="m"></a>
     </div>
     <div class="header-right">
       <div class="header-item call-btn">
         <div class="a-c">
-          <svg><use xlink:href="#phone"></use></svg>
+          <svg icon="phone"></svg>
         </div>
       </div>
-      <div class="header-item menu-btn h">МЕНЮ</div>
+      <div *ngIf="isMobile" class="header-item menu-btn h">МЕНЮ</div>
     </div>
   </div>
+</ng-template>
+
+<header class="content-w" [ngClass]="{visible: isHeaderVisible, end: touchedFooter}">
+  <ng-container [ngTemplateOutlet]="header"></ng-container>
 </header>
-<header *ngIf="!isMobile" [ngClass]="{visible: isHeaderVisible, end: touchedFooter}"></header>
 
 <section class="s0">
   <div id="back0" class="back">
     <img src="assets/wave.svg" class="wave" alt="">
+  </div>
+  <div class="content-w inner-h">
+    <ng-container [ngTemplateOutlet]="header"></ng-container>
   </div>
   <div class="content-w">
     <div class="content">
@@ -27,13 +36,13 @@
           <h1 class="h">Центр современной<br>педиатрии</h1>
           <p class="t-b">Медицинский центр для детей и взрослых в Минске</p>
           <button class="action-btn" (click)="eventsService.requestEvent()">
-            <svg><use xlink:href="#calendar"></use></svg>
+            <svg icon="calendar"></svg>
             <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
           </button>
         </div>
         <div class="welcome_right">
           <div id="baby" class="baby-wrapper">
-            <svg class="a-c"><use xlink:href="#blob"></use></svg>
+            <svg class="a-c" icon="blob"></svg>
             <div class="baby"></div>
             <div class="tooltip t1"></div>
             <div class="tooltip t2"></div>
@@ -45,7 +54,7 @@
 </section>
 
 <!-- services -->
-<section class="content-w s1">
+<section class="content-w s1" id="Услуги">
   <div class="content">
 
     <h2 class="h sect-h">Наши услуги</h2>
@@ -56,7 +65,7 @@
           <div class="s-head" (click)="toggleService(s)">
             <h3 class="s-name" [innerText]="s.name"></h3>
             <div class="s-toggle">
-              <svg class="a-c"><use xlink:href="#arrow"></use></svg>
+              <svg class="a-c" icon="arrow"></svg>
             </div>
           </div>
           <div class="s-body" *ngIf="s.isOpened">
@@ -75,7 +84,7 @@
 </section>
 
 <!-- programs -->
-<section class="content-w s2">
+<section class="content-w s2" id="Программы">
   <div class="content">
 
     <h2 class="h sect-h">Годовые программы</h2>
@@ -93,7 +102,7 @@
             </div>
 
             <div class="p-icon">
-              <svg class="a-c"><use [attr.xlink:href]=p.icon></use></svg>
+              <svg class="a-c" [icon]="p.icon"></svg>
             </div>
           </div>
 
@@ -101,7 +110,7 @@
         <div class="p-body">
           <div class="p-body-header">В программу включено:</div>
           <div *ngFor="let b of p.main" class="p-main">
-            <img src="assets/plus.svg" class="p-plus" alt="">
+            <img ngSrc="assets/plus.svg" class="p-plus" alt="" height="20" width="20">
             <p class="p-includes" [innerHTML]="b"></p>
           </div>
         </div>
@@ -115,7 +124,7 @@
   </div>
 </section>
 
-<section class="content-w s3">
+<section class="content-w s3" id="Специалисты">
   <div class="content">
 
     <h2 class="h sect-h">Наши специалисты</h2>
@@ -126,7 +135,7 @@
 </section>
 
 <!-- advantages -->
-<section class="content-w s4">
+<section class="content-w s4" id="Наши преимущества">
   <div class="content">
 
     <div class="advantages">
@@ -144,7 +153,7 @@
           </div>
         </div>
         <button class="action-btn">
-          <svg><use xlink:href="#calendar"></use></svg>
+          <svg icon="calendar"></svg>
           <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
         </button>
       </div>
@@ -157,42 +166,42 @@
 <!-- instagram -->
 <section class="content-w s5"></section>
 
-<footer [ngClass]="{end: touchedFooter}">
+<footer [ngClass]="{end: touchedFooter}" id="Контакты">
   <div class="footer1 content-w">
     <div class="content">
       <div class="flex-between">
         <div class="fb1 f-block">
           <h3>Контакты</h3>
           <p class="flex-center">
-            <svg><use xlink:href="#mail"></use></svg>
+            <svg icon="mail"></svg>
             <a href="mailto:care@pediatrics.by" target="_blank">care@pediatrics.by</a>
           </p>
           <p class="flex-center">
-            <svg><use xlink:href="#phone"></use></svg>
+            <svg icon="phone">></svg>
             <a href="tel:+375293795050" target="_blank">+375 (29) 379-50-50</a>
           </p>
           <p class="flex-center">
-            <svg><use xlink:href="#phone"></use></svg>
+            <svg icon="phone"></svg>
             <a href="tel:+375333795050" target="_blank">+375 (33) 379-50-50</a>
           </p>
           <p class="flex-center">
-            <svg><use xlink:href="#phone"></use></svg>
+            <svg icon="phone"></svg>
             <a href="tel:+375173795050" target="_blank">+375 (17) 379-50-50</a>
           </p>
         </div>
         <div class="fb2 f-block">
           <h3>Режим работы</h3>
           <p class="flex-center">
-            <svg><use xlink:href="#clock"></use></svg>
+            <svg icon="clock"></svg>
             <span>пн - пт 09:00 — 21:00</span>
           </p>
           <p class="flex-center">
-            <svg><use xlink:href="#clock-15"></use></svg>
+            <svg icon="clock-15"></svg>
             <span>сб, вс 09:00 — 15:00</span>
           </p>
           <div class="br"></div>
           <p class="flex-center">
-            <svg><use xlink:href="#map"></use></svg>
+            <svg icon="map"></svg>
             <span>г. Минск, ул. Червякова 55 <br>(вход с улицы Урожайная)</span>
           </p>
         </div>
@@ -209,7 +218,7 @@
   <div class="footer2 content-w">
     <div class="content flex-center flex-between">
       <div>
-        <img class="icon-main" src="assets/logo/green.svg" alt="logo">
+        <img class="icon-main" ngSrc="assets/logo/green.svg" alt="logo" height="16" width="18">
       </div>
       <div>
         <p class="comp-name">© 2020, Минск, Центр Современной Педиатрии</p>

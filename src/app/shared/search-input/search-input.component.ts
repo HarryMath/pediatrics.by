@@ -114,7 +114,7 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   handleTouch(e: MouseEvent | TouchEvent) {
     if (!this.canType) {
       e?.preventDefault();
-      e?.stopPropagation();
+      // e?.stopPropagation();
     }
   }
 }

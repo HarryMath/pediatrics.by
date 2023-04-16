@@ -43,6 +43,13 @@ a:hover {
   text-decoration: underline;
 }
 
+.nav-link {
+  padding: 0 2rem;
+  line-height: var(--header);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 
 input, textarea, select {
   font-family: Poppins,apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
@@ -202,12 +209,6 @@ header.visible {
   box-shadow: 0 1px 2rem 0 #2009527d;
 }
 
-header .content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .header-right {
   display: flex;
   flex-shrink: 0;
@@ -245,6 +246,7 @@ header .content {
 
 .icon-main {
   height: 4.5rem;
+  width: 5.2rem;
 }
 
 .header-item {
@@ -265,6 +267,10 @@ header .content {
 
 .h {
   font-family: 'art';
+}
+
+.inner-h {
+  padding: 3rem 0;
 }
 
 .content-w {
@@ -858,6 +864,9 @@ footer h3 {
 
 
 @media screen and (min-width: 600px) {
+  .welcome_left {
+    margin-top: -4rem;
+  }
   ::-webkit-scrollbar {
     width: .5rem;
     height: .5rem;

@@ -166,7 +166,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         }
       ],
       payOptions: '*возможна оплата в 2 этапа',
-      icon: '#365',
+      icon: '365',
     },
     {
       name: 'Все включено',
@@ -191,7 +191,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         ]
       }],
       payOptions: '*возможна оплата в 2 этапа',
-      icon: '#all_in',
+      icon: 'all_in',
     },
     {
       name: 'Рука на пульсе',
@@ -210,13 +210,15 @@ export class AppComponent implements OnInit, AfterViewInit {
           'Выдача по результатам проведения необходимых осмотров и предоставления необходимой информации справок в бассейн, на кружки и развивающие занятия'
         ]
       }],
-      icon: '#pulse',
+      icon: 'pulse',
     }
   ];
 
   appearElements: SVGElement[] = [];
 
   doctors: DoctorDto[] = [];
+
+  menu = ['Услуги', 'Программы', 'Специалисты', /*'Наши преимущества',*/ 'Контакты'];
 
   isMobile: boolean;
 
