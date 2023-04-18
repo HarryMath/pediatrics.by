@@ -36,4 +36,3 @@ export const DomUtils = {
     px / parseFloat(getComputedStyle(document.documentElement).fontSize),
 }
 
-

@@ -1,14 +1,14 @@
-<ng-template #header class="content">
+<ng-template #header let-hide="hide" class="content">
   <div class="content flex-between flex-center">
     <div class="flex-center">
       <img class="icon-main" ngSrc="/assets/logo/no_txt.svg" alt="logo" height="16" width="18">
       <svg id="logo-t" icon="txt"></svg>
     </div>
-    <div *ngIf="!isMobile" class="flex-center justify-center">
+    <div *ngIf="!isMobile && !hide" class="flex-center justify-center">
       <a class="nav-link" *ngFor="let m of menu" [href]="'#' + m" [innerText]="m"></a>
     </div>
-    <div class="header-right">
-      <div class="header-item call-btn" (click)="">
+    <div class="header-right" *ngIf="!hide">
+      <div class="header-item call-btn" (click)="eventsService.call()">
         <div class="a-c">
           <svg icon="phone"></svg>
         </div>
@@ -27,7 +27,7 @@
     <img src="assets/wave.svg" class="wave" alt="">
   </div>
   <div class="content-w inner-h">
-    <ng-container [ngTemplateOutlet]="header"></ng-container>
+    <ng-container *ngIf="!isMobile" [ngTemplateOutlet]="header"></ng-container>
   </div>
   <div class="content-w">
     <div class="content">
@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="p-button-w">
-          <button class="action-btn">ПОДРОБНЕЕ</button>
+          <button class="action-btn" (click)="eventsService.openDetails(p)">ПОДРОБНЕЕ</button>
         </div>
       </div>
 
@@ -229,5 +229,6 @@
     </div>
   </div>
 </footer>
-<app-event-create></app-event-create>
+<app-program></app-program>
 <app-phone></app-phone>
+<app-event-create></app-event-create>

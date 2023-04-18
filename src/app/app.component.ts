@@ -26,7 +26,7 @@ interface IPrice {
   label?: string;
 }
 
-interface IProgram {
+export interface IProgram {
   name: string;
   minPrice: string;
 
@@ -224,7 +224,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(
     private readonly cdr: ChangeDetectorRef,
-    public readonly eventsService: EventsService
+    public readonly eventsService: EventsService,
   ) {
     this.isMobile = innerWidth <= mobileWidth;
   }

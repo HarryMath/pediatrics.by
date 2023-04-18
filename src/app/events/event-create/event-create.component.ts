@@ -134,7 +134,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     if (!this.doctors.length) {
       this.loadDoctors().catch();
     }
-    this.subscription = this.eventCreateService.subject.subscribe(input => {
+    this.subscription = this.eventCreateService.createEventSubject.subscribe(input => {
       this.step = 0;
       this.clientId = undefined;
       this.doctorName = getName(input)
@@ -152,17 +152,8 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
           this.cdr.markForCheck();
         });
       }
-      this.openFullScreen();
+      this.open();
     });
-  }
-
-  openFullScreen(): void {
-    this.isVisible = true;
-    this.cdr.markForCheck();
-    requestAnimationFrame(() => {
-      this.isOpened = true;
-      this.cdr.markForCheck();
-    })
   }
 
   async saveClient(): Promise<void> {
@@ -224,7 +215,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     this.cdr.markForCheck();
   }
 
-  onClose(): void {
+  override onClose(): void {
     this.clearRole();
   }
 

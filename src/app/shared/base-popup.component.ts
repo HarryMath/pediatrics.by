@@ -34,5 +34,5 @@ export abstract class BasePopupComponent {
     }, animationDuration);
   }
 
-  abstract onClose(): void;
+  onClose(): void {};
 }

@@ -1,0 +1,38 @@
+.pop-body p {
+  margin-bottom: 1rem;
+}
+
+a {
+  white-space: nowrap;
+}
+
+.p-header {
+  padding: 2rem 2rem 1rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+.pop-up {
+  width: fit-content;
+  height: fit-content;
+  font-size: 2rem;
+}
+
+.pop-body {
+  padding: 2rem;
+}
+
+.pop-up {
+  top: calc(var(--header) + 2rem);
+  max-width: calc(100% - 4rem);
+  left: unset;
+  right: 2rem;
+  transform: translate(0, 0);
+}
+
+.pop-up.collapsed {
+  transform: translate(0, -20%) scale(.1);
+  opacity: 0;
+}

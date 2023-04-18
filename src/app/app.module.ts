@@ -8,12 +8,14 @@ import { EventCreateModule } from "./events/event-create/event-create.module";
 import {NgOptimizedImage} from "@angular/common";
 import {IconDirective} from "./shared/icon/icon.directive";
 import {PhoneComponent} from "./phone/phone.component";
+import { ProgramComponent } from './program/program.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DoctorComponent,
-    PhoneComponent
+    PhoneComponent,
+    ProgramComponent
   ],
   imports: [
     AvatarComponent,
