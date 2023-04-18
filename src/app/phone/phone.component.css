@@ -15,8 +15,8 @@ h3 {
 }
 
 .pop-up {
-  width: fit-content;
-  height: fit-content;
+  width: unset;
+  height: unset;
   font-size: 2rem;
 }
 
