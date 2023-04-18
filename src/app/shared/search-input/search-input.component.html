@@ -1,4 +1,8 @@
 <label class="w-full input" [ngClass]="disabled?'disabled':''" (click)="handleClick($event)">
+
+
+<!--  (mousedown)="handleTouch($event)"-->
+<!--  (touchstart)="handleTouch($event)"-->
   <input #el [id]="id||label"
          [ngClass]="error?'err':''"
          [attr.val]="valueObject.display"
@@ -10,8 +14,6 @@
          [value]="valueObject.display"
          autocomplete="off"
          aria-autocomplete="none"
-         (mousedown)="handleTouch($event)"
-         (touchstart)="handleTouch($event)"
          (focus)="handleFocus()"
          (input)="handleChange($event, 'input')"
   >

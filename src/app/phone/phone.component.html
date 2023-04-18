@@ -1,0 +1,28 @@
+<div *ngIf="isVisible" class="full pop-up-wrap">
+  <div [style.opacity]="isOpened ? 1 : 0" class="full overlay"></div>
+  <div class="a-c pop-up" [ngClass]="getPopUpClass()">
+    <div class="p-inner full">
+
+      <div class="p-header flex-center flex-between">
+        <h4 class="h">Нажмите чтобы позвонить</h4>
+        <svg class="p-cross" icon="cross" (click)="close()"></svg>
+      </div>
+
+      <div class="pop-body">
+        <p class="flex-center">
+          <svg icon="phone">></svg>
+          <a href="tel:+375293795050" target="_blank">+375 (29) 379-50-50</a>
+        </p>
+        <p class="flex-center">
+          <svg icon="phone"></svg>
+          <a href="tel:+375333795050" target="_blank">+375 (33) 379-50-50</a>
+        </p>
+        <p class="flex-center">
+          <svg icon="phone"></svg>
+          <a href="tel:+375173795050" target="_blank">+375 (17) 379-50-50</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

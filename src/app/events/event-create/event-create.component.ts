@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   Input,
   OnDestroy,
   OnInit
@@ -10,15 +9,15 @@ import {
 import {Subscription} from 'rxjs';
 import {EventsService} from 'src/app/events/events.service';
 import {ScheduleSdk} from 'src/app/sdk/schedule.sdk';
-import {getName, isMailValid, mobileWidth} from 'src/app/shared/utils';
+import {getName, isMailValid} from 'src/app/shared/utils';
 import {ClientCreateDto, ClientDto} from 'src/app/sdk/dto/Client';
 import {DoctorDto, DoctorMin, DoctorRole} from 'src/app/sdk/dto/Doctor';
 import {TimestampInterval} from 'src/app/sdk/dto/Interval';
 import {AvailableDoctor} from 'src/app/sdk/dto/Workday';
 import {DateUtils} from 'src/app/shared/utils/date.utils';
-import {ObjectUtils} from 'src/app/shared/utils/object.utils';
-import {Time, TimeInterval, TimeUtils} from 'src/app/shared/utils/TimeInterval';
+import {Time, TimeUtils} from 'src/app/shared/utils/TimeInterval';
 import {SelectOption} from 'src/app/shared/search-input/search-input.component';
+import {BasePopupComponent} from "../../shared/base-popup.component";
 
 const createClientDto = (): ClientCreateDto => ({
   birthDate: undefined,
@@ -46,7 +45,6 @@ interface FreeDay {
 const ANY_ROLE = 'Не выбрано';
 const ANY_DOCTOR = 'Любой врач';
 const ANY_DOCTOR_ID = 0;
-let animationDuration = 200;
 
 const toDoctorMin = (d: DoctorDto): DoctorMin => {
   const { lastName, firstName, fatherName, ...doctorInfo } = d;
@@ -57,17 +55,13 @@ const toDoctorMin = (d: DoctorDto): DoctorMin => {
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.component.html',
-  styleUrls: ['./pop-up.css', './event-create.component.css'],
+  styleUrls: ['../../shared/pop-up.css', './event-create.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EventCreateComponent implements OnDestroy, OnInit {
+export class EventCreateComponent extends BasePopupComponent implements OnDestroy, OnInit {
 
   step: 0 | 1 | 2 = 0;
 
-  isVisible = false;
-  isOpened = false;
-
-  el?: ElementRef;
   subscription!: Subscription;
 
   clientId?: number;
@@ -121,10 +115,10 @@ export class EventCreateComponent implements OnDestroy, OnInit {
 
   constructor(
     private readonly eventCreateService: EventsService,
-    private readonly cdr: ChangeDetectorRef,
+    cdr: ChangeDetectorRef,
     // private readonly toast: ToastService,
   ) {
-    animationDuration = innerWidth < mobileWidth ? 400 : 200;
+    super(cdr);
     ScheduleSdk.doctors.getRoles().then(r => {
       this.allRoles = r.map(s => ({
         display: s,
@@ -230,14 +224,8 @@ export class EventCreateComponent implements OnDestroy, OnInit {
     this.cdr.markForCheck();
   }
 
-  close(): void {
-    this.isOpened = false;
-    this.cdr.markForCheck();
-    setTimeout(() => {
-      this.isVisible = false;
-      this.clearRole();
-      this.cdr.markForCheck();
-    }, animationDuration);
+  onClose(): void {
+    this.clearRole();
   }
 
   ngOnDestroy(): void {
@@ -372,10 +360,6 @@ export class EventCreateComponent implements OnDestroy, OnInit {
       return !this.start || ! this.end;
     }
     return !this.hasClientName() || !this.hasClientIdentity();
-  }
-
-  getPopUpClass(): string {
-    return this.isOpened ? '' : 'collapsed';
   }
 
   back(): void {

@@ -7,18 +7,20 @@ import { AvatarComponent } from 'src/app/avatar/avatar.component';
 import { EventCreateModule } from "./events/event-create/event-create.module";
 import {NgOptimizedImage} from "@angular/common";
 import {IconDirective} from "./shared/icon/icon.directive";
+import {PhoneComponent} from "./phone/phone.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     DoctorComponent,
+    PhoneComponent
   ],
   imports: [
     AvatarComponent,
     BrowserModule,
     EventCreateModule,
     NgOptimizedImage,
-    IconDirective
+    IconDirective,
   ],
   providers: [],
   bootstrap: [AppComponent]

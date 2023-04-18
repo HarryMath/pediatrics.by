@@ -8,7 +8,7 @@
       <a class="nav-link" *ngFor="let m of menu" [href]="'#' + m" [innerText]="m"></a>
     </div>
     <div class="header-right">
-      <div class="header-item call-btn">
+      <div class="header-item call-btn" (click)="">
         <div class="a-c">
           <svg icon="phone"></svg>
         </div>
@@ -230,3 +230,4 @@
   </div>
 </footer>
 <app-event-create></app-event-create>
+<app-phone></app-phone>

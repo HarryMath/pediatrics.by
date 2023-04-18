@@ -99,10 +99,12 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
 
   @HostListener('document:keydown.escape')
   hideOptions(): void {
+    console.log('hide options called')
     this.showDataList = false;
   }
 
   handleClick(e: any) {
+    console.log('click called');
     if (!this.canType) {
       e?.stopPropagation();
       e?.preventDefault();

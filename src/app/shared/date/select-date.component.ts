@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import { BaseCalendarComponent } from 'src/app/shared/base.calendar.component';
+import { BaseCalendarComponent } from 'src/app/shared/base-calendar.component';
 
 @Component({
   selector: 'select-date',
