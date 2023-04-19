@@ -9,9 +9,9 @@ import {
 import {mobileWidth, random, remToPX, toRadians, wait} from 'src/app/shared/utils';
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
-import {EventsService} from "./events/events.service";
+import { EventsService } from "./events/events.service";
 
-const HEART_SIZE_REM = 10
+const HEART_SIZE_REM = 12;
 
 interface IService {
   name: string;
@@ -252,12 +252,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     const offsetSize = hearSize / 8;
 
     let hearts = '';
-    let t, tLeft, tRight;
+    let t, tLeft = 0, tRight = 0;
     for (let i = 0; i <= amountX; i++) {
       for (let j = 0; j <= amountY; j++) {
-        t = 200 + (i + j) * 50 + Math.random() * ((i * j) * 20 + 300);
-        tLeft = t + Math.random() * 400 - 200;
-        tRight = t + Math.random() * 400 - 200;
+        if (innerWidth > mobileWidth + 50) {
+          t = 200 + (i + j) * 50 + Math.random() * ((i * j) * 20 + 300);
+          tLeft = t + Math.random() * 400 - 200;
+          tRight = t + Math.random() * 400 - 200;
+        }
         const rotation = random(0, 360);
         const translateX = (i - 0.34 * (j % 3)) * hearSize + random(-offsetSize, offsetSize);
         const translateY = j * hearSize + random(-offsetSize, offsetSize);

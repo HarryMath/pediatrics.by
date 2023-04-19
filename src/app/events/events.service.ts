@@ -5,9 +5,16 @@ import {IProgram} from "../app.component";
 
 @Injectable({ providedIn: 'root' })
 export class EventsService {
+  menuOpened = false;
   createEventSubject = new Subject<DoctorDto | undefined>();
   phoneSubject = new Subject();
+  menuSubject = new Subject<boolean>();
   programSubject = new Subject<IProgram>();
+
+  menu(): void {
+    this.menuOpened = !this.menuOpened;
+    this.menuSubject.next(this.menuOpened);
+  }
 
   call(): void {
     this.phoneSubject.next(0);

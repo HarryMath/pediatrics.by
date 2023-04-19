@@ -330,8 +330,8 @@ section.content-w {
   transition: opacity .2s;
   pointer-events: none;
   color: var(--g-l);
-  width: 9rem;
-  height: 9rem;
+  width: 10rem;
+  height: 10rem;
 }
 
 .l1 {

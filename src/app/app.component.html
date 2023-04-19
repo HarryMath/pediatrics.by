@@ -13,7 +13,7 @@
           <svg icon="phone"></svg>
         </div>
       </div>
-      <div *ngIf="isMobile" class="header-item menu-btn h">МЕНЮ</div>
+      <div *ngIf="isMobile" class="header-item menu-btn h" (click)="eventsService.menu()">МЕНЮ</div>
     </div>
   </div>
 </ng-template>
@@ -232,5 +232,6 @@
   </div>
 </footer>
 <app-program></app-program>
+<app-menu *ngIf="isMobile"></app-menu>
 <app-phone></app-phone>
 <app-event-create></app-event-create>

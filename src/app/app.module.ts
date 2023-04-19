@@ -9,13 +9,15 @@ import {NgOptimizedImage} from "@angular/common";
 import {IconDirective} from "./shared/icon/icon.directive";
 import {PhoneComponent} from "./phone/phone.component";
 import { ProgramComponent } from './program/program.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DoctorComponent,
     PhoneComponent,
-    ProgramComponent
+    ProgramComponent,
+    MenuComponent
   ],
   imports: [
     AvatarComponent,
