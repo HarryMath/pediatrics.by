@@ -152,10 +152,12 @@
             </div>
           </div>
         </div>
-        <button class="action-btn">
-          <svg icon="calendar"></svg>
-          <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
-        </button>
+        <div class="flex-center justify-center">
+          <button class="action-btn" (click)="eventsService.requestEvent()">
+            <svg icon="calendar"></svg>
+            <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
+          </button>
+        </div>
       </div>
       <div class="adv-image"></div>
     </div>

@@ -9,6 +9,16 @@
       </div>
 
       <div class="pop-body">
+        <h4 class="p-body-header">В программу включено:</h4>
+        <div *ngFor="let l of p.includes">
+          <p class="label text-lg" *ngIf="l.label" [innerHTML]="l.label"></p>
+          <div *ngFor="let i of l.includes">
+            <div class="flex" [ngClass]="i.startsWith('Посещение') ? 'secondary' : ''">
+              <div class="ind" [innerText]="i.startsWith('Посещение') ? '*' : '-'"></div>
+              <p [innerHTML]="i"></p>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>

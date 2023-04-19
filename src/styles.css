@@ -110,6 +110,10 @@ body {
   color: var(--text);
 }
 
+.secondary {
+  opacity: .5;
+}
+
 .text-lg {
   font-size: 1.6rem;
 }
@@ -685,6 +689,21 @@ h3 {
   flex-direction: column;
 }
 
+.advantages button {
+  margin-top: 2rem;
+  font-weight: bold;
+  height: fit-content;
+  line-height: unset;
+  background: #eeae4a;
+  border-radius: 1rem;
+  padding: 1.2rem 2rem;
+  color: #fff;
+}
+
+.advantages button:hover {
+  background: #cb8a40;
+}
+
 .advantages h3 {
   color: #fff;
 }
@@ -729,11 +748,11 @@ h3 {
 }
 
 .adv-h {
-  margin: .8rem 0 .5rem;
+  margin: 1rem 0 .5rem;
 }
 
 .adv-txt {
-  margin-bottom: .8rem;
+  margin-bottom: .9rem;
 }
 
 
