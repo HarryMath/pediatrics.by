@@ -13,9 +13,10 @@
           <span *ngIf="d.category" [innerText]="d.category"></span>
         </p>
 
-        <p class="text-lines" [innerText]="d.description"></p>
+        <p *ngIf="isMobile" class="text-lines" [innerText]="d.description"></p>
       </div>
     </div>
+    <p *ngIf="!isMobile" class="text-lines" [innerText]="d.description"></p>
     <div class="justify-center btn-wrap">
       <button class="action-btn" (click)="eventsService.requestEvent(d)">
         <svg><use xlink:href="#calendar"></use></svg>

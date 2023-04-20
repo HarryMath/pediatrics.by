@@ -58,4 +58,11 @@ button {
   .doc-name, .doc-spec {
     text-align: left;
   }
+  .doc-name {
+    font-size: 1.7rem;
+    margin-top: 0;
+  }
+  .doc {
+    margin-bottom: 0;
+  }
 }

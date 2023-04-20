@@ -364,14 +364,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     const docValue = (d: DoctorDto) => d.avatar ? 1 + (d.description?.length || 0) : 0;
     this.doctors = this.doctors.sort((d1, d2) => docValue(d2) - docValue(d1));
     this.cdr.detectChanges();
-    await wait(10);
-    requestAnimationFrame(() => {
-      const elements = Array.from(document.querySelectorAll<HTMLDivElement>('.doc-wrap'));
-      const maxH = elements.reduce((max, el) => Math.max(max, el.clientHeight), 0);
-      elements.forEach(el => {
-        el.style.cssText = 'height:' + maxH + 'px';
-        el.classList.add('ready');
+    if (innerWidth < mobileWidth) {
+      await wait(10);
+      requestAnimationFrame(() => {
+        const elements = Array.from(document.querySelectorAll<HTMLDivElement>('.doc-wrap'));
+        const maxH = elements.reduce((max, el) => Math.max(max, el.clientHeight), 0);
+        elements.forEach(el => {
+          el.style.cssText = 'height:' + maxH + 'px';
+          el.classList.add('ready');
+        });
       });
-    });
+    }
   }
 }
