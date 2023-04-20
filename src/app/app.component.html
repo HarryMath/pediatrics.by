@@ -68,7 +68,7 @@
               <svg class="a-c" icon="arrow"></svg>
             </div>
           </div>
-          <div class="s-body" *ngIf="s.isOpened">
+          <div class="s-body">
             <p class="s-description" [innerHTML]="s.label"></p>
             <div *ngFor="let i of s.includes" class="s-includes">
               <div class="prefix">-</div>
@@ -96,7 +96,7 @@
           <div class="p-info">
 
             <div class="p-price">
-              <div class="price-l">стоимость</div>
+              <div class="secondary">стоимость</div>
               <div class="price" [innerText]="p.minPrice"></div>
               <div *ngIf="p.payOptions" class="pay-opts" [innerText]="p.payOptions"></div>
             </div>

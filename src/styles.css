@@ -3,7 +3,7 @@
   --g-l: #dcb9af;
   --g-2: #acefad;
   --g: #8ad797;
-  --max-w: 90rem;
+  --max-w: 110rem;
   --header: 6rem;
   --btn-h: 5rem;
 
@@ -81,6 +81,7 @@ textarea {
 
 html {
   font-size: 11px;
+  scroll-behavior: smooth;
   /*font-size: calc(10px + 0.4vw);*/
 }
 
@@ -881,8 +882,31 @@ footer h3 {
   scroll-snap-align: center;
 }
 
+@media screen and (min-width: 900px){
+  .s2 .sect-cont {
+    display: flex;
+  }
+  .prog {
+    width: 33.3%;
+    margin-right: 1.5rem;
+  }
+  .prog h3 {
+    font-size: 2rem;
+  }
+  .prog:last-child {
+    margin-right: 0;
+  }
+}
 
-@media screen and (min-width: 600px) {
+
+@media screen and (min-width: 700px) {
+  .s1 .content {
+    display: flex;
+  }
+  .s1 h2 {
+    white-space: nowrap;
+    margin-right: 5rem;
+  }
   .welcome_left {
     margin-top: -4rem;
   }
@@ -897,6 +921,15 @@ footer h3 {
   ::-webkit-scrollbar-thumb {
     background: #aaaaaa5d;
     border-radius: 10px;
+  }
+  .adv-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .adv-wrap {
+    margin: 1rem 0;
+    width: calc(50% - 2rem);
   }
 }
 
