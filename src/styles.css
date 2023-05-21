@@ -900,6 +900,9 @@ footer h3 {
 
 
 @media screen and (min-width: 700px) {
+  html {
+    font-size: 9px;
+  }
   .s1 .content {
     display: flex;
   }

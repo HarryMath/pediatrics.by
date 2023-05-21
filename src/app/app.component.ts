@@ -325,6 +325,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
     for (let i = 0; i < this.appearElements.length; i++) {
       const el = this.appearElements[i];
+      if (el.classList.contains('visible')) {
+        continue;
+      }
       const rect = el.getBoundingClientRect();
       if (rect.top < innerHeight - 50 && rect.bottom > 10) {
         el.classList.add('visible');
@@ -339,8 +342,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     const touchedFooter = rect.bottom < innerHeight * 1.2 + 45;
     if (this.touchedFooter !== touchedFooter) {
       this.touchedFooter = touchedFooter;
-      document.getElementById('Контакты')!.classList?.[isHeaderVisible ? 'add' : 'remove']('end');
-      document.getElementById('header')!.classList?.[isHeaderVisible ? 'add' : 'remove']('end');
+      document.getElementById('Контакты')!.classList?.[touchedFooter ? 'add' : 'remove']('end');
+      document.getElementById('header')!.classList?.[touchedFooter ? 'add' : 'remove']('end');
       if (touchedFooter) {
         window.scrollTo({ behavior: "smooth", top: document.body.scrollHeight })
       }

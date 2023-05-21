@@ -49,6 +49,12 @@ button {
   .doc-wrap {
     width: 100%;
   }
+  .btn-wrap {
+    width: 100%;
+    position: absolute;
+    bottom: 1.7rem;
+    left: 0;
+  }
   .doc-content {
     display: flex;
   }
