@@ -230,6 +230,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.count('init app-component');
     this.buildHead();
     this.loadDoctors();
     setTimeout(() => {
@@ -312,15 +313,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  isHeaderVisible = false;
-  touchedFooter = false;
+  private isHeaderVisible = false;
+  private touchedFooter = false;
 
   @HostListener('window:scroll')
   handleScroll(): void {
     const isHeaderVisible = window.scrollY > 230;
     if (isHeaderVisible !== this.isHeaderVisible) {
       this.isHeaderVisible = isHeaderVisible;
-      this.cdr.markForCheck();
+      document.getElementById('header')!.classList?.[isHeaderVisible ? 'add' : 'remove']('visible');
     }
     for (let i = 0; i < this.appearElements.length; i++) {
       const el = this.appearElements[i];
@@ -338,10 +339,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     const touchedFooter = rect.bottom < innerHeight * 1.2 + 45;
     if (this.touchedFooter !== touchedFooter) {
       this.touchedFooter = touchedFooter;
+      document.getElementById('Контакты')!.classList?.[isHeaderVisible ? 'add' : 'remove']('end');
+      document.getElementById('header')!.classList?.[isHeaderVisible ? 'add' : 'remove']('end');
       if (touchedFooter) {
         window.scrollTo({ behavior: "smooth", top: document.body.scrollHeight })
       }
-      this.cdr.markForCheck();
     }
   }
 

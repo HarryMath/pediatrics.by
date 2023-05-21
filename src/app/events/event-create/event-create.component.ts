@@ -89,6 +89,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   doctors: SelectOption<DoctorMin>[] = [];
 
   @Input() set doctorsList(doctors: DoctorDto[]) {
+    console.log('input doctors list');
     if (!doctors.length) {
       this.loadDoctors().catch();
       return;
@@ -131,7 +132,8 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   }
 
   ngOnInit(): void {
-    if (!this.doctors.length) {
+    console.count('init event-create-component');
+    if (!this.doctors?.length) {
       this.loadDoctors().catch();
     }
     this.subscription = this.eventCreateService.createEventSubject.subscribe(input => {
@@ -224,6 +226,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   }
 
   async loadDoctors(doctorSearch?: string): Promise<void> {
+    console.log('load doctors in event create');
     this.doctorsList = await ScheduleSdk.doctors.get(doctorSearch);
   }
 

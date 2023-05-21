@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {BasePopupComponent} from "../shared/base-popup.component";
 import {EventsService} from "../events/events.service";
 import {IProgram} from "../app.component";
@@ -9,9 +9,13 @@ import {IProgram} from "../app.component";
   styleUrls: ['../shared/pop-up.css', './program.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProgramComponent extends BasePopupComponent {
+export class ProgramComponent extends BasePopupComponent implements OnInit {
 
   p?: IProgram;
+
+  ngOnInit(): void {
+    console.count('init app-component');
+  }
 
   constructor(
     private readonly service: EventsService,

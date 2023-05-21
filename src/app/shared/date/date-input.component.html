@@ -20,7 +20,7 @@
 <div *ngIf="isSelecting" class="calendar" [style]="style" [style.width]="dayW * 7 + 'rem'">
   <div class="calendar-head w-full flex items-center justify-between" [style.height]="dayW + 'rem'">
     <div (click)="loadPage(selectedYear, selectedMonth - 1)"><</div>
-    <div>{{months[selectedMonth]}}</div>
+    <div [innerText]="months[selectedMonth]"></div>
     <div (click)="loadPage(selectedYear, selectedMonth + 1)">></div>
   </div>
   <div class="calendar-days w-full flex items-center" [style.height]="dayH + 'rem'">

@@ -18,7 +18,7 @@
   </div>
 </ng-template>
 
-<header class="content-w" [ngClass]="{visible: isHeaderVisible, end: touchedFooter}">
+<header id="header" class="content-w">
   <ng-container [ngTemplateOutlet]="header"></ng-container>
 </header>
 
@@ -168,7 +168,7 @@
 <!-- instagram -->
 <section class="content-w s5"></section>
 
-<footer [ngClass]="{end: touchedFooter}" id="Контакты">
+<footer id="Контакты">
   <div class="footer1 content-w">
     <div class="content">
       <div class="flex-between">
