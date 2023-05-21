@@ -17,7 +17,7 @@
          (focus)="handleFocus()"
          (input)="handleChange($event, 'input')"
   >
-  <span class="w-full">{{required?label+'*':label}}</span>
+  <span class="w-full" [innerText]="required?label+'*':label"></span>
 
   <div *ngIf="showDataList" class="select-overlay" (mousedown)="hideOptions()"></div>
 
@@ -25,8 +25,8 @@
     <div class="datalist-option flex-center" *ngFor="let o of dataList" (click)="select(o, $event)" [ngClass]="o.toSelect === valueObject.display ? 'selected' : ''">
       <avatar *ngIf="withPhotos" [data]="o.entity" [size]="3.5"></avatar>
       <div>
-        <div class="display text-ellipsis whitespace-nowrap overflow-hidden">{{o.display}}</div>
-        <div class="text-sm label" *ngIf="!!o.label">{{o.label}}</div>
+        <div class="display text-ellipsis whitespace-nowrap overflow-hidden" [innerText]="o.display"></div>
+        <div class="text-sm label" *ngIf="!!o.label" [innerText]="o.label"></div>
       </div>
     </div>
   </div>
