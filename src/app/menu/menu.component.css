@@ -1,0 +1,22 @@
+.pop-up {
+  border-radius: 0;
+  overflow: hidden;
+  height: 100%;
+  width: fit-content;
+}
+
+.pop-up {
+  left: unset;
+  right: 0;
+  top: 0;
+  transform: none;
+}
+
+.pop-up.collapsed {
+  transform: translateX(100%);
+}
+
+.p-header {
+  height: var(--header);
+  width: 100%;
+}

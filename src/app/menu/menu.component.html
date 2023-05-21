@@ -1,0 +1,19 @@
+<div *ngIf="isVisible" class="full pop-up-wrap">
+  <div [style.opacity]="isOpened ? 1 : 0" class="full overlay"></div>
+  <div class="a-c pop-up" [ngClass]="getPopUpClass()">
+    <div class="p-inner full">
+
+      <div class="p-header flex-center flex-between">
+        <h3 class="h">Меню</h3>
+        <svg class="p-cross" icon="cross" (click)="close()"></svg>
+      </div>
+
+      <div class="pop-body">
+        <div *ngFor="let m of menu">
+          <a class="nav-link text-lg" [href]="'#' + m" [innerText]="m"></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
