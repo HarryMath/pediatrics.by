@@ -16,7 +16,7 @@
         <p *ngIf="isMobile" class="text-lines" [innerText]="d.description"></p>
       </div>
     </div>
-    <p *ngIf="!isMobile" class="text-lines" [innerText]="d.description"></p>
+    <p *ngIf="!isMobile" class="text-lines" [innerText]="d.description?.substring(0, 150) || ''"></p>
     <div class="justify-center btn-wrap">
       <button class="action-btn" (click)="eventsService.requestEvent(d)">
         <svg><use xlink:href="#calendar"></use></svg>
