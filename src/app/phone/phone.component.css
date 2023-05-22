@@ -36,3 +36,13 @@ h3 {
   transform: translate(0, -20%) scale(.1);
   opacity: 0;
 }
+
+@media screen and (max-width: 300px){
+  .pop-body {
+    font-size: 1.7rem;
+    padding: 1.5rem;
+  }
+  .p-header {
+    padding: 1.5rem 1.5rem .5rem;
+  }
+}
