@@ -13,10 +13,15 @@
           <span *ngIf="d.category" [innerText]="d.category"></span>
         </p>
 
-        <p *ngIf="isMobile" class="text-lines" [innerText]="d.description"></p>
+<!--        <p *ngIf="isMobile" class="text-lines">-->
+<!--          <span *ngFor="let l of getDescription(d.description)">&bull; {{l}}</span>-->
+<!--        </p>-->
+        <ng-container *ngIf="isMobile" [ngTemplateOutlet]="desc"></ng-container>
       </div>
     </div>
-    <p *ngIf="!isMobile" class="text-lines" [innerText]="d.description?.substring(0, 150) || ''"></p>
+    <p *ngIf="!isMobile" class="text-lines">
+      <span *ngFor="let l of getDescription(d.description)">&bull; {{l}}</span>
+    </p>
     <div class="justify-center btn-wrap">
       <button class="action-btn" (click)="eventsService.requestEvent(d)">
         <svg><use xlink:href="#calendar"></use></svg>
@@ -26,3 +31,12 @@
   </div>
 
 </div>
+
+<ng-template #desc class="text-lines">
+  <div *ngFor="let i of getDescription(d.description)">
+    <div class="flex">
+      <span class="ind">-</span>
+      <p [innerHTML]="i"></p>
+    </div>
+  </div>
+</ng-template>

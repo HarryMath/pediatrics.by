@@ -16,7 +16,7 @@ export const getName = (object: any) => {
   if (object.name) {
     return object.name;
   }
-  return ((object.firstName?.trim() || "") + " " + (object.lastName?.trim() || "") + " " + (object.fatherName?.trim() || "")).trim();
+  return ((object.firstName?.trim() || "") + " " + (object.fatherName?.trim() || "") + " " + (object.lastName?.trim() || "")).trim();
 }
 
 export const isMailValid = (value?: string): boolean => {
