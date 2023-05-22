@@ -3,7 +3,7 @@
   --g-l: #dcb9af;
   --g-2: #acefad;
   --g: #8ad797;
-  --max-w: 100rem;
+  --max-w: 115rem;
   --header: 6rem;
   --btn-h: 5rem;
 
@@ -912,7 +912,10 @@ footer h3 {
 
 @media screen and (min-width: 700px) {
   html {
-    font-size: 9px;
+    font-size: calc(11px + .2vw);
+  }
+  .content {
+    padding: 0 4rem;
   }
   .s1 .content {
     display: flex;
@@ -948,7 +951,7 @@ footer h3 {
   .s3 .sect-cont {
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(27rem, 1fr));
   }
   .doc-wrap {
     aspect-ratio: 1;

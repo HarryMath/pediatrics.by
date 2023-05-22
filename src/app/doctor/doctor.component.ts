@@ -2,8 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { DomUtils, getName, mobileWidth } from 'src/app/shared/utils';
 import { EventsService } from '../events/events.service';
-import { ScheduleSdk } from '../sdk/schedule.sdk';
-import { DateUtils } from '../shared/utils/date.utils';
 
 @Component({
   selector: 'app-doctor',
@@ -25,19 +23,19 @@ export class DoctorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    ScheduleSdk.doctors.getNextAvailable(this.d.id).then(t => {
-      if (!t) {
-        return;
-      }
-      const dayDifference = DateUtils.dateDiffInDays(t, new Date());
-      if (dayDifference < 2) {
-        this.nextAvailable = dayDifference === 0 ? 'Сегодня' : 'Завтра';
-      } else {
-        this.nextAvailable = DateUtils.toString(t);
-      }
-      this.nextAvailable += ', ' + DateUtils.toStringTime(t);
-      this.cdr.markForCheck();
-    })
+    // ScheduleSdk.doctors.getNextAvailable(this.d.id).then(t => {
+    //   if (!t) {
+    //     return;
+    //   }
+    //   const dayDifference = DateUtils.dateDiffInDays(t, new Date());
+    //   if (dayDifference < 2) {
+    //     this.nextAvailable = dayDifference === 0 ? 'Сегодня' : 'Завтра';
+    //   } else {
+    //     this.nextAvailable = DateUtils.toString(t);
+    //   }
+    //   this.nextAvailable += ', ' + DateUtils.toStringTime(t);
+    //   this.cdr.markForCheck();
+    // })
   }
 
   getName(d: DoctorDto): string {
