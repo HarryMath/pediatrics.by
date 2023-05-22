@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
-import {DomUtils, getName, mobileWidth} from 'src/app/shared/utils';
-import {EventsService} from "../events/events.service";
+import { DomUtils, getName, mobileWidth } from 'src/app/shared/utils';
+import { EventsService } from '../events/events.service';
+import { ScheduleSdk } from '../sdk/schedule.sdk';
+import { DateUtils } from '../shared/utils/date.utils';
 
 @Component({
   selector: 'app-doctor',
@@ -9,13 +11,33 @@ import {EventsService} from "../events/events.service";
   styleUrls: ['./doctor.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DoctorComponent {
+export class DoctorComponent implements OnInit {
 
   @Input() d!: DoctorDto;
   isMobile: boolean;
+  nextAvailable = "";
 
-  constructor(public readonly eventsService: EventsService) {
+  constructor(
+    public readonly eventsService: EventsService,
+    private readonly cdr: ChangeDetectorRef,
+  ) {
     this.isMobile = innerWidth < mobileWidth;
+  }
+
+  ngOnInit(): void {
+    ScheduleSdk.doctors.getNextAvailable(this.d.id).then(t => {
+      if (!t) {
+        return;
+      }
+      const dayDifference = DateUtils.dateDiffInDays(t, new Date());
+      if (dayDifference < 2) {
+        this.nextAvailable = dayDifference === 0 ? 'Сегодня' : 'Завтра';
+      } else {
+        this.nextAvailable = DateUtils.toString(t);
+      }
+      this.nextAvailable += ', ' + DateUtils.toStringTime(t);
+      this.cdr.markForCheck();
+    })
   }
 
   getName(d: DoctorDto): string {
@@ -23,7 +45,7 @@ export class DoctorComponent {
   }
 
   getAvatarSize(): number {
-    const AVATAR_SIZE_REM = innerWidth < mobileWidth ? 25 : 8
+    const AVATAR_SIZE_REM = innerWidth < mobileWidth ? 25 : 8;
     const initialSize = DomUtils.remToPX(AVATAR_SIZE_REM);
     const maxSize = innerWidth * MAX_AVATAR_WIDTH_PART - DomUtils.remToPX(7);
     if (initialSize > maxSize) {
@@ -37,7 +59,7 @@ export class DoctorComponent {
       return [];
     }
     const linesAmount = innerWidth < mobileWidth ? 8 : 3;
-    return description.split("\n").slice(0, linesAmount).map(l => {
+    return description.split('\n').slice(0, linesAmount).map(l => {
       l = l.trim();
       if (l.startsWith('—') || l.startsWith('-')) {
         l = l.substring(1).trim();
@@ -46,4 +68,5 @@ export class DoctorComponent {
     });
   }
 }
+
 const MAX_AVATAR_WIDTH_PART = .98;

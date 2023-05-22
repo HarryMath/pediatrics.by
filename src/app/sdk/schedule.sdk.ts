@@ -22,6 +22,11 @@ export class ScheduleSdk {
 
     getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
       return ScheduleSdk.get<TimestampInterval[]>(`doctors/${id}/free-time/${monthIndex}`);
+    },
+
+    async getNextAvailable(id: number): Promise<Date|undefined> {
+      const next = await ScheduleSdk.get<{ time: Date }|undefined>(`doctors/${id}/next-available`);
+      return next?.time ? new Date(next.time) : undefined;
     }
   }
 

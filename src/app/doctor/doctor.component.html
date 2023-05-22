@@ -22,6 +22,7 @@
     <p *ngIf="!isMobile" class="text-lines">
       <span *ngFor="let l of getDescription(d.description)">&bull; {{l}}</span>
     </p>
+    <div *ngIf="nextAvailable?.length">Ближайшая запись {{ nextAvailable }}</div>
     <div class="justify-center btn-wrap">
       <button class="action-btn" (click)="eventsService.requestEvent(d)">
         <svg><use xlink:href="#calendar"></use></svg>
