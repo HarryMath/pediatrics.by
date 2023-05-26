@@ -3,8 +3,8 @@ import {ClientCreateDto, ClientDto} from "./dto/Client";
 import {EventCreateDto} from "./dto/Event";
 import {TimestampInterval} from "./dto/Interval";
 
-export const endpoint = 'http://localhost:80/api/';
-// export const endpoint = 'https://timekit.online/api/';
+// export const endpoint = 'http://localhost:80/api/';
+export const endpoint = 'https://timekit.online/api/';
 export const headers = {
   "Content-Type": "application/json",
 };
