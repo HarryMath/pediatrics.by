@@ -89,11 +89,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   doctors: SelectOption<DoctorMin>[] = [];
 
   @Input() set doctorsList(doctors: DoctorDto[]) {
-    console.log('input doctors list');
-    if (!doctors.length) {
-      this.loadDoctors().catch();
-      return;
-    }
+    // console.log('input doctors list');
     this.doctors = doctors.map(d => {
       const name = d.lastName + ' ' + d.firstName + ' ' + d.fatherName;
       return {
@@ -103,12 +99,18 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
         entity: { ...d, name }
       }
     });
-    this.doctors.unshift({
-      display: this.doctorRole?.length ? 'Любой ' +  this.doctorRole : ANY_DOCTOR,
-      label: this.doctorRole,
-      entity: { id: ANY_DOCTOR_ID, name: ANY_DOCTOR }
-    })
+    // this.doctors.unshift({
+    //   display: this.doctorRole?.length ? 'Любой ' +  this.doctorRole : ANY_DOCTOR,
+    //   label: this.doctorRole,
+    //   entity: { id: ANY_DOCTOR_ID, name: ANY_DOCTOR }
+    // })
     this.cdr.markForCheck();
+  }
+
+  getSuitableDoctors(): SelectOption<DoctorMin>[] {
+    return this.doctorRole?.length
+      ? this.doctors.filter(d => d.entity.speciality === this.doctorRole)
+      : this.doctors
   }
 
   days: FreeDay[] = [];
@@ -227,21 +229,23 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
 
   async loadDoctors(doctorSearch?: string): Promise<void> {
     console.log('load doctors in event create');
-    this.doctorsList = await ScheduleSdk.doctors.get(doctorSearch);
+    const doctors = await ScheduleSdk.doctors.get(doctorSearch);
+    this.doctorsList = doctors.sort((d1, d2) => (d1.lastName + d1.firstName).localeCompare(d2.lastName + d1.firstName));
   }
 
   handleRoleSelect(role: DoctorRole): void {
     if (this.doctorRole !== role) {
       if (this.doctor?.id !== ANY_DOCTOR_ID) {
+        console.log('clear doctor');
         this.clearDoctor();
       } else {
-        console.log('set name;')
+        // console.log('set name;')
         this.doctor.name = 'Любой ' + role;
         this.doctor.speciality = role;
       }
       const anyDoctor = this.doctors.find(d => d.entity.id === ANY_DOCTOR_ID);
       if (anyDoctor) {
-        console.log('set name;')
+        // console.log('set name;')
         anyDoctor.display = 'Любой ' + role;
         anyDoctor.entity.name = 'Любой ' + role;
       }
@@ -283,7 +287,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
           ...TimeUtils.splitByPeriods(i, this.doctor?.admissionMinutes || 30)
         );
       });
-      console.log('days: ', this.days);
+      // console.log('days: ', this.days);
     } catch (e) {
       // this.toast.showError("Не удалось зугрузить расписание", e);
       alert("Не удалось загрузить расписание");
@@ -326,6 +330,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     this.doctorName = '';
     this.doctor = undefined;
     this.clearDate();
+    this.cdr.detectChanges();
   }
 
   clearDate(): void {
@@ -337,6 +342,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     this.selectedInterval = this.selectedTicket = -1;
     this.start = this.end = undefined;
     this.possibleEvents = [];
+    this.cdr.markForCheck();
   }
 
   selectTime(i: number): void {
@@ -359,6 +365,9 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   back(): void {
     if (this.step > 0) {
       this.step--;
+      if (this.step === 0) {
+        this.clearRole();
+      }
       this.cdr.markForCheck();
     }
   }

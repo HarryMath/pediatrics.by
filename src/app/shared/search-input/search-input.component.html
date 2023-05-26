@@ -22,7 +22,7 @@
   <div *ngIf="showDataList" class="select-overlay" (mousedown)="hideOptions()"></div>
 
   <div #datalist class="datalist" *ngIf="showDataList" [style.width]="this.width" [style.max-height]="maxHeightStyle">
-    <div class="datalist-option flex-center" *ngFor="let o of dataList" (click)="select(o, $event)" [ngClass]="o.toSelect === valueObject.display ? 'selected' : ''">
+    <div class="datalist-option flex-center" *ngFor="let o of _dataList" (click)="select(o, $event)" [ngClass]="o.toSelect === valueObject.display ? 'selected' : ''">
       <avatar *ngIf="withPhotos" [data]="o.entity" [size]="3.5"></avatar>
       <div>
         <div class="display text-ellipsis whitespace-nowrap overflow-hidden" [innerText]="o.display"></div>

@@ -365,8 +365,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     } catch (e) {
       // TODO remove
     }
-    const docValue = (d: DoctorDto) => d.avatar ? 1 + (d.description?.length || 0) : 0;
-    this.doctors = this.doctors.sort((d1, d2) => docValue(d2) - docValue(d1));
+    this.doctors = this.doctors.sort((d1, d2) => (d1.lastName + d1.firstName).localeCompare(d2.lastName + d2.firstName));
     this.cdr.detectChanges();
     if (innerWidth < mobileWidth) {
       await wait(10);

@@ -40,13 +40,14 @@
         [canType]="false"
       ></search-input>
       <search-input
-        [type]="'text'"
-        [label]="'Врач'"
-        [dataList]="doctors"
-        [withPhotos]="true"
-        [(value)]="doctorName"
+        type="text"
+        label="Врач"
+        [required]="false"
         (onSelect)="handleDoctorSelect($event)"
+        [dataList]="getSuitableDoctors()"
+        [(value)]="doctorName"
         [canType]="false"
+        [withPhotos]="true"
       ></search-input>
     </div>
   </div>

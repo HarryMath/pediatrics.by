@@ -1,5 +1,5 @@
 .pop-up {
-  width: min(calc(100vw - 4rem), max(40rem, 33vw));
+  width: min(calc(100vw - 4rem), max(35rem, 33vw));
 }
 
 @media screen and (max-width: 600px) {

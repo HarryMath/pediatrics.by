@@ -42,7 +42,7 @@ export abstract class BaseInputComponent<T> {
   protected prevDisplay = '';
 
   protected validate(value: string): void {
-    console.log('validate: ' + value);
+    // console.log('validate: ' + value);
 
     if (this.type === 'time') {
 
@@ -50,11 +50,11 @@ export abstract class BaseInputComponent<T> {
         const lastChar = value.charAt(value.length - 1);
         if (!/^\d+$/.test(lastChar) && lastChar !== ':') {
           value = this.prevDisplay;
-          console.log('removing last char');
+          // console.log('removing last char');
         }
       }
       if (value.length > 5) {
-        console.log('cutting to 5');
+        // console.log('cutting to 5');
         value = this.prevDisplay;
       }
       if (value.length === 2 && this.prevDisplay.length < 2) {

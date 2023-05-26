@@ -40,7 +40,15 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   @Input() validateOnInit: boolean = false;
   @Input() type: SearchType = 'text';
   @Input() next?: string;
-  @Input() dataList: SelectOption<T>[] = [];
+
+  _dataList: SelectOption<T>[] = [];
+  @Input() set dataList(l: SelectOption<T>[]) {
+    this._dataList = l;
+    if (!l.some(row => row.display === this.valueObject.display)) {
+      this.valueObject.display = '';
+    }
+  };
+
   @Input() withPhotos = false;
   @Input() canType = true;
   showDataList = false;
@@ -48,8 +56,8 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   maxHeightStyle = '40rem';
 
   @Input() set value(val: string) {
-    this.valueObject.display = val;
-    this.prevDisplay = this.valueObject.display;
+    console.log('setting value: ' + this.label, val);
+    this.valueObject.display = this.prevDisplay = val;
     if (this.required || this.validateOnInit) {
       this.validate(this.valueObject.display);
     }
@@ -65,7 +73,7 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   }
 
   select(o: SelectOption<T>, e: any): void {
-    console.log('select called');
+    // console.log('select called');
     this.valueObject.display = o.toSelect || o.display;
     this.valueObject.value = o.toSelect || o.display;
     this.showDataList = this.error = false;
@@ -81,7 +89,7 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   }
 
   handleFocus(): void {
-    console.log('handle focus called');
+    // console.log('handle focus called');
     if (this.canType && this.valueObject.display?.length > 0) {
       return;
     }
@@ -104,7 +112,7 @@ export class SearchInputComponent<T> extends BaseInputComponent<string> implemen
   }
 
   handleClick(e: any) {
-    console.log('click called');
+    // console.log('click called');
     if (!this.canType) {
       e?.stopPropagation();
       e?.preventDefault();

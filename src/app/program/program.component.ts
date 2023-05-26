@@ -23,7 +23,7 @@ export class ProgramComponent extends BasePopupComponent implements OnInit {
   ) {
     super(cdr);
     service.programSubject.subscribe(p => {
-      console.log('open program: ', p);
+      // console.log('open program: ', p);
       this.p = p;
       this.open();
     })
