@@ -162,7 +162,11 @@ export const DateUtils = {
     return (d.getFullYear() * 12 + d.getMonth()) - (current.getFullYear() * 12 + current.getMonth());
   },
 
-  getISODate(d: Date): Date|string {
-    return d.toISOString().split('T')[0];
+  setTimeZone(date: Date | string, zone: number): Date {
+    if (typeof date === 'string') {
+      date = new Date(date);
+    }
+    const offset = zone + date.getTimezoneOffset() / 60;
+    return new Date(date.getTime() + offset * 60 * 60 * 1000);
   }
 }

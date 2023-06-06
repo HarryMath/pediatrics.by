@@ -2,6 +2,7 @@ import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import {ClientCreateDto, ClientDto} from "./dto/Client";
 import {EventCreateDto} from "./dto/Event";
 import {TimestampInterval} from "./dto/Interval";
+import { DateUtils } from '../shared/utils/date.utils';
 
 // export const endpoint = 'http://localhost:80/api/';
 export const endpoint = 'https://timekit.online/api/';
@@ -20,8 +21,13 @@ export class ScheduleSdk {
       return ScheduleSdk.get<string[]>('doctors/roles');
     },
 
-    getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
-      return ScheduleSdk.get<TimestampInterval[]>(`doctors/${id}/free-time/${monthIndex}`);
+    async getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
+      const days = await ScheduleSdk.get<TimestampInterval[]>(`doctors/${id}/free-time/${monthIndex}`);
+      days.forEach(d => {
+        d.start = DateUtils.setTimeZone(d.start, 3);
+        d.end = DateUtils.setTimeZone(d.end, 3);
+      });
+      return days;
     },
 
     async getNextAvailable(id: number): Promise<Date|undefined> {
