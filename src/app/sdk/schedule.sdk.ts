@@ -23,10 +23,10 @@ export class ScheduleSdk {
 
     async getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
       const days = await ScheduleSdk.get<TimestampInterval[]>(`doctors/${id}/free-time/${monthIndex}`);
-      days.forEach(d => {
-        d.start = DateUtils.setTimeZone(d.start, 3);
-        d.end = DateUtils.setTimeZone(d.end, 3);
-      });
+      // days.forEach(d => {
+      //   d.start = DateUtils.setTimeZone(d.start, 3);
+      //   d.end = DateUtils.setTimeZone(d.end, 3);
+      // });
       return days;
     },
 

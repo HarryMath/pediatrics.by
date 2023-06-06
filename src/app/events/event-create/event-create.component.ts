@@ -278,7 +278,8 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
       this.days = [];
       let lastDay = '', currentDay = '';
       intervals.forEach(i => {
-        currentDay = DateUtils.toString(i.start) + ', ' + DateUtils.getWeekDay(i.start);
+        const zonedStart = DateUtils.setTimeZone(i.start, 3);
+        currentDay = DateUtils.toString(zonedStart) + ', ' + DateUtils.getWeekDay(zonedStart);
         if (currentDay !== lastDay) {
           lastDay = currentDay;
           this.days.push({ date: i.start, display: lastDay, intervals: [] });
@@ -317,7 +318,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   }
 
   getStartString(t: TimestampInterval): string {
-    return Time.fromDate(t.start).toString()
+    return Time.fromDate(DateUtils.setTimeZone(t.start, 3)).toString()
   }
 
   clearRole(): void {
