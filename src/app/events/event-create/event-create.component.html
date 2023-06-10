@@ -101,17 +101,21 @@
           <h4 style="margin-top: 3rem">Контактная информация:</h4>
           <ng-input
             type="text"
+            id="name"
             label="ФИО пациента"
-            [next]="useEmail ? 'Эл. почта' : 'Телефон'"
+            next="phone"
             [(value)]="client.name"
           ></ng-input>
           <ng-input
             type="phone"
+            id="phone"
+            next="email"
             label="Телефон"
             [(value)]="client.primaryPhone"
           ></ng-input>
           <ng-input
             type="email"
+            id="email"
             label="Эл. почта"
             [(value)]="client.email"
           ></ng-input>

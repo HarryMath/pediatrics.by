@@ -6,26 +6,30 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import {Subscription} from 'rxjs';
-import {EventsService} from 'src/app/events/events.service';
-import {ScheduleSdk} from 'src/app/sdk/schedule.sdk';
-import {getName, isMailValid} from 'src/app/shared/utils';
-import {ClientCreateDto, ClientDto} from 'src/app/sdk/dto/Client';
-import {DoctorDto, DoctorMin, DoctorRole} from 'src/app/sdk/dto/Doctor';
-import {TimestampInterval} from 'src/app/sdk/dto/Interval';
-import {AvailableDoctor} from 'src/app/sdk/dto/Workday';
-import {DateUtils} from 'src/app/shared/utils/date.utils';
-import {Time, TimeUtils} from 'src/app/shared/utils/TimeInterval';
-import {SelectOption} from 'src/app/shared/search-input/search-input.component';
-import {BasePopupComponent} from "../../shared/base-popup.component";
+import { Subscription } from 'rxjs';
+import { EventsService } from 'src/app/events/events.service';
+import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
+import { getName, isMailValid } from 'src/app/shared/utils';
+import { ClientCreateDto, ClientDto } from 'src/app/sdk/dto/Client';
+import { DoctorDto, DoctorMin, DoctorRole } from 'src/app/sdk/dto/Doctor';
+import { TimestampInterval } from 'src/app/sdk/dto/Interval';
+import { AvailableDoctor } from 'src/app/sdk/dto/Workday';
+import { DateUtils } from 'src/app/shared/utils/date.utils';
+import { Time, TimeUtils } from 'src/app/shared/utils/TimeInterval';
+import { SelectOption } from 'src/app/shared/search-input/search-input.component';
+import { BasePopupComponent } from '../../shared/base-popup.component';
+
+const NAME_KEY = 'nm';
+const MAIL_KEY = 'eml';
+const PHONE_KEY = 'ph';
 
 const createClientDto = (): ClientCreateDto => ({
   birthDate: undefined,
-  email: '',
+  email: localStorage.getItem(MAIL_KEY) || '',
   members: [],
-  name: '',
+  name: localStorage.getItem(NAME_KEY) || '',
   phones: [],
-  primaryPhone: ''
+  primaryPhone: localStorage.getItem(PHONE_KEY) || ''
 });
 
 interface Ticket {
@@ -47,10 +51,10 @@ const ANY_DOCTOR = 'Любой врач';
 const ANY_DOCTOR_ID = 0;
 
 const toDoctorMin = (d: DoctorDto): DoctorMin => {
-  const { lastName, firstName, fatherName, ...doctorInfo } = d;
+  const {lastName, firstName, fatherName, ...doctorInfo} = d;
   const name = lastName + ' ' + firstName + ' ' + fatherName;
-  return { ...doctorInfo, name }
-}
+  return {...doctorInfo, name};
+};
 
 @Component({
   selector: 'app-event-create',
@@ -96,8 +100,8 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
         display: name,
         label: d.speciality,
         photoUrl: d.avatar,
-        entity: { ...d, name }
-      }
+        entity: {...d, name}
+      };
     });
     // this.doctors.unshift({
     //   display: this.doctorRole?.length ? 'Любой ' +  this.doctorRole : ANY_DOCTOR,
@@ -110,7 +114,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   getSuitableDoctors(): SelectOption<DoctorMin>[] {
     return this.doctorRole?.length
       ? this.doctors.filter(d => d.entity.speciality === this.doctorRole)
-      : this.doctors
+      : this.doctors;
   }
 
   days: FreeDay[] = [];
@@ -118,7 +122,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
 
   constructor(
     private readonly eventCreateService: EventsService,
-    cdr: ChangeDetectorRef,
+    cdr: ChangeDetectorRef
     // private readonly toast: ToastService,
   ) {
     super(cdr);
@@ -127,10 +131,13 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
         display: s,
         entity: s
       }));
-      this.allRoles.push({ display: ANY_ROLE, entity: ANY_ROLE });
+      this.allRoles.push({display: ANY_ROLE, entity: ANY_ROLE});
       this.cdr.markForCheck();
       // this.suitableOptions = this.getTagsDataList();
-    })
+    });
+    this.client.name = localStorage.getItem(NAME_KEY) || '';
+    this.client.email = localStorage.getItem(MAIL_KEY) || '';
+    this.client.primaryPhone = localStorage.getItem(PHONE_KEY) || '';
   }
 
   ngOnInit(): void {
@@ -141,7 +148,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     this.subscription = this.eventCreateService.createEventSubject.subscribe(input => {
       this.step = 0;
       this.clientId = undefined;
-      this.doctorName = getName(input)
+      this.doctorName = getName(input);
       this.doctorRole = input?.speciality || '';
       this.doctor = input && toDoctorMin(input);
       this.start = undefined;
@@ -169,8 +176,12 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
       alert('Заполните ФИО');
       return;
     }
-    if (!this.hasClientIdentity()) {
-      alert(this.useEmail ? 'Заполните Email' : 'Телефон');
+    if (!this.hasPhone()) {
+      alert('Заполните Телефон');
+      return;
+    }
+    if (!this.hasEmail()) {
+      await ('Заполните Email');
       return;
     }
     this.isLoadingSave = true;
@@ -178,6 +189,9 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     try {
       const client = await ScheduleSdk.clients.save(this.client) as ClientDto | number;
       this.clientId = typeof client === 'number' ? client : client.id;
+      localStorage.setItem(NAME_KEY, this.client.name);
+      localStorage.setItem(PHONE_KEY, this.client.primaryPhone);
+      localStorage.setItem(MAIL_KEY, this.client.email || '');
     } catch (e) {
       // this.toast.showError('Не удалось создать запись', e);
       alert('Не удалось создать запись');
@@ -272,8 +286,8 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
       intervals.forEach(i => {
         i.start = new Date(i.start);
         i.end = new Date(i.end);
-      })
-      intervals.sort((i1, i2) => i1.start.getTime() - i2.start.getTime())
+      });
+      intervals.sort((i1, i2) => i1.start.getTime() - i2.start.getTime());
 
       this.days = [];
       let lastDay = '', currentDay = '';
@@ -282,7 +296,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
         currentDay = DateUtils.toString(zonedStart) + ', ' + DateUtils.getWeekDay(zonedStart);
         if (currentDay !== lastDay) {
           lastDay = currentDay;
-          this.days.push({ date: i.start, display: lastDay, intervals: [] });
+          this.days.push({date: i.start, display: lastDay, intervals: []});
         }
         this.days[this.days.length - 1]!.intervals!.push(
           ...TimeUtils.splitByPeriods(i, this.doctor?.admissionMinutes || 30)
@@ -291,7 +305,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
       // console.log('days: ', this.days);
     } catch (e) {
       // this.toast.showError("Не удалось зугрузить расписание", e);
-      alert("Не удалось загрузить расписание");
+      alert('Не удалось загрузить расписание');
       console.log(e);
     }
     this.loadingDays = false;
@@ -301,7 +315,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   handleDaySelect(day: FreeDay[]) {
     if (day.length != 1) {
       if (day.length > 1) {
-        console.warn("error. days more than 1 in one day");
+        console.warn('error. days more than 1 in one day');
       }
       return;
     }
@@ -312,18 +326,18 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
 
   getFullEventTime(): string {
     if (!this.day || !this.start) {
-      return "";
+      return '';
     }
     return this.day.display + ', в ' + Time.fromDate(this.start).toString();
   }
 
   getStartString(t: TimestampInterval): string {
-    return Time.fromDate(DateUtils.setTimeZone(t.start, 3)).toString()
+    return Time.fromDate(DateUtils.setTimeZone(t.start, 3)).toString();
   }
 
   clearRole(): void {
     this.selectedDoctors = [];
-    this.doctorRole = ''
+    this.doctorRole = '';
     this.clearDoctor();
   }
 
@@ -348,7 +362,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
 
   selectTime(i: number): void {
     this.selectedInterval = i;
-    const t = this.day!.intervals![i]
+    const t = this.day!.intervals![i];
     this.start = t.start;
     this.end = t.end;
   }
@@ -358,9 +372,9 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
       return !this.hasSelectedDoctor() && !this.hasSelectedRole();
     }
     if (this.step === 1) {
-      return !this.start || ! this.end;
+      return !this.start || !this.end;
     }
-    return !this.hasClientName() || !this.hasClientIdentity();
+    return !this.hasClientName() || !this.hasEmail() || !this.hasPhone();
   }
 
   back(): void {
@@ -385,9 +399,12 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     return this.client.name?.length > 5 && this.client.name.trim().split(' ').length > 0;
   }
 
-  hasClientIdentity(): boolean {
-    return this.useEmail ? isMailValid(this.client.email) :
-      this.client.primaryPhone.length > 8;
+  hasEmail(): boolean {
+    return isMailValid(this.client.email);
+  }
+
+  hasPhone(): boolean {
+    return this.client.primaryPhone.length > 8;
   }
 
   async next(): Promise<void> {
@@ -405,8 +422,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
         this.isLoadingStep = false;
         this.cdr.markForCheck();
       }
-    }
-    else if (this.step === 1) {
+    } else if (this.step === 1) {
       if (this.start && this.end) {
         this.step++;
         this.cdr.markForCheck();
@@ -414,7 +430,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     }
   }
 
-  handleMonthChange(data: {year: number; month: number}) {
+  handleMonthChange(data: { year: number; month: number }) {
     const now = new Date();
     const yearOffset = data.year - now.getFullYear();
     const monthOffset = data.month - now.getMonth();
