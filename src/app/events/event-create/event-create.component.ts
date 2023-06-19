@@ -64,7 +64,9 @@ const toDoctorMin = (d: DoctorDto): DoctorMin => {
 })
 export class EventCreateComponent extends BasePopupComponent implements OnDestroy, OnInit {
 
-  step: 0 | 1 | 2 = 0;
+  step: 0 | 1 | 2 | 3 = 0;
+  success = false;
+  errorMessage = '';
 
   subscription!: Subscription;
 
@@ -223,11 +225,12 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
         end: this.end
       });
       // this.toast.show('Запись сохранена', 1);
-      alert('Запись сохранена');
-      this.close();
+      this.step = 3;
+      this.success = true;
     } catch (e) {
       // this.toast.showError('Не удалось создать запись', e);
-      alert('Не удалось создать запись');
+      this.success = false;
+      this.errorMessage = (e as Error)?.message || '';
     }
     this.isLoadingSave = false;
     this.cdr.markForCheck();
@@ -436,5 +439,11 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     const monthOffset = data.month - now.getMonth();
     this.daysPage = monthOffset + yearOffset * 12;
     this.loadDays().catch();
+  }
+
+  getResultLabel(): string {
+    return this.success
+      ? (this.doctor?.speciality || this.doctor?.name) + ', ' + this.getFullEventTime()
+      : this.errorMessage;
   }
 }
