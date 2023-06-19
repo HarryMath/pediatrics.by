@@ -328,7 +328,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     if (!this.day || !this.start) {
       return '';
     }
-    return this.day.display + ', в ' + Time.fromDate(this.start).toString();
+    return this.day.display + ', в ' + Time.fromDate(DateUtils.setTimeZone(this.start, 3)).toString();
   }
 
   getStartString(t: TimestampInterval): string {
