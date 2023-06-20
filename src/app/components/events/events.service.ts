@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
-import {IProgram} from "../app.component";
+import { IProgram } from '../../pages/landing/landing-page.component';
 
 @Injectable({ providedIn: 'root' })
 export class EventsService {

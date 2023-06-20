@@ -1,0 +1,17 @@
+<div class="flex-center">
+  <img class="icon-main" src="/assets/logo/no_txt.svg" alt="logo" height="16" width="18">
+  <svg id="logo-t" icon="txt"></svg>
+</div>
+
+<div *ngIf="!isMobile && !hide" class="flex-center justify-center">
+  <a class="nav-link" *ngFor="let m of menu" [href]="'#' + m" [innerText]="m"></a>
+</div>
+
+<div class="header-right" *ngIf="!hide">
+  <div class="header-item call-btn" (click)="eventsService.call()">
+    <div class="a-c">
+      <svg icon="phone"></svg>
+    </div>
+  </div>
+  <div *ngIf="isMobile" class="header-item menu-btn h" (click)="eventsService.menu()">МЕНЮ</div>
+</div>

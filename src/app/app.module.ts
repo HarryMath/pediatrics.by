@@ -2,29 +2,40 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { DoctorComponent } from './doctor/doctor.component';
-import { AvatarComponent } from 'src/app/avatar/avatar.component';
-import { EventCreateModule } from './events/event-create/event-create.module';
+import { AvatarComponent } from 'src/app/shared/avatar/avatar.component';
+import { EventCreateModule } from './components/events/event-create/event-create.module';
 import { NgOptimizedImage } from '@angular/common';
 import { IconDirective } from './shared/icon/icon.directive';
 import { PhoneComponent } from './phone/phone.component';
-import { ProgramComponent } from './program/program.component';
-import { MenuComponent } from './menu/menu.component';
+import { MenuComponent } from './commons/menu/menu.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HeaderComponent } from './commons/header/header.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () => import('./pages/landing/landing-page.component').then(m => m.LandingPageComponent),
+  },
+  {
+    path: 'цены',
+    loadComponent: () => import('./pages/prices/price-page.component').then(m => m.PricePageComponent),
+  },
+  { path: '**', redirectTo: '' }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    DoctorComponent,
     PhoneComponent,
-    ProgramComponent,
     MenuComponent
   ],
   imports: [
     AvatarComponent,
     BrowserModule,
     EventCreateModule,
-    NgOptimizedImage,
-    IconDirective
+    IconDirective,
+    RouterModule.forRoot(routes),
+    HeaderComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

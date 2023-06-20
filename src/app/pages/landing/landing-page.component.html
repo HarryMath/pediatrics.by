@@ -1,0 +1,146 @@
+<section class="s0">
+  <div id="back0" class="back">
+    <img src="assets/wave.svg" class="wave" alt="">
+  </div>
+  <div class="content-w inner-h">
+    <header class="content flex-between flex-center" *ngIf="!isMobile"></header>
+  </div>
+  <div class="content-w">
+    <div class="content">
+      <div class="welcome">
+        <div class="welcome_left">
+          <h1 class="h">Центр современной<br>педиатрии</h1>
+          <p class="t-b">Медицинский центр для детей и взрослых в Минске</p>
+          <button class="action-btn" (click)="eventsService.requestEvent()">
+            <svg icon="calendar"></svg>
+            <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
+          </button>
+        </div>
+        <div class="welcome_right">
+          <div id="baby" class="baby-wrapper">
+            <svg class="a-c" icon="blob"></svg>
+            <div class="baby"></div>
+            <div class="tooltip t1"></div>
+            <div class="tooltip t2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- services -->
+<section class="content-w s1" id="Услуги">
+  <div class="content">
+
+    <h2 class="h sect-h">Наши услуги</h2>
+    <div class="sect-cont">
+
+      <div [id]="'service_' + s.name" *ngFor="let s of services" class="serv" [ngClass]="{opened: s.isOpened}">
+        <div class="s-wrap">
+          <div class="s-head" (click)="toggleService(s)">
+            <h3 class="s-name" [innerText]="s.name"></h3>
+            <div class="s-toggle">
+              <svg class="a-c" icon="arrow"></svg>
+            </div>
+          </div>
+          <div class="s-body">
+            <p class="s-description" [innerHTML]="s.label"></p>
+            <div *ngFor="let i of s.includes" class="s-includes">
+              <div class="prefix">-</div>
+              <div [innerText]="i"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- programs -->
+<section class="content-w s2" id="Программы">
+  <div class="content">
+
+    <h2 class="h sect-h">Годовые программы</h2>
+    <div class="sect-cont">
+
+      <div *ngFor="let p of programs" class="prog">
+        <div class="p-head">
+          <h3 class="h p-name" [innerText]="p.name"></h3>
+          <div class="p-info">
+
+            <div class="p-price">
+              <div class="secondary">стоимость</div>
+              <div class="price" [innerText]="p.minPrice"></div>
+              <div *ngIf="p.payOptions" class="pay-opts" [innerText]="p.payOptions"></div>
+            </div>
+
+            <div class="p-icon">
+              <svg class="a-c" [icon]="p.icon"></svg>
+            </div>
+          </div>
+
+        </div>
+        <div class="p-body">
+          <div class="p-body-header">В программу включено:</div>
+          <div *ngFor="let b of p.main" class="p-main">
+            <img ngSrc="assets/plus.svg" class="p-plus" alt="" height="20" width="20">
+            <p class="p-includes" [innerHTML]="b"></p>
+          </div>
+        </div>
+        <div class="p-button-w">
+          <button class="action-btn" (click)="eventsService.openDetails(p)">ПОДРОБНЕЕ</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="content-w s3" id="Специалисты">
+  <div class="content">
+
+    <h2 class="h sect-h">Наши специалисты</h2>
+    <div class="sect-cont">
+      <app-doctor *ngFor="let d of doctors" [d]="d"></app-doctor>
+    </div>
+  </div>
+</section>
+
+<!-- advantages -->
+<section class="content-w s4" id="Наши преимущества">
+  <div class="content">
+
+    <div class="advantages">
+      <div class="adv-content">
+        <h3 class="h sect-h">НАШИ ПРЕИМУЩЕСТВА</h3>
+        <div class="adv-list">
+          <div *ngFor="let adv of advantages" class="adv-wrap">
+            <div class="adv-icon">
+              <img class="a-c" [src]="'/assets/advantages/' + adv.icon" alt="">
+            </div>
+            <div>
+              <h4 class="adv-h" [innerText]="adv.name"></h4>
+              <p class="adv-txt" [innerText]="adv.description"></p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-center justify-center">
+          <button class="action-btn" (click)="eventsService.requestEvent()">
+            <svg icon="calendar"></svg>
+            <div>ЗАПИСАТСЯ НА ПРИЁМ</div>
+          </button>
+        </div>
+      </div>
+      <div class="adv-image"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- instagram -->
+<section class="content-w s5"></section>
+<app-program></app-program>

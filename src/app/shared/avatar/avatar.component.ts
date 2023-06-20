@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import {colorUtils} from "../shared/utils/Color";
+import { colorUtils } from '../utils/Color';
 
 interface AvatarData {
   id?: number,
@@ -44,14 +44,14 @@ export class AvatarComponent {
       height: rem + 'rem',
       width: rem + 'rem',
       lineHeight: rem + 'rem',
-      fontSize: (rem / 2) + 'rem',
+      fontSize: (rem / 2) + 'rem'
     };
   }
 
   @Input() set data(payload: AvatarData | any) {
     this.photo =
       payload.avatar ? 'url(' + payload.avatar + ')' :
-      payload.photoUrl ? 'url(' + payload.photoUrl + ')' : undefined;
+        payload.photoUrl ? 'url(' + payload.photoUrl + ')' : undefined;
 
     this.hasPhoto = (this.photo?.length || 0) > 10;
 
@@ -63,6 +63,6 @@ export class AvatarComponent {
       this.color = color.toString();
       this.photo = `linear-gradient(45deg, ${color} 0%, ${color.rotate(20).toString()} 100%)`;
     }
-    this.style = {...this.style, backgroundColor: this.color, backgroundImage: this.photo };
+    this.style = {...this.style, backgroundColor: this.color, backgroundImage: this.photo};
   };
 }

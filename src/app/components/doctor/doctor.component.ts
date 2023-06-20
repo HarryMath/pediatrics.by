@@ -2,11 +2,20 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } 
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { DomUtils, getName, mobileWidth } from 'src/app/shared/utils';
 import { EventsService } from '../events/events.service';
+import { AvatarComponent } from '../../shared/avatar/avatar.component';
+import { NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
+  standalone: true,
   selector: 'app-doctor',
   templateUrl: './doctor.component.html',
   styleUrls: ['./doctor.component.css'],
+  imports: [
+    AvatarComponent,
+    NgIf,
+    NgTemplateOutlet,
+    NgForOf
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DoctorComponent implements OnInit {

@@ -7,7 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { EventsService } from 'src/app/events/events.service';
+import { EventsService } from 'src/app/components/events/events.service';
 import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
 import { getName, isMailValid } from 'src/app/shared/utils';
 import { ClientCreateDto, ClientDto } from 'src/app/sdk/dto/Client';
@@ -17,7 +17,7 @@ import { AvailableDoctor } from 'src/app/sdk/dto/Workday';
 import { DateUtils } from 'src/app/shared/utils/date.utils';
 import { Time, TimeUtils } from 'src/app/shared/utils/TimeInterval';
 import { SelectOption } from 'src/app/shared/search-input/search-input.component';
-import { BasePopupComponent } from '../../shared/base-popup.component';
+import { BasePopupComponent } from '../../../shared/base-popup.component';
 
 const NAME_KEY = 'nm';
 const MAIL_KEY = 'eml';
@@ -59,7 +59,7 @@ const toDoctorMin = (d: DoctorDto): DoctorMin => {
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.component.html',
-  styleUrls: ['../../shared/pop-up.css', './event-create.component.css'],
+  styleUrls: ['../../../shared/pop-up.css', './event-create.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EventCreateComponent extends BasePopupComponent implements OnDestroy, OnInit {

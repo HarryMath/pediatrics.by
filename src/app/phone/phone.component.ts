@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component} from "@angular/core";
 import {BasePopupComponent} from "../shared/base-popup.component";
-import {EventsService} from "../events/events.service";
+import {EventsService} from "../components/events/events.service";
 
 @Component({
   selector: 'app-phone',

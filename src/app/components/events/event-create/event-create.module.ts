@@ -5,7 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { IconDirective } from 'src/app/shared/icon/icon.directive';
 import { TooltipDirective } from 'src/app/shared/tooltip/tooltip.directive';
 import { SelectDateComponent } from 'src/app/shared/date/select-date.component';
-import {AvatarComponent} from "../../avatar/avatar.component";
+import {AvatarComponent} from "../../../shared/avatar/avatar.component";
 
 @NgModule({
   declarations: [EventCreateComponent],
