@@ -17,8 +17,8 @@ export class PricePageComponent {
     {
       group: 'Педиатр',
       items: [
-        { name: 'Первичный прием педиатора', price: 40 },
-        { name: 'Повторный прием педиатора', price: 32 },
+        { name: 'Первичный прием педиатра', price: 40 },
+        { name: 'Повторный прием педиатра', price: 32 },
       ],
     },
     {
@@ -37,7 +37,7 @@ export class PricePageComponent {
     {
       group: 'Психолог',
       items: [
-        { name: 'Прием психолога', price: 40 }
+        { name: 'Прием психолога', price: 60 }
       ],
     },
     {
