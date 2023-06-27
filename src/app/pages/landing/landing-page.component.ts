@@ -319,16 +319,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private isHeaderVisible = false;
-  private touchedFooter = false;
-
   @HostListener('window:scroll')
   handleScroll(): void {
-    const isHeaderVisible = window.scrollY > 230;
-    if (isHeaderVisible !== this.isHeaderVisible) {
-      this.isHeaderVisible = isHeaderVisible;
-      document.getElementById('header')!.classList?.[isHeaderVisible ? 'add' : 'remove']('visible');
-    }
     for (let i = 0; i < this.appearElements.length; i++) {
       const el = this.appearElements[i];
       if (el.classList.contains('visible')) {
@@ -339,19 +331,6 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
         el.classList.add('visible');
         this.appearElements.splice(i--, 1);
         break;
-      }
-    }
-
-    const footer = document.querySelector('footer')!;
-    const rect = footer.getBoundingClientRect();
-
-    const touchedFooter = rect.bottom < innerHeight * 1.2 + 45;
-    if (this.touchedFooter !== touchedFooter) {
-      this.touchedFooter = touchedFooter;
-      document.getElementById('Контакты')!.classList?.[touchedFooter ? 'add' : 'remove']('end');
-      document.getElementById('header')!.classList?.[touchedFooter ? 'add' : 'remove']('end');
-      if (touchedFooter) {
-        window.scrollTo({ behavior: "smooth", top: document.body.scrollHeight })
       }
     }
   }
