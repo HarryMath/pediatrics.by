@@ -1,0 +1,33 @@
+<section class="content-w" id="Цены">
+  <div class="content">
+
+    <h2 class="h sect-h">Цены</h2>
+    <div>Цены актуальны на {{getDate()}}</div>
+    <div class="sect-cont">
+
+      <table>
+        <tr *ngFor="let p of priceList">
+          <td>
+
+            <table>
+              <thead>
+                <td>
+                  <h3 [innerText]="p.group"></h3>
+                </td>
+              </thead>
+              <tbody>
+              <tr class="service" *ngFor="let i of p.items">
+                <td [innerText]="i.name"></td>
+                <td class="price-cell">{{i.price}} <span>BYN</span></td>
+              </tr>
+              </tbody>
+
+            </table>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+</section>

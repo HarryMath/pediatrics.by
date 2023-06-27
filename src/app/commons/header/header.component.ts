@@ -3,7 +3,7 @@ import { EventsService } from '../../components/events/events.service';
 import { mobileWidth } from '../../shared/utils';
 import { NgForOf, NgIf } from '@angular/common';
 import { IconDirective } from '../../shared/icon/icon.directive';
-import { MENU_LIST } from '../menu/menu.component';
+import { MENU } from '../menu/menu.component';
 
 @Component({
   standalone: true,
@@ -19,7 +19,7 @@ import { MENU_LIST } from '../menu/menu.component';
 export class HeaderComponent {
   @Input() hide: boolean = false;
 
-  menu = MENU_LIST;
+  menu = MENU;
 
   isMobile: boolean;
 
@@ -29,5 +29,4 @@ export class HeaderComponent {
   ) {
     this.isMobile = innerWidth <= mobileWidth;
   }
-
 }

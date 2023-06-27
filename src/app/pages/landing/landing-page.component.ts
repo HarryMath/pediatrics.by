@@ -5,9 +5,9 @@ import { mobileWidth, random, remToPX, toRadians, wait } from '../../shared/util
 import { ScheduleSdk } from '../../sdk/schedule.sdk';
 import { NgClass, NgForOf, NgIf, NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
 import { IconDirective } from '../../shared/icon/icon.directive';
-import { MENU_LIST } from '../../commons/menu/menu.component';
 import { DoctorComponent } from '../../components/doctor/doctor.component';
 import { ProgramComponent } from '../../components/program/program.component';
+import { HeaderComponent } from '../../commons/header/header.component';
 
 const HEART_SIZE_REM = 12;
 
@@ -69,7 +69,8 @@ interface IDoctor {
     NgOptimizedImage,
     DoctorComponent,
     NgTemplateOutlet,
-    ProgramComponent
+    ProgramComponent,
+    HeaderComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -224,8 +225,6 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   appearElements: SVGElement[] = [];
 
   doctors: DoctorDto[] = [];
-
-  menu = MENU_LIST;
 
   isMobile: boolean;
 

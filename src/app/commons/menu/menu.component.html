@@ -10,7 +10,7 @@
 
       <div class="pop-body">
         <div *ngFor="let m of menu">
-          <a class="nav-link text-lg" [href]="'#' + m" [innerText]="m" (click)="close()"></a>
+          <a class="nav-link text-lg" [href]="m.link" [innerText]="m.name" (click)="close()"></a>
         </div>
       </div>
 

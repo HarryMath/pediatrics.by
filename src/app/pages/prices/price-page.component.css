@@ -1,0 +1,19 @@
+table {
+  width: 100%;
+}
+
+.price-cell {
+  text-align: right;
+}
+
+.content-w {
+  padding: 8rem 0;
+}
+.service {
+  line-height: 3.3rem;
+}
+
+::ng-deep header {
+  transform: none;
+}
+

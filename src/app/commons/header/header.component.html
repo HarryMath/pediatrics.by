@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="!isMobile && !hide" class="flex-center justify-center">
-  <a class="nav-link" *ngFor="let m of menu" [href]="'#' + m" [innerText]="m"></a>
+  <a class="nav-link" *ngFor="let m of menu" [href]="m.link" [innerText]="m.name"></a>
 </div>
 
 <div class="header-right" *ngIf="!hide">

@@ -2,7 +2,28 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { BasePopupComponent } from '../../shared/base-popup.component';
 import { EventsService } from '../../components/events/events.service';
 
-export const MENU_LIST = ['Услуги', 'Программы', 'Специалисты', /*'Наши преимущества',*/ 'Контакты'];
+export const MENU = [
+  {
+    link: '#Услуги',
+    name: 'Услуги'
+  },
+  {
+    link: '#Программы',
+    name: 'Программы'
+  },
+  {
+    link: '#Специалисты',
+    name: 'Специалисты'
+  },
+  {
+    link: '/цены',
+    name: 'Цены'
+  },
+  {
+    link: '#Контакты',
+    name: 'Контакты'
+  }
+];
 
 @Component({
   selector: 'app-menu',
@@ -12,7 +33,7 @@ export const MENU_LIST = ['Услуги', 'Программы', 'Специал�
 })
 export class MenuComponent extends BasePopupComponent {
 
-  menu = MENU_LIST;
+  menu = MENU;
 
   constructor(
     private readonly service: EventsService,
