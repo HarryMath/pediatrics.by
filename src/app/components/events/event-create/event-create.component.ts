@@ -64,6 +64,12 @@ const toDoctorMin = (d: DoctorDto): DoctorMin => {
 })
 export class EventCreateComponent extends BasePopupComponent implements OnDestroy, OnInit {
 
+  private readonly changeDate = new Date(2023, 8 - 1, 1, 0);
+  isChangeDatePassed = new Date().getTime() > this.changeDate.getTime();
+  getChangeDate(): string {
+    return DateUtils.toString(this.changeDate);
+  }
+
   step: 0 | 1 | 2 | 3 = 0;
   success = false;
   errorMessage = '';

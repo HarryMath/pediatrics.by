@@ -18,7 +18,7 @@ import { IconDirective } from '../../shared/icon/icon.directive';
 export class PricePageComponent {
 
   private readonly changeDate = new Date(2023, 8 - 1, 1, 0);
-  showNew = false;
+  showNew = document.location.href.includes('new');
 
   private readonly priceListOld = [
     {

@@ -6,15 +6,8 @@
 
 
     <div *ngIf="!isChangeDatePassed && !showNew" class="warning">
-      <div>
-        <svg icon="warn"></svg>
-      </div>
-      <div>
-        <p>
-          Внимание! С {{ getChangeDate() }} будет повышениец цен.
-          <span class="link" (click)="viewNew()">Посмотреть обновленные</span>
-        </p>
-      </div>
+      <div><svg icon="warn"></svg></div>
+      <div><p>Внимание! С {{ getChangeDate() }} будет повышение цен. <span class="link" (click)="viewNew()">Посмотреть обновленные</span></p></div>
     </div>
 
     <div *ngIf="!isChangeDatePassed && showNew">

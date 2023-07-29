@@ -18,6 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'цены',
+    pathMatch: 'prefix',
     loadComponent: () => import('./pages/prices/price-page.component').then(m => m.PricePageComponent),
   },
   { path: '**', redirectTo: '' }

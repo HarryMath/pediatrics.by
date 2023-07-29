@@ -1017,3 +1017,26 @@ footer h3 {
     color: #fff;
   }
 }
+
+.warning {
+  font-size: 1.7rem;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  background-color: #f7d18961;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.warning svg {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1.7rem;
+  color: #d37b2a;
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #616469c4;
+}

@@ -11,6 +11,10 @@
       </div>
 
       <div class="pop-body">
+        <div *ngIf="!isChangeDatePassed" class="warning">
+          <div><svg icon="warn"></svg></div>
+          <div><p>Внимание! С {{ getChangeDate() }} будет повышение цен. <a href="/цены?t=new" class="link" target="_blank">Посмотреть</a></p></div>
+        </div>
         <ng-container [ngTemplateOutlet]="
         step == 0 ? doctorTemplate :
         step == 1 ? ticketTemplate :
