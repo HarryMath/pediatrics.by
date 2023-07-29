@@ -2,7 +2,25 @@
   <div class="content">
 
     <h2 class="h sect-h">Цены</h2>
-    <div>Цены актуальны на {{getDate()}}</div>
+    <div>Цены актуальны на {{ getActualDate() }}</div>
+
+
+    <div *ngIf="!isChangeDatePassed && !showNew" class="warning">
+      <div>
+        <svg icon="warn"></svg>
+      </div>
+      <div>
+        <p>
+          Внимание! С {{ getChangeDate() }} будет повышениец цен.
+          <span class="link" (click)="viewNew()">Посмотреть обновленные</span>
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="!isChangeDatePassed && showNew">
+      <p class="link" (click)="viewOld()">Посмотреть старые цены</p>
+    </div>
+
     <div class="sect-cont">
 
       <table>
@@ -11,9 +29,9 @@
 
             <table>
               <thead>
-                <td>
-                  <h3 [innerText]="p.group"></h3>
-                </td>
+              <td>
+                <h3 [innerText]="p.group"></h3>
+              </td>
               </thead>
               <tbody>
               <tr class="service" *ngFor="let i of p.items">

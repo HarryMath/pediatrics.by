@@ -2,10 +2,9 @@ import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import {ClientCreateDto, ClientDto} from "./dto/Client";
 import {EventCreateDto} from "./dto/Event";
 import {TimestampInterval} from "./dto/Interval";
-import { DateUtils } from '../shared/utils/date.utils';
 
-// export const endpoint = 'http://localhost:80/api/';
-export const endpoint = 'https://timekit.online/api/';
+export const endpoint = 'http://localhost:8080/api/';
+// export const endpoint = 'https://timekit.online/api/';
 export const headers = {
   "Content-Type": "application/json",
 };

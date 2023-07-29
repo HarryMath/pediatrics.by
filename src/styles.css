@@ -11,6 +11,7 @@
   --input-h: 4rem;
   --search-h: 4rem;
 
+  --txt: #232336;
   --text: #200952;
   --button: #200952;
   --footer1-1: #6AD76D1D;
@@ -58,7 +59,7 @@ input, textarea, select {
   font-size: 1.3rem;
   border: none;
   background-color: unset;
-  color: var(--text);
+  color: var(--txt);
   -webkit-user-select: initial;
   -moz-user-select: initial;
   -ms-user-select: initial;
@@ -108,7 +109,7 @@ body {
   /*scroll-snap-type: y mandatory;*/
   font-size: 1.4rem;
   font-weight: 400;
-  color: var(--text);
+  color: var(--txt);
 }
 
 .secondary {
@@ -351,6 +352,10 @@ section.content-w {
 }
 .l2 {
   background-image: url(assets/feet_green2.png);
+}
+
+h1, h2 {
+  color: var(--text);
 }
 
 h1 {
