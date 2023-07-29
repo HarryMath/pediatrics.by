@@ -354,7 +354,7 @@ section.content-w {
   background-image: url(assets/feet_green2.png);
 }
 
-h1, h2 {
+h1, h2, .h {
   color: var(--text);
 }
 

@@ -11,7 +11,7 @@ table {
 .price-cell {
   text-align: right;
   white-space: nowrap;
-  padding-left: 2rem;
+  padding-left: 2rem!important;
 }
 
 
