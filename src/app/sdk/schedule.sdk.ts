@@ -12,8 +12,9 @@ export const headers = {
 export class ScheduleSdk {
 
   static doctors = {
-    get(search?: string): Promise<DoctorDto[]> {
-      return ScheduleSdk.get<DoctorDto[]>('doctors', { search });
+    async get(search?: string): Promise<DoctorDto[]> {
+      const d = await ScheduleSdk.get<DoctorDto[]>('doctors', { search });
+      return d.filter(d => d.id !== 9);
     },
 
     getRoles(): Promise<string[]> {

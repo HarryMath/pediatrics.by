@@ -604,6 +604,14 @@ h3 {
   background-color: #faf2ff;
 }
 
+.prog:nth-child(2) .p-head {
+  background-color: #8fffb5
+}
+
+.prog:last-child .p-head {
+  background-color: #fbeddf;
+}
+
 .p-name {
   font-size: 2.4rem;
   text-transform: uppercase;
@@ -694,6 +702,7 @@ h3 {
 .p-button-w button {
   width: 100%;
   display: block;
+  max-width: 25rem
 }
 
 /* ________ ADVANTAGES __________ */
@@ -900,13 +909,20 @@ footer h3 {
 @media screen and (min-width: 900px){
   .s2 .sect-cont {
     display: flex;
+    flex-wrap: wrap;
   }
   .prog {
-    width: 33.3%;
+    width: calc(33.3% - 1.5rem);
     margin-right: 1.5rem;
   }
   .prog h3 {
     font-size: 2rem;
+  }
+  .prog:last-child .p-head, .prog:last-child .p-body {
+    height: unset;
+  }
+  .prog:last-child {
+    width: 100%;
   }
   .prog:last-child {
     margin-right: 0;

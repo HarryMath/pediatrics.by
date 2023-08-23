@@ -1,4 +1,11 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnInit
+} from '@angular/core';
 import { DoctorDto } from '../../sdk/dto/Doctor';
 import { EventsService } from '../../components/events/events.service';
 import { mobileWidth, random, remToPX, toRadians, wait } from '../../shared/utils';
@@ -94,7 +101,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       includes: [
         'Получить информацию по уходу за новорожденным',
         'Составить план необходимых покупок для малыша',
-        'Узнать о грудном вскармливании, особенностях периода кормления',
+        'Узнать о грудном вскармливании, особенностях периода кормления'
       ]
     },
     {
@@ -139,11 +146,96 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
   programs: IProgram[] = [
     {
-      name: '365 вопросов первого года жизни',
-      minPrice: 'от 1470 BYN / год',
+      name: 'Личный Педиатр',
+      minPrice: '1140 BYN / год',
+      price: [{ val: 1140 }],
+      main: [
+        'Связь с педиатром',
+        'Помощь в расшифровке анализов',
+        'Составление индивидуальной программы наблюдения, вакцинации'
+      ],
+      includes: [{
+        includes: [
+          'Составление индивидуального плана осмотров, исследований, анализов',
+          'Онлайн связь с личным врачом-педиатром посредством мобильных звонков, а также мессенджера Telegram/Viber',
+          'Рекомендации по питанию и образу жизни',
+          'Помощь с расшифровкой результатов анализов',
+          'Выдача по результатам проведения необходимых осмотров и предоставления необходимой информации справок в бассейн, на кружки и развивающие занятия'
+        ]
+      }],
+      payOptions: '*возможна оплата в 2 этапа',
+      icon: 'all_in'
+    },
+    {
+      name: 'У меня вопрос',
+      minPrice: 'от 444 BYN / год',
       price: [
-        { val: 1680, label: '(Дубатовка Н. Д.)' },
-        { val: 1470, label: '(Рыбакова Н.В., Науменко А. Б.)'}
+        { val: 495, label: '(Дубатовка Н. Д.)' },
+        { val: 444, label: '(Рыбакова Н.В., Науменко А. Б.)' }
+      ],
+      main: [
+        'Связь с педиатром',
+        '3 плановых осмотра',
+        'Составление плана осмотров и исследований'
+      ],
+      includes: [
+        {
+          includes: [
+            'Плановое посещение врача-педиатра',
+            'Плановое посещение врача-травматолога-ортопеда (можно заменить на осмотр педиатра)',
+            'Плановое посещение врача-детского невролога (можно заменить на осмотр педиатра)'
+          ]
+        },
+        {
+          label: 'В период действия программы «У МЕНЯ ВОПРОС» в рамках консультации врача-педиатра Пациенту предоставляется:',
+          includes: [
+            'Составление индивидуального плана осмотров, исследований, анализов, вакцинации',
+            'Онлайн связь с личным врачом-педиатром',
+            'Рекомендации по питанию и образу жизни',
+            'Помощь с расшифровкой результатов анализов',
+            'Выдача по результатам проведения необходимых осмотров и предоставления необходимой информации справок в бассейн, на кружки и развивающие занятия'
+          ]
+        }
+      ],
+      icon: 'question',
+      payOptions: '*Для детей любого возраста',
+    },
+    {
+      name: 'Рука на пульсе',
+      minPrice: '360 BYN / год',
+      price: [{ val: 360 }],
+      main: [
+        '9 посещений любого врача медицинского центра (не включает вызов на дом)',
+        'Рекомендации по питанию и образу жизни',
+        'Помощь с расшифровкой результатов анализов'
+      ],
+      includes: [
+        {
+          includes: [
+            '7 посещений врача-педиатра в Клинике',
+            '1 плановое посещение врача-травматолога-ортопеда',
+            '1 плановое посещение врача-детского невролога'
+          ]
+        },
+        {
+          label: 'В период действия программы «РУКА НА ПУЛЬСЕ» в рамках консультации врача-педиатра Пациенту предоставляется:',
+          includes: [
+            'Составление индивидуального плана осмотров, исследований, анализов, вакцинации',
+            'Рекомендации по питанию и образу жизни',
+            'Помощь с расшифровкой результатов анализов',
+            'Выдача по результатам проведения необходимых осмотров и предоставления необходимой информации справок в бассейн, на кружки и развивающие занятия'
+          ]
+        }
+      ],
+      icon: 'pulse',
+      payOptions: '*без онлайн сопровождения'
+    },
+    {
+      name: '365 вопросов первого года жизни',
+      minPrice: 'от 1680 BYN / год',
+      price: [
+        { val: 1980, label: '(Дубатовка Н. Д.)' },
+        { val: 1680, label: '(Рыбакова Н.В., Науменко А. Б.)' }
       ],
       main: [
         'Связь с педиатром',
@@ -163,7 +255,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
           ]
         },
         {
-          label: 'В период действия программы «365 вопросов» в рамках консультации врача-педиатра Пациенту предоставляется:',
+          label: 'В период действия программы «365 ВОПРОСОВ» в рамках консультации врача-педиатра Пациенту предоставляется:',
           includes: [
             'Онлайн связь с личным врачом-педиатром с 9.00 до 22.00 ежедневно, посредством мобильных звонков, а также мессенджера Telegram/Viber',
             'Обучение основным навыкам родительства, помощь по всем возникающим вопросам',
@@ -174,51 +266,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
         }
       ],
       payOptions: '*возможна оплата в 2 этапа',
-      icon: '365',
-    },
-    {
-      name: 'Все включено',
-      minPrice: '1140 BYN / год',
-      price: [{ val: 1140 }],
-      main: [
-        'Связь с педиатром',
-        'Осмотры в клинике и на дому',
-        'Составление индивидуальной программы наблюдения, вакцинации',
-      ],
-      includes: [{
-        includes: [
-          '12 посещений врача-педиатра в Клинике',
-          '2 вызова на дом',
-          '5 плановых посещений врачей специалистов в Клинике (врача-травматолога-ортопеда, или врача-детского невролога, или врача-аллерголога-иммунолога)',
-          'Cоставление индивидуального плана осмотров, исследований, анализов, вакцинации',
-          'Онлайн связь с личным врачом-педиатром с 9.00 до 22.00 ежедневно, посредством мобильных звонков, а также мессенджера Telegram/Viber',
-          'Рекомендации по питанию и образу жизни',
-          'Помощь с расшифровкой результатов анализов',
-          'Составление индивидуального плана вакцинации с выдачей паспорта прививок по форме 063/у',
-          'Выдача по результатам проведения необходимых осмотров и предоставления необходимой информации справок в бассейн, на кружки и развивающие занятия'
-        ]
-      }],
-      payOptions: '*возможна оплата в 2 этапа',
-      icon: 'all_in',
-    },
-    {
-      name: 'Рука на пульсе',
-      minPrice: '315 BYN / год',
-      price: [{ val: 315 }],
-      main: [
-        '9 посещений любого врача медицинского центра (не включает вызов на дом)',
-        'Рекомендации по питанию и образу жизни',
-        'Помощь с расшифровкой результатов анализов',
-      ],
-      includes: [{
-        includes: [
-          '9 посещений любых врачей специалистов клиники',
-          'Рекомендации по питанию и образу жизни',
-          'Помощь с расшифровкой результатов анализов',
-          'Выдача по результатам проведения необходимых осмотров и предоставления необходимой информации справок в бассейн, на кружки и развивающие занятия'
-        ]
-      }],
-      icon: 'pulse',
+      icon: '365'
     }
   ];
 
@@ -230,7 +278,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
 
   constructor(
     readonly eventsService: EventsService,
-    readonly cdr: ChangeDetectorRef,
+    readonly cdr: ChangeDetectorRef
   ) {
     this.isMobile = innerWidth <= mobileWidth;
   }
@@ -246,7 +294,6 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    document.querySelectorAll<HTMLDivElement>('.p-head')[1].style.cssText = 'background-color: #8fffb5';
     setTimeout(() => this.prepareServices(), 1000);
   }
 
@@ -271,24 +318,24 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
         const translateX = (i - 0.34 * (j % 3)) * hearSize + random(-offsetSize, offsetSize);
         const translateY = j * hearSize + random(-offsetSize, offsetSize);
         const d = random(0, hearSize / 10);
-        const d2 = random(-hearSize / 10, hearSize / 10)
+        const d2 = random(-hearSize / 10, hearSize / 10);
         const dx = d * Math.cos(rotation * toRadians)
           + d2 * Math.cos((rotation - 90) * toRadians);
         const dy = d * Math.sin(rotation * toRadians)
           + d2 * Math.sin((rotation - 90) * toRadians);
         // hearts += `<svg class="heart" style="transform:translate(${translateX}px,${translateY}px) rotate(${random(0, 360)}deg)"><use xlink:href="#like"></use></svg>`
         hearts += '<div class="h-wrap">'
-          + `<div class="heart l1" style="transition-delay:${tLeft}ms;transform:translate(${translateX - dx}px,${translateY - dy}px) rotate(${rotation}deg)"></div>`
-          + `<div class="heart l2" style="transition-delay:${tRight}ms;transform:translate(${translateX + dx}px,${translateY + dy}px) rotate(${rotation + random(-40, 10)}deg)"></div>`
-          + '</div>'
+          + `<div class="heart l1" style="transition-delay:${ tLeft }ms;transform:translate(${ translateX - dx }px,${ translateY - dy }px) rotate(${ rotation }deg)"></div>`
+          + `<div class="heart l2" style="transition-delay:${ tRight }ms;transform:translate(${ translateX + dx }px,${ translateY + dy }px) rotate(${ rotation + random(-40, 10) }deg)"></div>`
+          + '</div>';
       }
     }
     container.innerHTML += hearts;
 
-    const baby = document.getElementById("baby")!;
+    const baby = document.getElementById('baby')!;
     if (innerWidth <= 650) {
       const size = innerWidth - remToPX(4);
-      baby.style.cssText = `width: ${size}px;height:${size * 1.3}px`
+      baby.style.cssText = `width: ${ size }px;height:${ size * 1.3 }px`;
     }
 
     await wait(100);
@@ -300,7 +347,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     this.services.forEach(s => {
       const div = document.getElementById('service_' + s.name)!;
       this.updateService(s.isOpened || false, div);
-    })
+    });
     this.cdr.markForCheck();
   }
 
@@ -341,7 +388,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       div.querySelector('.s-head')!;
 
     const h = element.getBoundingClientRect().height;
-    div.style.cssText = `height: ${h}px`;
+    div.style.cssText = `height: ${ h }px`;
   }
 
   private async loadDoctors(): Promise<void> {
