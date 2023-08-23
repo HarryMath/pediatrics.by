@@ -9,6 +9,15 @@
       </div>
 
       <div class="pop-body">
+        <h4 class="p-body-header" [innerText]="p.price.length > 1 ? 'Стоимость:' : 'Стоимость ' + p.price[0].val + ' BYN'"></h4>
+        <div class="prices" *ngIf="p.price.length > 1">
+          <div *ngFor="let pr of p.price">
+            <p>
+              <span [innerText]="pr.val + ' BYN'"></span> <span *ngIf="pr.label" [innerText]="' ' + pr.label"></span>
+            </p>
+          </div>
+        </div>
+        <br>
         <h4 class="p-body-header">В программу включено:</h4>
         <div *ngFor="let l of p.includes">
           <p class="label text-lg" *ngIf="l.label" [innerHTML]="l.label"></p>
