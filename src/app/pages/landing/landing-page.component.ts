@@ -171,7 +171,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       minPrice: 'от 444 BYN / год',
       price: [
         { val: 495, label: '(Дубатовка Н. Д.)' },
-        { val: 444, label: '(Рыбакова Н.В., Науменко А. Б.)' }
+        { val: 444, label: '(Рыбакова Н.В., Науменко А. Б., Сайко Е. М.)' }
       ],
       main: [
         'Связь с педиатром',
@@ -235,7 +235,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
       minPrice: 'от 1680 BYN / год',
       price: [
         { val: 1980, label: '(Дубатовка Н. Д.)' },
-        { val: 1680, label: '(Рыбакова Н.В., Науменко А. Б.)' }
+        { val: 1680, label: '(Рыбакова Н.В., Науменко А. Б., Сайко Е. М.)' }
       ],
       main: [
         'Связь с педиатром',

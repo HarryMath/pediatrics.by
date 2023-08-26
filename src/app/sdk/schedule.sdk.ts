@@ -3,8 +3,11 @@ import {ClientCreateDto, ClientDto} from "./dto/Client";
 import {EventCreateDto} from "./dto/Event";
 import {TimestampInterval} from "./dto/Interval";
 
-// export const endpoint = 'http://localhost:8080/api/';
-export const endpoint = 'https://timekit.online/api/';
+const endpoint = 'http://localhost:8080/api/';
+// const endpoint = 'https://timekit.online/api/';
+const LAST_VISIT_KEY = 'vld';
+const VISIT_TRACK_LIMIT = 3 * 60 * 60 * 1000; // 3 h
+
 export const headers = {
   "Content-Type": "application/json",
 };
@@ -45,6 +48,24 @@ export class ScheduleSdk {
   static events = {
     create(e: EventCreateDto): Promise<void> {
       return ScheduleSdk.post<void, EventCreateDto>('events', e);
+    }
+  }
+
+  static visits = {
+    async track(isMobile: boolean): Promise<void> {
+      try {
+        const lastVisitDateString = localStorage.getItem(LAST_VISIT_KEY);
+        if (lastVisitDateString) {
+          const lastVisitDate = new Date(lastVisitDateString);
+          if (new Date().getTime() - lastVisitDate.getTime() < VISIT_TRACK_LIMIT) {
+            return;
+          }
+        }
+        const { date }  = await ScheduleSdk.post<{ date: string }>('visits', { isMobile });
+        localStorage.setItem(LAST_VISIT_KEY, date || new Date().toISOString());
+      } catch (ignore) {
+        console.clear();
+      }
     }
   }
 

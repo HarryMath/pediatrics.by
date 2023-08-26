@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
 import { mobileWidth } from './shared/utils';
-import { EventsService } from './components/events/events.service';
+import { ScheduleSdk } from './sdk/schedule.sdk';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,11 @@ import { EventsService } from './components/events/events.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-
   isMobile: boolean;
 
-  constructor(
-    readonly eventsService: EventsService,
-    readonly cdr: ChangeDetectorRef
-  ) {
+  constructor() {
     this.isMobile = innerWidth <= mobileWidth;
+    setTimeout(() => ScheduleSdk.visits.track(this.isMobile), 2000);
   }
 
   private isHeaderVisible = false;
