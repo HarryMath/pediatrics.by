@@ -1,10 +1,10 @@
 import { DoctorDto } from 'src/app/sdk/dto/Doctor';
-import {ClientCreateDto, ClientDto} from "./dto/Client";
-import {EventCreateDto} from "./dto/Event";
-import {TimestampInterval} from "./dto/Interval";
+import { ClientCreateDto, ClientDto } from './dto/Client';
+import { EventCreateDto } from './dto/Event';
+import { TimestampInterval } from './dto/Interval';
 
-const endpoint = 'http://localhost:8080/api/';
-// const endpoint = 'https://timekit.online/api/';
+// const endpoint = 'http://localhost:8080/api/';
+const endpoint = 'https://timekit.online/api/';
 const LAST_VISIT_KEY = 'vld';
 const VISIT_TRACK_LIMIT = 3 * 60 * 60 * 1000; // 3 h
 
@@ -25,12 +25,11 @@ export class ScheduleSdk {
     },
 
     async getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
-      const days = await ScheduleSdk.get<TimestampInterval[]>(`doctors/${id}/free-time/${monthIndex}`);
       // days.forEach(d => {
       //   d.start = DateUtils.setTimeZone(d.start, 3);
       //   d.end = DateUtils.setTimeZone(d.end, 3);
       // });
-      return days;
+      return await ScheduleSdk.get<TimestampInterval[]>(`doctors/${ id }/free-time/${ monthIndex }`);
     },
 
     async getNextAvailable(id: number): Promise<Date|undefined> {

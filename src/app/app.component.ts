@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor() {
     this.isMobile = innerWidth <= mobileWidth;
-    setTimeout(() => ScheduleSdk.visits.track(this.isMobile), 2000);
+    setTimeout(() => ScheduleSdk.visits.track(this.isMobile), 20 * 1000);
   }
 
   private isHeaderVisible = false;
