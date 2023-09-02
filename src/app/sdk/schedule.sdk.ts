@@ -51,7 +51,7 @@ export class ScheduleSdk {
   }
 
   static visits = {
-    async track(isMobile: boolean): Promise<void> {
+    async track(isMobile: boolean, isAdmissionClick = false): Promise<void> {
       try {
         const lastVisitDateString = localStorage.getItem(LAST_VISIT_KEY);
         if (lastVisitDateString) {
@@ -60,7 +60,7 @@ export class ScheduleSdk {
             return;
           }
         }
-        const { date }  = await ScheduleSdk.post<{ date: string }>('visits', { isMobile });
+        const { date }  = await ScheduleSdk.post<{ date: string }>('visits', { isMobile, isAdmissionClick });
         localStorage.setItem(LAST_VISIT_KEY, date || new Date().toISOString());
       } catch (ignore) {
         console.clear();
