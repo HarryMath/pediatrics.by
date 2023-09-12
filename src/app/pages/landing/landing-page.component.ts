@@ -168,7 +168,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     },
     {
       name: 'У меня вопрос',
-      minPrice: 'от 444 BYN / год',
+      minPrice: 'от 444 BYN / 6 мес',
       price: [
         { val: 495, label: '(Дубатовка Н. Д.)' },
         { val: 444, label: '(Рыбакова Н.В., Науменко А. Б., Сайко Е. М.)' }
