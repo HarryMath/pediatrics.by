@@ -18,7 +18,8 @@ import { MENU } from '../menu/menu.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  @Input() hide: boolean = false;
+  @Input() hide = false;
+  @Input() isCustom = false;
 
   menu = MENU;
 

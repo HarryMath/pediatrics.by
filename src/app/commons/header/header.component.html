@@ -1,6 +1,6 @@
 <div class="hh flex-center">
   <img class="icon-main" src="/assets/logo/no_txt.svg" alt="logo" height="16" width="18">
-  <svg id="logo-t" icon="txt"></svg>
+  <svg *ngIf="!isMobile || !isCustom" id="logo-t" icon="txt"></svg>
 </div>
 
 <div *ngIf="!isMobile && !hide" class="hh flex-center justify-center">

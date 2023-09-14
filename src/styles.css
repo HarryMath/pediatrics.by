@@ -931,6 +931,9 @@ footer h3 {
 
 
 @media screen and (min-width: 700px) {
+  :root {
+    --max-w: calc(1200px + 23vw);
+  }
   .p-head {
     height: 18.5rem;
   }
@@ -938,7 +941,7 @@ footer h3 {
     font-size: 1.8rem;
   }
   html {
-    font-size: calc(11px + .2vw);
+    font-size: calc(11px + .1vw);
   }
   .content {
     padding: 0 4rem;

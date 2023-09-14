@@ -20,7 +20,7 @@ export class AppComponent {
 
   @HostListener('window:scroll')
   handleScroll(): void {
-    const isHeaderVisible = window.scrollY > 230;
+    const isHeaderVisible = window.scrollY > 430;
     if (isHeaderVisible !== this.isHeaderVisible) {
       this.isHeaderVisible = isHeaderVisible;
       document.getElementById('header')!.classList?.[isHeaderVisible ? 'add' : 'remove']('visible');
