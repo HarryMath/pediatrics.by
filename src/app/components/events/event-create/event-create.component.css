@@ -127,3 +127,17 @@
   opacity: .7;
   font-size: 1.6rem;
 }
+
+.pd {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.pd> div{
+  margin-left: 1rem;
+}
+
+.pd a {
+  color: #2196f3;
+}

@@ -79,6 +79,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   clientId?: number;
   useEmail = false;
   client = createClientDto();
+  isAgree = false;
 
   doctorRole = '';
   doctorName = '';
@@ -209,6 +210,9 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   }
 
   async save(): Promise<void> {
+    if (!this.isAgree) {
+      alert('Чтобы записаться, вы должны согласится с политикой обработки персональных данныз');
+    }
     if (this.isLoadingSave) {
       return;
     }
@@ -383,7 +387,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     if (this.step === 1) {
       return !this.start || !this.end;
     }
-    return !this.hasClientName() || !this.hasEmail() || !this.hasPhone();
+    return !this.isAgree || !this.hasClientName() || !this.hasEmail() || !this.hasPhone();
   }
 
   back(): void {

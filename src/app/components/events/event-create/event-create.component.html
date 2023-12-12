@@ -168,6 +168,10 @@
             label="Эл. почта"
             [(value)]="client.email"
           ></ng-input>
+          <div class="flex pd">
+            <ng-checkbox [condition]="isAgree" [size]="2" (click)="isAgree = !isAgree"></ng-checkbox>
+            <div>Я даю согласие на обработку <a class="link" href="/assets/Политика_ОПД.pdf" target="_blank">персональных данных</a></div>
+          </div>
 <!--          <p *ngIf="!useEmail">Нету номера? <span class="a" (click)="useEmail=true">Записаться с помошью email</span></p>-->
 <!--          <p *ngIf="useEmail" (click)="useEmail=false">Записаться с помошью мобильного телефона</p>-->
         </div>

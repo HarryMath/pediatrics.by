@@ -1,0 +1,17 @@
+.checkbox {
+  border: .2rem solid #8a8a8a;
+  stroke: #fff;
+  stroke-dasharray: 25;
+  stroke-dashoffset: 25;
+  stroke-linecap: round;
+  stroke-width: .2rem;
+  border-radius: 3px;
+  fill: none;
+  cursor: pointer;
+  transition: background-color .3s, border-color .25s, stroke-dashoffset .4s;
+}
+.checked {
+  background-color: var(--g-chekbox);
+  border-color: var(--g-chekbox);
+  stroke-dashoffset: 0;
+}

@@ -6,10 +6,11 @@ import { IconDirective } from 'src/app/shared/icon/icon.directive';
 import { TooltipDirective } from 'src/app/shared/tooltip/tooltip.directive';
 import { SelectDateComponent } from 'src/app/shared/date/select-date.component';
 import {AvatarComponent} from "../../../shared/avatar/avatar.component";
+import { CheckboxComponent } from '../../../shared/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [EventCreateComponent],
-    imports: [CommonModule, SharedModule, IconDirective, TooltipDirective, AvatarComponent],
+  imports: [CommonModule, SharedModule, IconDirective, TooltipDirective, AvatarComponent, CheckboxComponent],
   exports: [EventCreateComponent]
 })
 export class EventCreateModule {}
