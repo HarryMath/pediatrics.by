@@ -212,6 +212,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   async save(): Promise<void> {
     if (!this.isAgree) {
       alert('Чтобы записаться, вы должны согласится с политикой обработки персональных данныз');
+      return;
     }
     if (this.isLoadingSave) {
       return;
