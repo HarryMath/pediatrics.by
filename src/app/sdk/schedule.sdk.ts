@@ -100,7 +100,8 @@ export class ScheduleSdk {
   }
 
   static getWidgetUrl(doctorId?: number) {
-    const query = ScheduleSdk.buildQueryString({ doctorId });
+    const origin = document.location.origin;
+    const query = ScheduleSdk.buildQueryString({ doctorId, origin });
     return widget + '?' + query;
   }
 }

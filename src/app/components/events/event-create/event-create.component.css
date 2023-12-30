@@ -2,8 +2,15 @@
   width: min(calc(100vw - 4rem), max(35rem, 33vw));
 }
 
+iframe {
+  height: 10rem;
+  border-radius: 1rem;
+  transition: height .2s, opacity .4s;
+}
+
+
 @media screen and (max-width: 600px) {
-  .pop-up {
+  .pop-up, iframe {
     width: 100%;
     height: 100%;
     border-radius: 0;
@@ -13,15 +20,6 @@
     border-top-right-radius: 2rem;
     opacity: 1;
   }
-}
-
-iframe {
-  height: 10rem;
-  border-radius: 1rem;
-  transition: height .2s, opacity .4s;
-}
-
-@media screen and (max-width: 600px) {
   iframe {
     height: 100%!important;
   }
