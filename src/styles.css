@@ -360,7 +360,6 @@ h1, h2, .h {
 }
 
 h1 {
-  margin: 2rem 0 3rem;
   font-size: 4.5rem;
   line-height: 1.1;
 }
@@ -958,8 +957,9 @@ footer h3 {
     margin-top: -4rem;
   }
   ::-webkit-scrollbar {
-    width: .5rem;
-    height: .5rem;
+    width: 0;
+    height: 0;
+    visibility: hidden;
   }
   ::-webkit-scrollbar-track {
     background: #aaaaaa3d;

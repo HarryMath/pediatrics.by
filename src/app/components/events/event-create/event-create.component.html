@@ -1,7 +1,7 @@
 <div *ngIf="isVisible" class="full pop-up-wrap">
   <div [style.opacity]="isOpened ? 1 : 0" class="full overlay"></div>
 
-  <div *ngIf="step < 3" class="a-c pop-up" [ngClass]="getPopUpClass()">
+  <div class="a-c pop-up" [ngClass]="getPopUpClass()">
 
     <div class="p-inner full">
 
@@ -10,172 +10,10 @@
         <svg class="p-cross" icon="cross" (click)="close()"></svg>
       </div>
 
-      <div class="pop-body">
-        <div *ngIf="!isChangeDatePassed" class="warning">
-          <div><svg icon="warn"></svg></div>
-          <div><p>Внимание! С {{ getChangeDate() }} будет повышение цен. <a href="/цены?t=new" class="link" target="_blank">Посмотреть</a></p></div>
-        </div>
-        <ng-container [ngTemplateOutlet]="
-        step == 0 ? doctorTemplate :
-        step == 1 ? ticketTemplate :
-        clientTemplate"
-        ></ng-container>
-      </div>
-
-      <div class="p-footer flex-center flex-between">
-        <button *ngIf="step > 0" class="btn-cancel" (click)="back()">Назад</button>
-        <button *ngIf="step < 2" class="action-btn" [ngClass]="{loading: isLoadingStep, disabled: isDisabled()}" (click)="next()">Далее</button>
-        <button *ngIf="step == 2" class="action-btn" [ngClass]="{loading: isLoadingSave, disabled: isDisabled()}" (click)="save()">Записаться</button>
-      </div>
+      <iframe #iframe style="opacity:0"></iframe>
 
     </div>
 
-  </div>
-
-  <div *ngIf="step === 3" class="a-c pop-up res" [ngClass]="getPopUpClass()">
-    <div class="p-inner full">
-
-      <div class="result-w">
-        <div class="result-ico" [ngClass]="{ success }">
-          <svg *ngIf="success" class="a-c" icon="success"></svg>
-          <svg *ngIf="!success" class="a-c" icon="cross"></svg>
-        </div>
-      </div>
-
-      <div class="pop-body">
-        <div class="result-label" [innerText]="getResultLabel()"></div>
-        <h3 class="result-text" [innerText]="success ? 'Вы успешно записаны' : 'Произошла ошибка'"></h3>
-        <div *ngIf="success">
-          <h4>Если вы идете к нам в первый раз посмотрите как к нам добраться:</h4>
-          <br>
-          <p>
-            1. Вход в центр находится со стороны улицы урожайная, в навигаторе выбирайте пункт «Центр Современной Педиатрии»
-            <br><br>
-            2. У нас нет собственной парковки, поэтому пожалуйста спланируйте свой визит заблаговременно
-            <br><br>
-            3. Опоздание более чем на 10 минут требует переноса записи
-          </p>
-        </div>
-        <div *ngIf="!success">
-          <p>
-            Если у вас не получается записаться, свяжитесь с нами по номеру <a href="tel:+375333795050">+375 (33) 379-50-50</a>
-            и мы запишем вас
-          </p>
-        </div>
-      </div>
-
-      <div class="p-footer flex-center flex-between">
-        <button class="btn-cancel" (click)="close()">Закрыть</button>
-      </div>
-
-    </div>
   </div>
 
 </div>
-
-
-<ng-template #doctorTemplate>
-  <div class="step">
-    <h3 class="h" style="opacity:.8">Выберите врача</h3>
-
-    <div>
-      <search-input
-        type="text"
-        label="Специализация"
-        [required]='false'
-        (onSelect)="handleRoleSelect($event)"
-        [dataList]="allRoles"
-        [(value)]="doctorRole"
-        [canType]="false"
-      ></search-input>
-      <search-input
-        type="text"
-        label="Врач"
-        [required]="false"
-        (onSelect)="handleDoctorSelect($event)"
-        [dataList]="getSuitableDoctors()"
-        [(value)]="doctorName"
-        [canType]="false"
-        [withPhotos]="true"
-      ></search-input>
-    </div>
-  </div>
-</ng-template>
-
-
-<ng-template #ticketTemplate>
-  <div class="w-full date-wrapper">
-    <div>
-      <select-date class="w-full" *ngIf="isOpened"
-                   [data]="days"
-                   [canSelect]="!!doctor"
-                   [loading]="loadingDays"
-                   (onChangeMonth)="handleMonthChange($event)"
-                   (onSelect)="handleDaySelect($event)"
-      ></select-date>
-    </div>
-    <div *ngIf="!!day" class="time-list">
-      <div class="time" *ngFor="let t of day.intervals; index as i"
-           (click)="selectTime(i)"
-           [ngClass]="i === selectedInterval ? 's-i' : ''"
-           [innerText]="getStartString(t)"
-      ></div>
-    </div>
-  </div>
-</ng-template>
-
-
-<ng-template #clientTemplate>
-  <div class="pr-4">
-    <div class="ticket-info">
-        <div *ngIf="!!doctor">
-          <h4 style="margin-top:0">Врач:</h4>
-          <div class="flex-center">
-            <avatar [data]="doctor" [size]="3.5" style="margin-right: 1rem"></avatar>
-            <div>
-              <div class="text-lg" [innerText]="doctor.name"></div>
-              <div class="text-sm" style="opacity:.7" *ngIf="!!doctor.speciality" [innerText]="doctor.speciality"></div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h4>Дата и время:</h4>
-          <div [innerText]="getFullEventTime()"></div>
-        </div>
-        <div>
-          <h4>Адресс:</h4>
-          <div>г. Минск, ул. Червякова 55 (вход с улицы Урожайная)</div>
-        </div>
-        <div>
-          <h4 style="margin-top: 3rem">Контактная информация:</h4>
-          <ng-input
-            type="text"
-            id="name"
-            label="ФИО пациента"
-            next="phone"
-            [(value)]="client.name"
-          ></ng-input>
-          <ng-input
-            type="phone"
-            id="phone"
-            next="email"
-            label="Телефон"
-            [(value)]="client.primaryPhone"
-          ></ng-input>
-          <ng-input
-            type="email"
-            id="email"
-            label="Эл. почта"
-            [(value)]="client.email"
-          ></ng-input>
-          <div class="flex pd">
-            <ng-checkbox [condition]="isAgree" [size]="2" (click)="isAgree = !isAgree"></ng-checkbox>
-            <div>Я даю согласие на обработку <a class="link" href="/assets/Политика_ОПД.pdf" target="_blank">персональных данных</a></div>
-          </div>
-<!--          <p *ngIf="!useEmail">Нету номера? <span class="a" (click)="useEmail=true">Записаться с помошью email</span></p>-->
-<!--          <p *ngIf="useEmail" (click)="useEmail=false">Записаться с помошью мобильного телефона</p>-->
-        </div>
-      </div>
-  </div>
-
-</ng-template>

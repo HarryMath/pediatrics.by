@@ -5,6 +5,7 @@ import { TimestampInterval } from './dto/Interval';
 
 // const endpoint = 'http://localhost:8080/api/';
 const endpoint = 'https://timekit.online/api/';
+const widget = 'http://localhost:4200/public/1';
 const LAST_VISIT_KEY = 'vld';
 const VISIT_TRACK_LIMIT = 3 * 60 * 60 * 1000; // 3 h
 
@@ -69,11 +70,7 @@ export class ScheduleSdk {
   }
 
   static async get<Res = void>(path: string, query?: Record<string, any>): Promise<Res> {
-    const queryString = Object
-      .entries(query || {})
-      .filter(([key, value]) => value !== undefined && value !== null && value?.length !== 0)
-      .map(([key, value]) => `${key}=${value}`)
-      .join('&');
+    const queryString = ScheduleSdk.buildQueryString(query);
 
     let finalUrl = endpoint + path;
     if (queryString) {
@@ -81,6 +78,14 @@ export class ScheduleSdk {
     }
     const response = await fetch(finalUrl, { method: 'GET' });
     return await response.json();
+  }
+
+  private static buildQueryString(query?: Record<string, any>): string {
+    return Object
+      .entries(query || {})
+      .filter(([, value]) => value !== undefined && value !== null && value?.length !== 0)
+      .map(([key, value]) => `${key}=${value}`)
+      .join('&')
   }
 
   static async post<Res = void, Req extends {} = {}>(path: string, payload?: Req): Promise<Res> {
@@ -92,5 +97,10 @@ export class ScheduleSdk {
       throw new Error(result)
     }
     return result;
+  }
+
+  static getWidgetUrl(doctorId?: number) {
+    const query = ScheduleSdk.buildQueryString({ doctorId });
+    return widget + '?' + query;
   }
 }
