@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { BasePopupComponent } from '../../shared/base-popup.component';
 import { EventsService } from '../events/events.service';
 import { IProgram } from '../../pages/landing/landing-page.component';
@@ -18,13 +18,9 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProgramComponent extends BasePopupComponent implements OnInit {
+export class ProgramComponent extends BasePopupComponent {
 
   p?: IProgram;
-
-  ngOnInit(): void {
-    console.count('init app-component');
-  }
 
   constructor(
     private readonly service: EventsService,

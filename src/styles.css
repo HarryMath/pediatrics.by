@@ -1,6 +1,6 @@
 :root {
-  --g-ll: #E1C3BC;
-  --g-l: #dcb9af;
+  --g-ll: #dfbce1;
+  --g-l: #cfacd2;
   --g-2: #acefad;
   --g: #8ad797;
   --max-w: 115rem;
@@ -11,9 +11,9 @@
   --input-h: 4rem;
   --search-h: 4rem;
 
-  --txt: #232336;
-  --text: #200952;
-  --button: #200952;
+  --txt: #252836;
+  --text: #0f134d;
+  --button: #100e4d;
   --footer1-1: #6AD76D1D;
   --footer1: #375d38;
   --footer2: #274829;
@@ -130,7 +130,7 @@ body {
 }
 
 .t-b {
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: 500;
 }
 
@@ -313,7 +313,6 @@ section.content-w {
 
 .s0 {
   width: 100%;
-  background-color: var(--g-ll);
 }
 .s0 .action-btn {
   box-shadow: 0 10px 20px 0 #2209584d, inset 0 -3px 6px 0 #221e8d5d;
@@ -333,6 +332,8 @@ section.content-w {
   top: 0; left: 0;
   width: 100%; height: 100%;
   overflow: hidden;
+  background-color: var(--g-ll);
+  filter: hue-rotate(166deg);
 }
 .heart {
   background-position: center;
@@ -340,19 +341,21 @@ section.content-w {
   background-size: contain;
   position: absolute;
   top: 0; left: 0;
-  opacity: 0;
-  transition: opacity .2s;
   pointer-events: none;
   color: var(--g-l);
   width: 10rem;
   height: 10rem;
 }
+.steps {
+  opacity: 0;
+  transition: opacity .2s;
+}
 
 .l1 {
-  background-image: url(assets/feet_green1.png);
+  background-image: url(assets/feet/1.webp);
 }
 .l2 {
-  background-image: url(assets/feet_green2.png);
+  background-image: url(assets/feet/2.webp);
 }
 
 h1, h2, .h {
@@ -373,10 +376,10 @@ h3 {
 
 @keyframes wave {
   0% {
-    transform: translate(0,35%);
+    transform: translate(0,35%) scaleY(.4);
   }
   100% {
-    transform: translate(-40%,35%);
+    transform: translate(-40%,35%) scaleY(1.1);
   }
 }
 
@@ -404,26 +407,27 @@ h3 {
   margin: 2rem 0 3.5rem;
 }
 
-.baby-wrapper {
+#baby{
   margin-top: 8rem;
   max-width: 100%;
   height: 47rem; width: 35rem;
   position: relative;
+  opacity: 0;
+  transition: opacity .2s;
 }
-.baby-wrapper svg {
+#baby svg {
   height: 150%;
   width: 100%;
   transform: translate(-43%, -40%) rotate(-13deg) scaleY(1.2);
   color: var(--g-l);
+  filter: hue-rotate(166deg);
 }
 
 .baby {
   position: relative;
-  height: 100%; width: 100%;
-
-  background-image: url(assets/child/2.webp);
+  height: 100%; width: 130%;
   background-size: cover;
-  background-position: top center;
+  background-position: top left;
   background-repeat: no-repeat;
   z-index: 1;
 }
@@ -500,7 +504,7 @@ h3 {
 }
 
 .t1 {
-  bottom: 90%;
+  bottom: 96%;
   right: 61%;
   width: 7rem;
   height: 7rem;
@@ -509,8 +513,8 @@ h3 {
 }
 
 .t2 {
-  bottom: 80%;
-  left: 73%;
+  bottom: 87%;
+  left: 70%;
   width: 6rem;
   height: 6rem;
   background-image: url(assets/label_milk.png);

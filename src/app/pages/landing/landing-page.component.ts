@@ -286,7 +286,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    console.count('init app-component');
+    this.buildBaby();
     this.buildHead();
     this.loadDoctors();
     setTimeout(() => {
@@ -299,8 +299,25 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     setTimeout(() => this.prepareServices(), 1000);
   }
 
+  buildBaby(): void {
+    const baby = document.getElementById('baby')! as HTMLDivElement;
+    const babyImg = baby.querySelector('.baby')! as HTMLDivElement;
+    const img = new Image();
+    img.src = '/assets/child/1.webp';
+    img.onload = () => {
+      babyImg.style.backgroundImage = 'url(' + img.src + ')';
+      setTimeout(() => baby.style.opacity = '1', 100);
+    };
+
+    if (innerWidth <= 650) {
+      const size = innerWidth - remToPX(4);
+      baby.style.cssText = `width: ${ size * 1.2 }px;height:${ size * 1.3 }px`;
+    }
+  }
+
   async buildHead(): Promise<void> {
     const container = document.getElementById('back0')!;
+    const steps = container.querySelector('.steps')! as HTMLDivElement;
     const rect = container.getBoundingClientRect();
     const hearSize = remToPX(HEART_SIZE_REM);
     const amountX = Math.round(rect.width / hearSize);
@@ -308,14 +325,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     const offsetSize = hearSize / 8;
 
     let hearts = '';
-    let t, tLeft = 0, tRight = 0;
     for (let i = 0; i <= amountX; i++) {
       for (let j = 0; j <= amountY; j++) {
-        if (innerWidth > mobileWidth + 50) {
-          t = 200 + (i + j) * 50 + Math.random() * ((i * j) * 20 + 300);
-          tLeft = t + Math.random() * 400 - 200;
-          tRight = t + Math.random() * 400 - 200;
-        }
         const rotation = random(0, 360);
         const translateX = (i - 0.34 * (j % 3)) * hearSize + random(-offsetSize, offsetSize);
         const translateY = j * hearSize + random(-offsetSize, offsetSize);
@@ -327,21 +338,15 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
           + d2 * Math.sin((rotation - 90) * toRadians);
         // hearts += `<svg class="heart" style="transform:translate(${translateX}px,${translateY}px) rotate(${random(0, 360)}deg)"><use xlink:href="#like"></use></svg>`
         hearts += '<div class="h-wrap">'
-          + `<div class="heart l1" style="transition-delay:${ tLeft }ms;transform:translate(${ translateX - dx }px,${ translateY - dy }px) rotate(${ rotation }deg)"></div>`
-          + `<div class="heart l2" style="transition-delay:${ tRight }ms;transform:translate(${ translateX + dx }px,${ translateY + dy }px) rotate(${ rotation + random(-40, 10) }deg)"></div>`
+          + `<div class="heart l1" style="transform:translate(${ translateX - dx }px,${ translateY - dy }px) rotate(${ rotation }deg)"></div>`
+          + `<div class="heart l2" style="transform:translate(${ translateX + dx }px,${ translateY + dy }px) rotate(${ rotation + random(-40, 10) }deg)"></div>`
           + '</div>';
       }
     }
-    container.innerHTML += hearts;
-
-    const baby = document.getElementById('baby')!;
-    if (innerWidth <= 650) {
-      const size = innerWidth - remToPX(4);
-      baby.style.cssText = `width: ${ size }px;height:${ size * 1.3 }px`;
-    }
+    steps.innerHTML += hearts;
 
     await wait(100);
-    document.querySelectorAll<HTMLDivElement>('.heart').forEach(h => h.style.opacity = '1');
+    steps.style.opacity = '1';
   }
 
   @HostListener('window:resize')
