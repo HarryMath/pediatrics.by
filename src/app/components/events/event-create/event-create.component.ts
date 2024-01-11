@@ -50,7 +50,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     });
     this.iframe.nativeElement.src = this.iframeUrl;
     setTimeout(() => {
-      this.iframe.nativeElement.style.cssText = '';
+      this.iframe.nativeElement.style.opacity = '1';
     }, 300);
   }
 
