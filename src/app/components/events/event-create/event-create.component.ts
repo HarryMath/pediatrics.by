@@ -42,7 +42,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     window.addEventListener('message', msg => {
       const event = JSON.parse(msg.data);
       if (event.event === 'heightChange') {
-        this.iframe.nativeElement.style.height = `${ event.h }px`;
+        this.iframe.nativeElement.style.height = `${ Math.min(event.h, 100) }px`;
       } else if (event.event === 'close') {
         this.close();
       }

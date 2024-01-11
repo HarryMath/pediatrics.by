@@ -21,7 +21,7 @@ export abstract class BasePopupComponent {
     requestAnimationFrame(() => {
       this.isOpened = true;
       this.cdr.markForCheck();
-      setTimeout(() => this.afterOpen(), 64);
+      this.afterOpen();
     })
   }
 
