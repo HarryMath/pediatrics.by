@@ -17,7 +17,7 @@ import { IconDirective } from '../../shared/icon/icon.directive';
 })
 export class PricePageComponent {
 
-  private readonly changeDate = new Date(2023, 8 - 1, 1, 0);
+  private readonly changeDate = new Date(2024, 1 - 1, 11, 0);
   showNew = document.location.href.includes('new');
 
   private readonly priceListOld = [
@@ -76,8 +76,8 @@ export class PricePageComponent {
       group: 'Педиатрия',
       items: [
         { name: 'Выдача справки формы 1здр/у', price: 5 },
-        { name: 'Выезд врача-педиатра на дом в пределах МКАД и до 5 км от МКАД', price: 80 },
-        { name: 'Выезд врача-педиатра на дом за пределы МКАД от 5 до 20 км от МКАД', price: 120 },
+        // { name: 'Выезд врача-педиатра на дом в пределах МКАД и до 5 км от МКАД', price: 80 },
+        // { name: 'Выезд врача-педиатра на дом за пределы МКАД от 5 до 20 км от МКАД', price: 120 },
         { name: 'Консультация врача-педиатра по вакцинации с выдачей плана вакцинации и формы 063/у', price: 55 },
         { name: 'Консультация врача-педиатра по вакцинации с выдачей паспорта формы 063/у', price: 30 },
         { name: 'Прием врача-педиатра, директора клиники', price: 60 },
