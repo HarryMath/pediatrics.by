@@ -8,7 +8,7 @@
       <div class="doc-inf">
         <h3 class="doc-name" [innerText]="getName(d)"></h3>
         <p class="doc-spec">
-          <span [innerText]="d.speciality"></span>
+          <span [innerText]="getSpeciality(d)"></span>
           &#x2022;
           <span *ngIf="d.category" [innerText]="d.category"></span>
         </p>

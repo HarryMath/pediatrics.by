@@ -48,7 +48,7 @@ export interface DoctorDto extends CreateUserFE {
   experience: Experience[];
   education: Education[];
   services: Service[];
-  speciality?: DoctorRole;
+  speciality?: DoctorRole | DoctorRole[];
   category: string; // defined
   admissionMinutes?: number;
   userId: number;

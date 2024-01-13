@@ -74,6 +74,10 @@ export class DoctorComponent implements OnInit {
       return l;
     });
   }
+
+  getSpeciality(d: DoctorDto): string {
+    return typeof d.speciality === 'string' ? d.speciality : d.speciality?.join(', ') || '';
+  }
 }
 
 const MAX_AVATAR_WIDTH_PART = .98;
