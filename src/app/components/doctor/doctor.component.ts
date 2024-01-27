@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { DoctorDto } from 'src/app/sdk/dto/Doctor';
+import { Day, DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { DomUtils, getName, mobileWidth } from 'src/app/shared/utils';
 import { EventsService } from '../events/events.service';
 import { AvatarComponent } from '../../shared/avatar/avatar.component';
-import { NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { DateUtils } from '../../shared/utils/date.utils';
+import { TimestampInterval } from '../../sdk/dto/Interval';
 
 @Component({
   standalone: true,
@@ -14,15 +16,54 @@ import { NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
     AvatarComponent,
     NgIf,
     NgTemplateOutlet,
-    NgForOf
+    NgForOf,
+    NgClass
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DoctorComponent implements OnInit {
 
-  @Input() d!: DoctorDto;
+  _d!: DoctorDto;
+  @Input() set d(d: DoctorDto) {
+    this._d = d;
+    this.name = getName(d);
+    this.speciality = (d.speciality || []).join(' · ');
+    this.category = d.category
+    this.labels = [];
+
+    const workStart = (d.experience || [])
+      .map(e => e.start)
+      .sort((y2, y1) => y1 - y2)
+      .shift();
+
+    if (workStart) {
+      const workStage = new Date().getFullYear() - workStart;
+      this.labels.push({
+        color: '#000',
+        text: `стаж ${workStage} лет`
+      })
+    }
+
+    const desc = d.description?.toLowerCase() || '';
+    const specialLabels = ['кандидат медицинских наук', 'доктор медицинских наук'];
+    for (const l of specialLabels) {
+      if (desc.includes(l)) {
+        this.labels.push({ color: 'red', text: l });
+      }
+    }
+
+  }
   isMobile: boolean;
-  nextAvailable = "";
+
+  labels: { color: string; text: string }[] = [];
+  speciality?: string;
+  category?: string;
+  name = '';
+
+  hasAdmission = false;
+  loadingAdmissions = true;
+  days: Day[] = [];
+  selectedDay?: Day;
 
   constructor(
     public readonly eventsService: EventsService,
@@ -77,6 +118,28 @@ export class DoctorComponent implements OnInit {
 
   getSpeciality(d: DoctorDto): string {
     return typeof d.speciality === 'string' ? d.speciality : d.speciality?.join(', ') || '';
+  }
+
+  isSelected(d: Day) {
+    return !!this.selectedDay && this.selectedDay.date === d.date;
+  }
+
+  selectDay(d: Day) {
+    if (d.options.length) {
+      this.selectedDay = d;
+    }
+  }
+
+  getDayDisplay(d: Day): string {
+    return DateUtils.getWeekDay(d.date, true) + ', ' + d.date.getDate();
+  }
+
+  getTimeDisplay(t: TimestampInterval) {
+    return DateUtils.toStringTime(t.start, 3);
+  }
+
+  handleTimeClick() {
+    throw new Error('not implemented');
   }
 }
 

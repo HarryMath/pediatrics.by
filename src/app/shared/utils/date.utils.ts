@@ -54,14 +54,14 @@ export const DateUtils = {
     }
   },
 
-  toStringTime(d?: Date): string {
+  toStringTime(d?: Date, GMT?: number): string {
     if (!d) {
       return '';
     }
     d = new Date(d);
-    const h = d.getHours();
-    const m = d.getMinutes();
-    return `${h > 9 ? h : '0' + h}:${m > 9 ? m : '0' + m}`
+    const h = typeof GMT === 'number' ? d.getUTCHours() + GMT : d.getHours();
+    const m = typeof GMT === 'number' ? d.getUTCMinutes() : d.getMinutes();
+    return `${ h > 9 ? h : '0' + h }:${ m > 9 ? m : '0' + m }`;
   },
 
   getWeekDayNumber: (d: Date): number => {

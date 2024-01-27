@@ -1,43 +1,50 @@
-<div class="doc-wrap">
+<div class="d-wrapper">
+  <div class="doctor">
 
-  <div class="doc">
-    <div class="doc-content">
-      <div class="justify-center">
-        <avatar [data]="d" [size]="getAvatarSize()" class="avatar" borderRadius="1rem"></avatar>
+    <div class="labels" *ngIf="labels.length">
+      <div *ngFor="let l of labels" class="label" [style.color]="l.color" [innerText]="l.text"></div>
+    </div>
+
+    <div class="main flex">
+      <div class="avatar-wrap">
+        <avatar [data]="_d" [size]="5"></avatar>
       </div>
-      <div class="doc-inf">
-        <h3 class="doc-name" [innerText]="getName(d)"></h3>
-        <p class="doc-spec">
-          <span [innerText]="getSpeciality(d)"></span>
-          &#x2022;
-          <span *ngIf="d.category" [innerText]="d.category"></span>
-        </p>
-
-<!--        <p *ngIf="isMobile" class="text-lines">-->
-<!--          <span *ngFor="let l of getDescription(d.description)">&bull; {{l}}</span>-->
-<!--        </p>-->
-        <ng-container *ngIf="isMobile" [ngTemplateOutlet]="desc"></ng-container>
+      <div>
+        <p class="speciality" *ngIf="speciality" [innerText]="speciality"></p>
+        <h3 class="name" [innerText]="name"></h3>
+        <p class="category" *ngIf="category" [innerText]="category"></p>
       </div>
     </div>
-    <p *ngIf="!isMobile" class="text-lines">
-      <span *ngFor="let l of getDescription(d.description)">&bull; {{l}}</span>
-    </p>
-    <div *ngIf="nextAvailable?.length">Ближайшая запись {{ nextAvailable }}</div>
+
+    <div class="admission" *ngIf="hasAdmission">
+      <div *ngIf="loadingAdmissions" class="loading"></div>
+      <div *ngIf="!loadingAdmissions">
+        <p class="admission-label">Выберите время приёма для записи онлайн</p>
+        <div class="days flex">
+          <div
+            *ngFor="let d of days"
+            class="day"
+            [ngClass]="{ selected: isSelected(d) }"
+            (click)="selectDay(d)"
+            [innerText]="getDayDisplay(d)"
+          ></div>
+        </div>
+        <div class="times flex" *ngIf="selectedDay?.options?.length">
+          <div
+            *ngFor="let t of selectedDay!.options"
+            class="time"
+            (click)="handleTimeClick()"
+            [innerText]="getTimeDisplay(t)"
+          ></div>
+        </div>
+      </div>
+    </div>
+
     <div class="justify-center btn-wrap">
-      <button class="action-btn" (click)="eventsService.requestEvent(d)">
+      <button class="action-btn" (click)="eventsService.requestEvent(_d)">
         <svg><use xlink:href="#calendar"></use></svg>
         ЗАПИСАТЬСЯ НА ПРИЁМ
       </button>
     </div>
   </div>
-
 </div>
-
-<ng-template #desc class="text-lines">
-  <div *ngFor="let i of getDescription(d.description)">
-    <div class="flex">
-      <span class="ind">-</span>
-      <p [innerHTML]="i"></p>
-    </div>
-  </div>
-</ng-template>
