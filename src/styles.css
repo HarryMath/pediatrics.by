@@ -18,6 +18,7 @@
   --footer1-1: #6AD76D1D;
   --footer1: #375d38;
   --footer2: #274829;
+  --footer2-5: #6AD76D5D;
   --footer-l: #3d703f;
   --footer-icon: #7d997e;
   --g-chekbox: #2196f3;
@@ -477,6 +478,10 @@ h3 {
   border-radius: 50%;
   animation: .5s load linear infinite;
   border: .2rem solid #fff;
+  border-top-color: transparent
+}
+.loading.dark::after {
+  border: .2rem solid var(--footer2-5);
   border-top-color: transparent
 }
 

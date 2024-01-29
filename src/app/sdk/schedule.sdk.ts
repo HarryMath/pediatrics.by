@@ -26,6 +26,11 @@ export class ScheduleSdk {
       return ScheduleSdk.get<string[]>('doctors/roles');
     },
 
+    async getDayTickets(doctorId: number, day: Date | string): Promise<TimestampInterval[]> {
+      const date = typeof day === 'string' ? day : day.toISOString();
+      return ScheduleSdk.get<TimestampInterval[]>(`doctors/${doctorId}/tickets`, { date });
+    },
+
     async getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
       // days.forEach(d => {
       //   d.start = DateUtils.setTimeZone(d.start, 3);

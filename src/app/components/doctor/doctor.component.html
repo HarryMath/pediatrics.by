@@ -1,4 +1,4 @@
-<div class="d-wrapper">
+<div #card class="d-wrapper">
   <div class="doctor">
 
     <div class="labels" *ngIf="labels.length">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="admission" *ngIf="hasAdmission">
-      <div *ngIf="loadingAdmissions" class="loading"></div>
+      <div *ngIf="loadingAdmissions" class="full loading dark"></div>
       <div *ngIf="!loadingAdmissions">
         <p class="admission-label">Выберите время приёма для записи онлайн</p>
         <div class="days flex">

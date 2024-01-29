@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component, ElementRef,
+  Input,
+  OnDestroy,
+  OnInit, ViewChild
+} from '@angular/core';
 import { Day, DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { DomUtils, getName, mobileWidth } from 'src/app/shared/utils';
 import { EventsService } from '../events/events.service';
@@ -6,6 +14,7 @@ import { AvatarComponent } from '../../shared/avatar/avatar.component';
 import { NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { DateUtils } from '../../shared/utils/date.utils';
 import { TimestampInterval } from '../../sdk/dto/Interval';
+import { ScheduleSdk } from '../../sdk/schedule.sdk';
 
 @Component({
   standalone: true,
@@ -21,7 +30,7 @@ import { TimestampInterval } from '../../sdk/dto/Interval';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DoctorComponent implements OnInit {
+export class DoctorComponent implements AfterViewInit, OnDestroy {
 
   _d!: DoctorDto;
   @Input() set d(d: DoctorDto) {
@@ -32,10 +41,6 @@ export class DoctorComponent implements OnInit {
     this.hasAdmission = !!d.nextAvailable && new Date(d.nextAvailable) > new Date();
     this.labels = [];
 
-    if (this.hasAdmission) {
-      this.loadNearestAdmissions(d.nextAvailable as Date);
-    }
-
     const workStart = (d.experience || [])
       .map(e => e.start)
       .sort((y2, y1) => y1 - y2)
@@ -45,8 +50,8 @@ export class DoctorComponent implements OnInit {
       const workStage = new Date().getFullYear() - workStart;
       this.labels.push({
         color: '#000',
-        text: `стаж ${workStage} лет`
-      })
+        text: `стаж ${ workStage } лет`
+      });
     }
 
     const desc = d.description?.toLowerCase() || '';
@@ -58,6 +63,7 @@ export class DoctorComponent implements OnInit {
     }
 
   }
+
   isMobile: boolean;
 
   labels: { color: string; text: string }[] = [];
@@ -72,28 +78,12 @@ export class DoctorComponent implements OnInit {
 
   constructor(
     public readonly eventsService: EventsService,
-    private readonly cdr: ChangeDetectorRef,
+    private readonly cdr: ChangeDetectorRef
   ) {
     this.isMobile = innerWidth < mobileWidth;
   }
 
-  ngOnInit(): void {
-    // ScheduleSdk.doctors.getNextAvailable(this.d.id).then(t => {
-    //   if (!t) {
-    //     return;
-    //   }
-    //   const dayDifference = DateUtils.dateDiffInDays(t, new Date());
-    //   if (dayDifference < 2) {
-    //     this.nextAvailable = dayDifference === 0 ? 'Сегодня' : 'Завтра';
-    //   } else {
-    //     this.nextAvailable = DateUtils.toString(t);
-    //   }
-    //   this.nextAvailable += ', ' + DateUtils.toStringTime(t);
-    //   this.cdr.markForCheck();
-    // })
-  }
-
-  async loadNearestAdmissions(start: Date): Promise<void> {
+  private async loadNearestAdmissions(start: Date): Promise<void> {
     this.loadingAdmissions = true;
     this.cdr.markForCheck();
 
@@ -109,12 +99,16 @@ export class DoctorComponent implements OnInit {
       console.error(err);
     }
 
+    for (const d of this.days) {
+      try {
+        d.options = await ScheduleSdk.doctors.getDayTickets(this._d.id, d.date);
+      } catch (ignore) {}
+    }
+
+    this.selectedDay = this.days.find(d => d.options.length);
+
     this.loadingAdmissions = false;
     this.cdr.markForCheck();
-  }
-
-  getName(d: DoctorDto): string {
-    return getName(d);
   }
 
   getAvatarSize(): number {
@@ -151,7 +145,7 @@ export class DoctorComponent implements OnInit {
 
   selectDay(d: Day) {
     // if (d.options.length) {
-      this.selectedDay = d;
+    this.selectedDay = d;
     // }
   }
 
@@ -165,6 +159,41 @@ export class DoctorComponent implements OnInit {
 
   handleTimeClick() {
     throw new Error('not implemented');
+  }
+
+  @ViewChild('card') card!: ElementRef<HTMLDivElement>;
+  private observer?: IntersectionObserver;
+
+  ngAfterViewInit(): void {
+    if (this.hasAdmission) {
+      this.observer = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
+        const el = entries[0];
+        if (el.isIntersecting) {
+          this.loadNearestAdmissions(this._d.nextAvailable as Date);
+          this.observer?.unobserve(this.card.nativeElement);
+          delete this.observer;
+        }
+      }, { threshold: [0] });
+      this.observer.observe(this.card.nativeElement);
+    }
+
+    // ScheduleSdk.doctors.getNextAvailable(this.d.id).then(t => {
+    //   if (!t) {
+    //     return;
+    //   }
+    //   const dayDifference = DateUtils.dateDiffInDays(t, new Date());
+    //   if (dayDifference < 2) {
+    //     this.nextAvailable = dayDifference === 0 ? 'Сегодня' : 'Завтра';
+    //   } else {
+    //     this.nextAvailable = DateUtils.toString(t);
+    //   }
+    //   this.nextAvailable += ', ' + DateUtils.toStringTime(t);
+    //   this.cdr.markForCheck();
+    // })
+  }
+
+  ngOnDestroy() {
+    this.observer?.unobserve(this.card.nativeElement);
   }
 }
 
