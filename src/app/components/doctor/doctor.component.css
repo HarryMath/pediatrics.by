@@ -36,7 +36,8 @@
 
 .admission {
   padding-top: 2rem;
-  height: calc(2rem + 3rem * 3);
+  height: calc(4rem + 3rem + 2.5rem + 1rem + 4rem);
+  padding-bottom: 2rem;
 }
 
 .admission-label {
@@ -46,9 +47,9 @@
 
 .days {
   border-radius: .8rem;
-  box-shadow: 0 0 0 .1rem #123a162a;
+  box-shadow: 0 0 0 .1rem #123a1625;
   font-size: 1.2rem;
-  background: #123a1613;
+  background: #123a1608;
   height: 3rem;
   padding: .1rem;
   max-width: 100%;
@@ -56,7 +57,7 @@
   width: fit-content;
 }
 
-.day {
+.day, .time {
   white-space: nowrap;
   padding: 0 .5rem;
   height: 100%;
@@ -65,6 +66,35 @@
   cursor: pointer;
 }
 
+.time {
+  padding: 0 .8rem;
+  border-radius: .8rem;
+}
+
 .day.selected {
   background: #123a161c;
+}
+
+.day.disabled {
+  opacity: .4;
+}
+
+.times {
+  margin: 1rem calc(0px - var(--doc-gap)) 0;
+  padding-left: var(--doc-gap);
+  gap: .8rem;
+  height: 3rem;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+  -ms-scrollbar-width: none;
+  scrollbar-width: none;
+}
+
+.time {
+  background: #467c9b;
+  color: #fff;
+  flex-shrink: 0;
+  line-height: 3rem;
 }

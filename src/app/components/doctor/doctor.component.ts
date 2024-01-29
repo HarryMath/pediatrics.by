@@ -102,7 +102,8 @@ export class DoctorComponent implements AfterViewInit, OnDestroy {
     for (const d of this.days) {
       try {
         d.options = await ScheduleSdk.doctors.getDayTickets(this._d.id, d.date);
-      } catch (ignore) {}
+      } catch (ignore) {
+      }
     }
 
     this.selectedDay = this.days.find(d => d.options.length);
@@ -144,9 +145,9 @@ export class DoctorComponent implements AfterViewInit, OnDestroy {
   }
 
   selectDay(d: Day) {
-    // if (d.options.length) {
-    this.selectedDay = d;
-    // }
+    if (d.options.length) {
+      this.selectedDay = d;
+    }
   }
 
   getDayDisplay(d: Day): string {

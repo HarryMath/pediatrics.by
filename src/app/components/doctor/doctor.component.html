@@ -24,7 +24,7 @@
           <div
             *ngFor="let d of days"
             class="day"
-            [ngClass]="{ selected: isSelected(d) }"
+            [ngClass]="{ selected: isSelected(d), disabled: !d.options.length }"
             (click)="selectDay(d)"
             [innerText]="getDayDisplay(d)"
           ></div>
