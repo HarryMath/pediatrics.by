@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { IProgram } from '../../pages/landing/landing-page.component';
+
+export interface EventRequest {
+  doctorId?: number,
+  eventStart?: number,
+}
 
 @Injectable({ providedIn: 'root' })
 export class EventsService {
   menuOpened = false;
-  createEventSubject = new Subject<DoctorDto | undefined>();
+  createEventSubject = new Subject<EventRequest>();
   phoneSubject = new Subject();
   menuSubject = new Subject<boolean>();
   programSubject = new Subject<IProgram>();
@@ -24,7 +28,7 @@ export class EventsService {
     this.programSubject.next(p);
   }
 
-  requestEvent(doctor?: DoctorDto): void {
-    this.createEventSubject.next(doctor)
+  requestEvent(request?: EventRequest): void {
+    this.createEventSubject.next(request ?? {});
   }
 }

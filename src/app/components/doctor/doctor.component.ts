@@ -5,7 +5,7 @@ import {
   Component, ElementRef,
   Input,
   OnDestroy,
-  OnInit, ViewChild
+  ViewChild
 } from '@angular/core';
 import { Day, DoctorDto } from 'src/app/sdk/dto/Doctor';
 import { DomUtils, getName, mobileWidth } from 'src/app/shared/utils';
@@ -15,6 +15,7 @@ import { NgClass, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 import { DateUtils } from '../../shared/utils/date.utils';
 import { TimestampInterval } from '../../sdk/dto/Interval';
 import { ScheduleSdk } from '../../sdk/schedule.sdk';
+import { TooltipDirective } from '../../shared/tooltip/tooltip.directive';
 
 @Component({
   standalone: true,
@@ -26,7 +27,8 @@ import { ScheduleSdk } from '../../sdk/schedule.sdk';
     NgIf,
     NgTemplateOutlet,
     NgForOf,
-    NgClass
+    NgClass,
+    TooltipDirective
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -158,8 +160,8 @@ export class DoctorComponent implements AfterViewInit, OnDestroy {
     return DateUtils.toStringTime(t.start, 3);
   }
 
-  handleTimeClick() {
-    throw new Error('not implemented');
+  handleTimeClick(t: TimestampInterval) {
+    this.eventsService.requestEvent({ doctorId: this._d.id, eventStart: new Date(t.start).getTime() })
   }
 
   @ViewChild('card') card!: ElementRef<HTMLDivElement>;

@@ -33,7 +33,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
   ngOnInit(): void {
     console.count('init event-create-component');
     this.subscription = this.eventCreateService.createEventSubject.subscribe(d => {
-      this.iframeUrl = ScheduleSdk.getWidgetUrl(d?.id);
+      this.iframeUrl = ScheduleSdk.getWidgetUrl(d?.doctorId, d.eventStart);
       this.open();
     });
   }

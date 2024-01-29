@@ -25,26 +25,29 @@
             *ngFor="let d of days"
             class="day"
             [ngClass]="{ selected: isSelected(d), disabled: !d.options.length }"
+            [tooltip]="d.options.length ? '' : 'У врача все занято'"
             (click)="selectDay(d)"
             [innerText]="getDayDisplay(d)"
           ></div>
         </div>
+
         <div class="times flex" *ngIf="selectedDay?.options?.length">
-          <div
+          <button
             *ngFor="let t of selectedDay!.options"
             class="time"
-            (click)="handleTimeClick()"
+            (click)="handleTimeClick(t)"
             [innerText]="getTimeDisplay(t)"
-          ></div>
+          ></button>
         </div>
+
+
+        <button class="action-btn time" (click)="eventsService.requestEvent({ doctorId: _d.id })">
+          <svg><use xlink:href="#calendar"></use></svg>
+          Выбрать другую дату
+        </button>
+
       </div>
     </div>
 
-    <div class="justify-center btn-wrap">
-      <button class="action-btn" (click)="eventsService.requestEvent(_d)">
-        <svg><use xlink:href="#calendar"></use></svg>
-        ЗАПИСАТЬСЯ НА ПРИЁМ
-      </button>
-    </div>
   </div>
 </div>

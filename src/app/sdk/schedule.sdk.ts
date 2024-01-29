@@ -105,9 +105,9 @@ export class ScheduleSdk {
     return result;
   }
 
-  static getWidgetUrl(doctorId?: number) {
+  static getWidgetUrl(doctorId?: number, eventStart?: number) {
     const origin = document.location.origin;
-    const query = ScheduleSdk.buildQueryString({ doctorId, origin });
+    const query = ScheduleSdk.buildQueryString({ doctorId, origin, eventStart });
     return widget + '?' + query;
   }
 }

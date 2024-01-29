@@ -36,8 +36,7 @@
 
 .admission {
   padding-top: 2rem;
-  height: calc(4rem + 3rem + 2.5rem + 1rem + 4rem);
-  padding-bottom: 2rem;
+  height: 15.39rem;
 }
 
 .admission-label {
@@ -47,9 +46,9 @@
 
 .days {
   border-radius: .8rem;
-  box-shadow: 0 0 0 .1rem #123a1625;
+  box-shadow: 0 0 0 .1rem #174F1A3A;
   font-size: 1.2rem;
-  background: #123a1608;
+  background: #237A2A08;
   height: 3rem;
   padding: .1rem;
   max-width: 100%;
@@ -72,7 +71,7 @@
 }
 
 .day.selected {
-  background: #123a161c;
+  background: #237A2A20;
 }
 
 .day.disabled {
@@ -97,4 +96,13 @@
   color: #fff;
   flex-shrink: 0;
   line-height: 3rem;
+}
+
+.time:hover {
+  background: #366986;
+}
+
+.action-btn {
+  margin-top: 1rem;
+  filter: hue-rotate(17deg);
 }
