@@ -5,9 +5,9 @@
       <div *ngFor="let l of labels" class="label" [style.color]="l.color" [innerText]="l.text"></div>
     </div>
 
-    <div class="main flex">
+    <div class="main flex flex-center">
       <div class="avatar-wrap">
-        <avatar [data]="_d" [size]="5"></avatar>
+        <avatar [data]="_d" [size]="8"></avatar>
       </div>
       <div>
         <p class="speciality" *ngIf="speciality" [innerText]="speciality"></p>

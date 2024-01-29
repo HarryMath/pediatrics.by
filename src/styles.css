@@ -7,6 +7,7 @@
   --header: 6rem;
   --btn-h: 5rem;
 
+  --doc-gap: 1.3rem;
 
   --input-h: 4rem;
   --search-h: 4rem;
@@ -108,6 +109,7 @@ body {
   /*overflow-y: scroll;*/
   /*overscroll-behavior-y: contain;*/
   /*scroll-snap-type: y mandatory;*/
+  background: #f8faff;
   font-size: 1.4rem;
   font-weight: 400;
   color: var(--txt);
@@ -524,7 +526,7 @@ h3 {
 /*_________________ SERVICES __________________*/
 .serv {
   border-radius: 1.5rem;
-  background-color: #f8faff;
+  background-color: #f0f5fc;
   /*border: 1px #c9c9c9 dashed;*/
   overflow: hidden;
   transition: height 0.2s linear;
@@ -893,12 +895,9 @@ footer h3 {
 
 .s3 .sect-cont {
   display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
   width: 100%;
-  flex-wrap: nowrap;
-  overflow-x: scroll;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  position: relative;
 }
 
 .sect-cont::-webkit-scrollbar {
@@ -907,7 +906,7 @@ footer h3 {
 }
 
 .s3 .sect-cont>* {
-  scroll-snap-align: center;
+  width: 100%;
 }
 
 @media screen and (min-width: 900px){

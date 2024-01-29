@@ -28,8 +28,13 @@ export class DoctorComponent implements OnInit {
     this._d = d;
     this.name = getName(d);
     this.speciality = (d.speciality || []).join(' · ');
-    this.category = d.category
+    this.category = d.category;
+    this.hasAdmission = !!d.nextAvailable && new Date(d.nextAvailable) > new Date();
     this.labels = [];
+
+    if (this.hasAdmission) {
+      this.loadNearestAdmissions(d.nextAvailable as Date);
+    }
 
     const workStart = (d.experience || [])
       .map(e => e.start)
@@ -88,6 +93,26 @@ export class DoctorComponent implements OnInit {
     // })
   }
 
+  async loadNearestAdmissions(start: Date): Promise<void> {
+    this.loadingAdmissions = true;
+    this.cdr.markForCheck();
+
+    this.days = [];
+    try {
+      for (let i = 0; i < 3; i++) {
+        this.days.push({
+          date: DateUtils.getDateWithOffset(new Date(start), { days: i }),
+          options: []
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+
+    this.loadingAdmissions = false;
+    this.cdr.markForCheck();
+  }
+
   getName(d: DoctorDto): string {
     return getName(d);
   }
@@ -117,7 +142,7 @@ export class DoctorComponent implements OnInit {
   }
 
   getSpeciality(d: DoctorDto): string {
-    return typeof d.speciality === 'string' ? d.speciality : d.speciality?.join(', ') || '';
+    return d.speciality?.join(', ') || '';
   }
 
   isSelected(d: Day) {
@@ -125,13 +150,13 @@ export class DoctorComponent implements OnInit {
   }
 
   selectDay(d: Day) {
-    if (d.options.length) {
+    // if (d.options.length) {
       this.selectedDay = d;
-    }
+    // }
   }
 
   getDayDisplay(d: Day): string {
-    return DateUtils.getWeekDay(d.date, true) + ', ' + d.date.getDate();
+    return DateUtils.getDayLabel(d.date, true) + ', ' + DateUtils.toString(d.date, { hideYear: true });
   }
 
   getTimeDisplay(t: TimestampInterval) {

@@ -36,6 +36,8 @@ export interface DoctorDto extends CreateUserFE {
   category: string; // defined
   admissionMinutes?: number;
   userId: number;
+
+  nextAvailable?: Date | null;
 }
 
 export interface DoctorMin {

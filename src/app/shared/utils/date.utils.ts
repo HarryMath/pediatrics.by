@@ -41,7 +41,7 @@ export const DateUtils = {
     return Math.floor((utc1 - utc2) / _MS_PER_DAY);
   },
 
-  getDayLabel(d?: Date): string {
+  getDayLabel(d?: Date, full?: boolean): string {
     if (!d) {
       return ""
     }
@@ -50,7 +50,7 @@ export const DateUtils = {
     switch (difference) {
       case 0 : return 'Сегодня';
       case 1 : return 'Завтра';
-      default : return DateUtils.getWeekDay(d)
+      default : return DateUtils.getWeekDay(d, full)
     }
   },
 

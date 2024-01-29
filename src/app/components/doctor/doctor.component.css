@@ -1,79 +1,70 @@
-h3 {
-  line-height: 1.2;
-  margin-bottom: .5rem;
-}
-.doc-wrap {
-  width: calc(100vw - 4rem);
-  padding: 1rem;
-}
-
-.doc {
-  padding: 2rem;
+.doctor {
+  border-radius: var(--doc-gap);
+  padding: var(--doc-gap);
   background: #fff;
-  /*box-shadow: 0 0 0 1px #0000101d, 0 4px 6px -1px #0000102d, 0 2px 4px -2px #0000102d;*/
-  box-shadow: 0 .8rem 2rem -.1rem #0000101d, 0 .2rem 1rem -.25rem #0000102d;
+  box-shadow: 0 0 1rem #12163110;
+}
+
+.avatar-wrap {
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 0 0 .1rem #6d6f793d;
+  flex-shrink: 0;
+  height: 8rem;
+  width: 8rem;
+  margin-right: var(--doc-gap);
+}
+
+.speciality, .admission-label {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+  margin-bottom: .4rem;
+  opacity: .5;
+}
+
+.category {
+  font-size: 1.2rem;
+  line-height: 1.5rem;
+}
+
+.name {
+  font-size: 1.5rem;
+  line-height: 1.8rem;
+  margin: 0;
+  color: var(--txt);
+}
+
+.admission {
+  padding-top: 2rem;
+  height: calc(2rem + 3rem * 3);
+}
+
+.admission-label {
+  height: 2rem;
+  line-height: 2rem;
+}
+
+.days {
+  border-radius: .8rem;
+  box-shadow: 0 0 0 .1rem #123a162a;
+  font-size: 1.2rem;
+  background: #123a1613;
+  height: 3rem;
+  padding: .1rem;
+  max-width: 100%;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.day {
+  white-space: nowrap;
+  padding: 0 .5rem;
   height: 100%;
-  border-radius: .4rem;
-  margin-bottom: 1rem;
-  position: relative;
+  line-height: 2.8rem;
+  border-radius: .7rem;
+  cursor: pointer;
 }
 
-.ready .btn-wrap {
-  width: 100%;
-  position: absolute;
-  bottom: 1.7rem;
-  left: 0;
-}
-
-button {
-  margin: 1.3rem 0 0;
-  font-weight: bold;
-  height: fit-content;
-  line-height: unset;
-  background-color: var(--footer-l);
-  border-radius: 1rem;
-  padding: 1.2rem 2rem;
-  color: #fff;
-}
-
-.doc-name, .doc-spec {
-  text-align: center;
-}
-
-.doc-spec {
-  color: #88a;
-  margin-bottom: 1.5rem;
-}
-
-@media screen and (min-width: 600px) {
-  .doc-wrap {
-    width: 100%;
-  }
-  .btn-wrap {
-    width: 100%;
-    position: absolute;
-    bottom: 1.7rem;
-    left: 0;
-  }
-  .doc-content {
-    display: flex;
-  }
-  .avatar {
-    margin-right: 2rem;
-  }
-  .doc-name, .doc-spec {
-    text-align: left;
-  }
-  .doc-name {
-    font-size: 1.7rem;
-    margin-top: 0;
-  }
-  .doc {
-    margin-bottom: 0;
-  }
-  .text-lines {
-    max-lines: 5;
-    -webkit-line-clamp: 5;
-    line-clamp: 5;
-  }
+.day.selected {
+  background: #123a161c;
 }
