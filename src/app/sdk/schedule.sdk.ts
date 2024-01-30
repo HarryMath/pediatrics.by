@@ -10,6 +10,9 @@ const widget = 'http://localhost:4200/public/1';
 const LAST_VISIT_KEY = 'vld';
 const VISIT_TRACK_LIMIT = 3 * 60 * 60 * 1000; // 3 h
 
+const DOC_QUERY = "doctorId";
+const START_QUERY = "eventStart";
+
 export const headers = {
   "Content-Type": "application/json",
 };
@@ -22,21 +25,9 @@ export class ScheduleSdk {
       return d.filter(d => d.id !== 9);
     },
 
-    getRoles(): Promise<string[]> {
-      return ScheduleSdk.get<string[]>('doctors/roles');
-    },
-
     async getDayTickets(doctorId: number, day: Date | string): Promise<TimestampInterval[]> {
       const date = typeof day === 'string' ? day : day.toISOString();
       return ScheduleSdk.get<TimestampInterval[]>(`doctors/${doctorId}/tickets`, { date });
-    },
-
-    async getFreeDays(id: number, monthIndex: number): Promise<TimestampInterval[]> {
-      // days.forEach(d => {
-      //   d.start = DateUtils.setTimeZone(d.start, 3);
-      //   d.end = DateUtils.setTimeZone(d.end, 3);
-      // });
-      return await ScheduleSdk.get<TimestampInterval[]>(`doctors/${ id }/free-time/${ monthIndex }`);
     },
 
     async getNextAvailable(id: number): Promise<Date|undefined> {
@@ -99,7 +90,6 @@ export class ScheduleSdk {
     const response = await fetch(endpoint + path, { method: 'POST', body, headers });
     const result = await response.json();
     if (!response.ok) {
-      console.log('error: ', result);
       throw new Error(result)
     }
     return result;
@@ -107,6 +97,9 @@ export class ScheduleSdk {
 
   static getWidgetUrl(doctorId?: number, eventStart?: number) {
     const origin = document.location.origin;
+    const params = { origin } as any;
+    doctorId && (params[DOC_QUERY] = doctorId);
+    eventStart && (params[START_QUERY] = eventStart);
     const query = ScheduleSdk.buildQueryString({ doctorId, origin, eventStart });
     return widget + '?' + query;
   }
