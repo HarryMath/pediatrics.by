@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div class="admission" *ngIf="hasAdmission">
+    <div *ngIf="hasAdmission" class="admission">
       <div *ngIf="loadingAdmissions" class="full loading dark"></div>
       <div *ngIf="!loadingAdmissions">
         <p class="admission-label">Выберите время приёма для записи онлайн</p>
@@ -46,6 +46,13 @@
           Выбрать другую дату
         </button>
 
+      </div>
+    </div>
+
+    <div *ngIf="!hasAdmission" class="admission empty">
+      <div class="a-c">
+        <img src="assets/empty_calendar.svg">
+        <div class="empty"> У врача все занято</div>
       </div>
     </div>
 

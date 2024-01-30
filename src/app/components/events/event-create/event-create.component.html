@@ -10,7 +10,7 @@
         <svg class="p-cross" icon="cross" (click)="close()"></svg>
       </div>
 
-      <iframe #iframe style="opacity:0"></iframe>
+      <iframe *ngIf="ready" #iframe style="opacity:0"></iframe>
 
     </div>
 

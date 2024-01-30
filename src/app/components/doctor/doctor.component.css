@@ -37,6 +37,18 @@
 .admission {
   padding-top: 2rem;
   height: 15.39rem;
+  position: relative;
+}
+
+.admission img {
+  height: 9rem;
+  margin-bottom: 1rem;
+}
+.admission .empty {
+  text-align: center;
+  width: 100%;
+  opacity: .6;
+  font-size: 1.6rem;
 }
 
 .admission-label {

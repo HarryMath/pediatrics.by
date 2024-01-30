@@ -99,11 +99,15 @@ button {
     height: 100%;
     transition: .4s;
     max-height: 100%;
+    border-radius: 0;
   }
   .p-inner {
     max-height: 100%;
   }
   .pop-up.collapsed {
-    transform: translate(-50%, 50%) scale(.9);
+    transform: translate(-50%, 50%) scale(.95);
+    border-top-left-radius: 4rem;
+    border-top-right-radius: 4rem;
+    opacity: 1;
   }
 }

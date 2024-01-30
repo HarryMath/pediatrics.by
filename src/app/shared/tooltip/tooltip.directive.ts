@@ -61,13 +61,14 @@ export class TooltipDirective {
     );
   }
 
+  @HostListener('window:scroll')
   @HostListener('mouseleave', ['$event'])
-  hideTooltip(event: MouseEvent) {
+  hideTooltip(event?: MouseEvent) {
     if (
-      !this.tooltipElement || this.isRelatedElement(event.relatedTarget as Element)
+      !this.tooltipElement || this.isRelatedElement(event?.relatedTarget as Element)
     ) {
-      event.stopPropagation();
-      event.preventDefault();
+      event?.stopPropagation();
+      event?.preventDefault();
       return;
     }
     this.tooltipElement.className = 'tooltip';

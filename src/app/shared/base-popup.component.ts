@@ -9,20 +9,22 @@ export abstract class BasePopupComponent {
   isOpened = false;
 
   getPopUpClass(): string {
+    console.log('class: ', this.isOpened ? '' : 'collapsed');
     return this.isOpened ? '' : 'collapsed';
   }
 
   protected constructor(protected cdr: ChangeDetectorRef) {}
 
   open(): void {
-    animationDuration = innerWidth < mobileWidth ? 400: 200
+    animationDuration = innerWidth < mobileWidth ? 400 : 200
     this.isVisible = true;
+    this.isOpened = false;
     this.cdr.markForCheck();
     requestAnimationFrame(() => {
       this.isOpened = true;
       this.cdr.markForCheck();
       this.afterOpen();
-    })
+    });
   }
 
   close(): void {

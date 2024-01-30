@@ -37,7 +37,13 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     });
   }
 
+  ready = false;
   override afterOpen(): void {
+    if (!this.ready) {
+      this.ready = true;
+      requestAnimationFrame(() => this.afterOpen());
+      return;
+    }
     window.addEventListener('message', msg => {
       const event = JSON.parse(msg.data);
       if (event.event === 'heightChange') {
@@ -50,7 +56,7 @@ export class EventCreateComponent extends BasePopupComponent implements OnDestro
     this.iframe.nativeElement.src = this.iframeUrl;
     setTimeout(() => {
       this.iframe.nativeElement.style.opacity = '1';
-    }, 300);
+    }, 200);
   }
 
   ngOnDestroy(): void {
