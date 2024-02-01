@@ -17,15 +17,15 @@ import { IconDirective } from '../../shared/icon/icon.directive';
 })
 export class PricePageComponent {
 
-  private readonly changeDate = new Date(2024, 1 - 1, 11, 0);
+  private readonly changeDate = new Date(2024, 2 - 1, 1, 0);
   showNew = document.location.href.includes('new');
 
   private readonly priceListOld = [
     {
       group: 'Педиатр',
       items: [
-        { name: 'Первичный прием педиатра', price: 40 },
-        { name: 'Повторный прием педиатра', price: 32 },
+        { name: 'Первичный прием педиатра', price: 50 },
+        { name: 'Повторный прием педиатра', price: 45 },
       ],
     },
     {
@@ -38,7 +38,7 @@ export class PricePageComponent {
     {
       group: 'Аллерголог',
       items: [
-        { name: 'Прием аллерголога', price: 40 },
+        { name: 'Прием аллерголога', price: 80 },
       ],
     },
     {
@@ -127,7 +127,7 @@ export class PricePageComponent {
   getActualDate(): string {
     return this.isChangeDatePassed || this.showNew
       ? this.getChangeDate()
-      : '29.07.2023';
+      : '01.02.2024';
   }
 
   viewOld() {
