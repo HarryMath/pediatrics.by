@@ -152,6 +152,7 @@
   }
   .admission {
     padding-top: 1rem;
+    height: unset;
   }
   .doc-info>div {
     max-width: 50rem;
