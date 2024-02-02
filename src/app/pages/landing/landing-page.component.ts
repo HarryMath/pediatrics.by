@@ -200,7 +200,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
         }
       ],
       icon: 'question',
-      payOptions: '*Для детей любого возраста',
+      payOptions: '*Для детей любого возраста'
     },
     {
       name: 'Рука на пульсе',
@@ -399,23 +399,12 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   private async loadDoctors(): Promise<void> {
-    try {
-      this.doctors = await ScheduleSdk.doctors.get();
-    } catch (e) {
-      // TODO remove
-    }
-    this.doctors = this.doctors.sort((d1, d2) => (d1.lastName + d1.firstName).localeCompare(d2.lastName + d2.firstName));
-    this.cdr.detectChanges();
-    if (innerWidth < mobileWidth) {
-      await wait(10);
-      requestAnimationFrame(() => {
-        const elements = Array.from(document.querySelectorAll<HTMLDivElement>('.doc-wrap'));
-        const maxH = elements.reduce((max, el) => Math.max(max, el.clientHeight), 0);
-        elements.forEach(el => {
-          el.style.cssText = 'height:' + maxH + 'px';
-          el.classList.add('ready');
-        });
-      });
-    }
+    this.doctors = await ScheduleSdk.doctors.get();
+    this.doctors = this.doctors.sort(
+      (d1, d2) => !!d1.nextAvailable === !!d2.nextAvailable
+        ? (d1.firstName + d1.lastName).localeCompare(d2.firstName + d2.lastName)
+        : (d1.nextAvailable ? 0 : 1) - (d2.nextAvailable ? 0 : 1)
+    );
+    this.cdr.markForCheck();
   }
 }

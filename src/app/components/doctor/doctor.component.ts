@@ -51,7 +51,8 @@ export class DoctorComponent implements AfterViewInit, OnDestroy {
     if (workStart) {
       const workStage = new Date().getFullYear() - workStart;
       this.labels.push({
-        color: '#000',
+        color: '#26364b',
+        bg: '#f2f6fb',
         text: `стаж ${ workStage } лет`
       });
     }
@@ -60,15 +61,16 @@ export class DoctorComponent implements AfterViewInit, OnDestroy {
     const specialLabels = ['кандидат медицинских наук', 'доктор медицинских наук'];
     for (const l of specialLabels) {
       if (desc.includes(l)) {
-        this.labels.push({ color: 'red', text: l });
+        this.labels.push({ color: '#de7ee3', text: l, bg: '#fbeefb' });
       }
     }
-
   }
 
-  isMobile: boolean;
+  isMobile(): boolean {
+    return innerWidth < mobileWidth;
+  }
 
-  labels: { color: string; text: string }[] = [];
+  labels: { color: string; text: string; bg: string }[] = [];
   speciality?: string;
   category?: string;
   name = '';
@@ -81,9 +83,7 @@ export class DoctorComponent implements AfterViewInit, OnDestroy {
   constructor(
     public readonly eventsService: EventsService,
     private readonly cdr: ChangeDetectorRef
-  ) {
-    this.isMobile = innerWidth < mobileWidth;
-  }
+  ) {}
 
   private async loadNearestAdmissions(start: Date): Promise<void> {
     this.loadingAdmissions = true;
@@ -112,34 +112,6 @@ export class DoctorComponent implements AfterViewInit, OnDestroy {
 
     this.loadingAdmissions = false;
     this.cdr.markForCheck();
-  }
-
-  getAvatarSize(): number {
-    const AVATAR_SIZE_REM = innerWidth < mobileWidth ? 25 : 8;
-    const initialSize = DomUtils.remToPX(AVATAR_SIZE_REM);
-    const maxSize = innerWidth * MAX_AVATAR_WIDTH_PART - DomUtils.remToPX(7);
-    if (initialSize > maxSize) {
-      return DomUtils.pxToRem(maxSize);
-    }
-    return AVATAR_SIZE_REM;
-  }
-
-  getDescription(description?: string): string[] {
-    if (!description) {
-      return [];
-    }
-    const linesAmount = innerWidth < mobileWidth ? 8 : 3;
-    return description.split('\n').slice(0, linesAmount).map(l => {
-      l = l.trim();
-      if (l.startsWith('—') || l.startsWith('-')) {
-        l = l.substring(1).trim();
-      }
-      return l;
-    });
-  }
-
-  getSpeciality(d: DoctorDto): string {
-    return d.speciality?.join(', ') || '';
   }
 
   isSelected(d: Day) {

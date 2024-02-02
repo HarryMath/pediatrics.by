@@ -1,5 +1,6 @@
 .pop-up {
   width: min(calc(100vw - 4rem), max(35rem, 33vw));
+  max-width: 40rem;
 }
 
 iframe {

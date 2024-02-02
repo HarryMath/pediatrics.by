@@ -986,6 +986,7 @@ footer h3 {
 @media screen and (min-width: 700px) {
   :root {
     --max-w: calc(1200px + 23vw);
+    --doc-gap: 2.5rem;
   }
   .p-head {
     height: 18.5rem;
@@ -994,7 +995,7 @@ footer h3 {
     font-size: 1.8rem;
   }
   html {
-    font-size: calc(11px + .2vw);
+    font-size: calc(11px + .1vw);
   }
   .content {
     padding: 0 4rem;
@@ -1031,14 +1032,7 @@ footer h3 {
     margin: 1rem 0;
     width: calc(50% - 2rem);
   }
-  .s3 .sect-cont {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
-  }
-  .doc-wrap {
-    aspect-ratio: 1;
-  }
+
   .footer2 {
     font-size: 1.3rem;
   }

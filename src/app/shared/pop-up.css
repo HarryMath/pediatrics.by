@@ -27,6 +27,7 @@
   border-radius: 1rem;
   transition: .2s;
   max-height: calc(100% - 4rem);
+  box-shadow: 0 2rem 3rem -1rem #0101103d, 0 2.5rem 4rem -1.5rem #0101101d;
 }
 
 .pop-body {
@@ -100,6 +101,7 @@ button {
     transition: .4s;
     max-height: 100%;
     border-radius: 0;
+    box-shadow: none;
   }
   .p-inner {
     max-height: 100%;

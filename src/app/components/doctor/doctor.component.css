@@ -118,3 +118,46 @@
   margin-top: 1rem;
   filter: hue-rotate(17deg);
 }
+
+.description {
+  margin-top: 2rem;
+  white-space: pre-wrap;
+}
+
+.labels {
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.label {
+  font-size: 1.2rem;
+  white-space: nowrap;
+  padding: 0 .5rem;
+  height: 100%;
+  line-height: 2rem;
+  border-radius: .4rem;
+}
+
+@media screen and (min-width: 950px) {
+  .doc-info {
+    display: flex;
+    gap: var(--doc-gap);
+    justify-content: space-between;
+  }
+  .times {
+    flex-wrap: wrap;
+    width: 100%;
+    overflow: unset;
+    height: unset;
+  }
+  .admission {
+    padding-top: 1rem;
+  }
+  .doc-info>div {
+    max-width: 50rem;
+  }
+  .admission {
+    width: min(47%, 40rem);
+    flex-shrink: 0;
+  }
+}
