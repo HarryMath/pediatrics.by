@@ -9,7 +9,6 @@ export abstract class BasePopupComponent {
   isOpened = false;
 
   getPopUpClass(): string {
-    console.log('class: ', this.isOpened ? '' : 'collapsed');
     return this.isOpened ? '' : 'collapsed';
   }
 
