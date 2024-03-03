@@ -148,7 +148,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     {
       name: 'Личный Педиатр',
       minPrice: '1140 BYN / год',
-      price: [{ val: 1140 }],
+      price: [{ val: 1200 }],
       main: [
         '12 посещений врача-педиатра в Клинике',
         'Связь с педиатром',
@@ -170,10 +170,10 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     },
     {
       name: 'У меня вопрос',
-      minPrice: 'от 444 BYN / 6 мес',
+      minPrice: 'от 420 BYN / 6 мес',
       price: [
-        { val: 495, label: '(Дубатовка Н. Д.)' },
-        { val: 444, label: '(Рыбакова Н.В., Науменко А. Б., Сайко Е. М.)' }
+        { val: 600, label: '(Дубатовка Н. Д.)' },
+        { val: 540, label: '(Рыбакова Н.В., Науменко А. Б., Сайко Е. М.)' }
       ],
       main: [
         'Связь с педиатром',
@@ -204,8 +204,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     },
     {
       name: 'Рука на пульсе',
-      minPrice: '360 BYN / год',
-      price: [{ val: 360 }],
+      minPrice: '420 BYN / год',
+      price: [{ val: 420 }],
       main: [
         '9 посещений любого врача медицинского центра (не включает вызов на дом)',
         'Рекомендации по питанию и образу жизни',
