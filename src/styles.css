@@ -840,6 +840,9 @@ h3 {
 footer {
   background-color: var(--footer1);
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .footer1 {
