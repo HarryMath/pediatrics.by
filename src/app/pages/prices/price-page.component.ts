@@ -20,42 +20,7 @@ export class PricePageComponent {
   private readonly changeDate = new Date(2024, 2 - 1, 1, 0);
   showNew = document.location.href.includes('new');
 
-  private readonly priceListOld = [
-    {
-      group: 'Педиатр',
-      items: [
-        { name: 'Первичный прием педиатра', price: 50 },
-        { name: 'Повторный прием педиатра', price: 45 },
-      ],
-    },
-    {
-      group: 'Невролог',
-      items: [
-        { name: 'Первичный прием невролога', price: 40 },
-        { name: 'Повторный прием невролога', price: 32 },
-      ],
-    },
-    {
-      group: 'Аллерголог',
-      items: [
-        { name: 'Прием аллерголога', price: 80 },
-      ],
-    },
-    {
-      group: 'Психолог',
-      items: [
-        { name: 'Прием психолога', price: 60 }
-      ],
-    },
-    {
-      group: 'Травмотолог-Ортопед',
-      items: [
-        { name: 'Первичный прием', price: 40 },
-        { name: 'Повторный прием', price: 32 },
-      ],
-
-    }
-  ];
+  private readonly priceListOld = [];
 
   private readonly priceListNew = [
     {
