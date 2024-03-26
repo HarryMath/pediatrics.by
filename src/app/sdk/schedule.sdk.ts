@@ -4,7 +4,7 @@ import { EventCreateDto } from './dto/Event';
 import { TimestampInterval } from './dto/Interval';
 
 // const endpoint = 'http://localhost:8080/api/';
-const endpoint = 'https://timekit.online/api/';
+const endpoint = 'https://server.timekit.by/api/';
 // const widget = 'http://localhost:4200/public/1';
 const widget = 'https://timekit.by/public/1';
 const LAST_VISIT_KEY = 'vld';
