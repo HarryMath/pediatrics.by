@@ -47,21 +47,10 @@ export interface IProgram {
   main: string[];
 }
 
-interface IInstagramPost {
-  photoUrl: string;
-}
-
 interface IAdvantage {
   name: string;
   description: string;
   icon: string;
-}
-
-interface IDoctor {
-  photo: string;
-  name: string;
-  type: string;
-  info: string[];
 }
 
 @Component({
@@ -147,7 +136,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   programs: IProgram[] = [
     {
       name: 'Личный Педиатр',
-      minPrice: '1140 BYN / год',
+      minPrice: '1200 BYN / год',
       price: [{ val: 1200 }],
       main: [
         '12 посещений врача-педиатра в Клинике',
@@ -170,7 +159,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     },
     {
       name: 'У меня вопрос',
-      minPrice: 'от 420 BYN / 6 мес',
+      minPrice: 'от 540 BYN / 6 мес',
       price: [
         { val: 600, label: '(Дубатовка Н. Д.)' },
         { val: 540, label: '(Рыбакова Н.В., Науменко А. Б., Сайко Е. М.)' }
