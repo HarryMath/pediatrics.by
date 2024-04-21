@@ -13,11 +13,11 @@ import { BasePopupComponent } from '../../../shared/base-popup.component';
 
 @Component({
   selector: 'app-event-create',
-  templateUrl: './event-create.component.html',
-  styleUrls: ['../../../shared/pop-up.css', './event-create.component.css'],
+  templateUrl: './iframe.component.html',
+  styleUrls: ['../../../shared/pop-up.css', './iframe.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EventCreateComponent extends BasePopupComponent implements OnDestroy, OnInit {
+export class IframeComponent extends BasePopupComponent implements OnDestroy, OnInit {
 
   @ViewChild('iframe') iframe!: ElementRef<HTMLIFrameElement>;
   subscription!: Subscription;

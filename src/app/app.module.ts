@@ -3,8 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AvatarComponent } from 'src/app/shared/avatar/avatar.component';
-import { EventCreateModule } from './components/events/event-create/event-create.module';
-import { NgOptimizedImage } from '@angular/common';
+import { IframeModule } from './components/events/event-create/iframe.module';
 import { IconDirective } from './shared/icon/icon.directive';
 import { PhoneComponent } from './phone/phone.component';
 import { MenuComponent } from './commons/menu/menu.component';
@@ -33,7 +32,7 @@ const routes: Routes = [
   imports: [
     AvatarComponent,
     BrowserModule,
-    EventCreateModule,
+    IframeModule,
     IconDirective,
     RouterModule.forRoot(routes),
     HeaderComponent
