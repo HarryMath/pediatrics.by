@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { EventsService } from 'src/app/components/events/events.service';
-import { ScheduleSdk } from 'src/app/sdk/schedule.sdk';
 import { BasePopupComponent } from '../../../shared/base-popup.component';
 
 
@@ -22,6 +21,7 @@ export class IframeComponent extends BasePopupComponent implements OnDestroy, On
   @ViewChild('iframe') iframe!: ElementRef<HTMLIFrameElement>;
   subscription!: Subscription;
   iframeUrl = '';
+  header = '';
 
   constructor(
     private readonly eventCreateService: EventsService,
@@ -32,7 +32,8 @@ export class IframeComponent extends BasePopupComponent implements OnDestroy, On
 
   ngOnInit(): void {
     this.subscription = this.eventCreateService.createEventSubject.subscribe(d => {
-      this.iframeUrl = ScheduleSdk.getWidgetUrl(d?.doctorId, d.eventStart);
+      this.iframeUrl = d.url;
+      this.header = d.header;
       this.open();
     });
   }

@@ -5,10 +5,11 @@ import { TimestampInterval } from './dto/Interval';
 
 // const endpoint = 'http://localhost:8080/api/';
 const endpoint = 'https://server.timekit.by/api/';
-// const widget = 'http://localhost:4200/public/1';
-const widget = 'https://timekit.by/public/1';
-const forms = 'https://timekit.by/form/';
-// const forms = 'http://localhost:4200/form/';
+// const fe = 'https://timekit.by/';
+const fe = 'http://localhost:4200/';
+const widget = fe +'public/1';
+const forms = fe + 'form/';
+
 const LAST_VISIT_KEY = 'vld';
 const VISIT_TRACK_LIMIT = 3 * 60 * 60 * 1000; // 3 h
 

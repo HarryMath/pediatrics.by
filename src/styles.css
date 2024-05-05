@@ -177,7 +177,6 @@ p {
 }
 
 .justify-center {
-  display: flex;
   justify-content: center;
 }
 
@@ -462,6 +461,14 @@ h3 {
   margin-right: 1rem;
 }
 
+.main-btn {
+  justify-content: center;
+  height: 3rem;
+  line-height: 3rem;
+  padding: 0 .8rem;
+  border-radius: .8rem;
+}
+
 
 @keyframes load {
   0% {
@@ -603,6 +610,7 @@ h3 {
   height: 4rem;
   border-radius: 50%;
   cursor: pointer;
+  flex-shrink: 0;
   position: relative;
   background-color: #8FFFB5;
 }
@@ -628,6 +636,18 @@ h3 {
 
 .serv p {
   padding-bottom: 1rem;
+}
+
+.serv .link {
+  color: #006891;
+  white-space: nowrap;
+}
+
+.serv button {
+  margin-top: 1.5rem;
+  background-color: #379f61;
+  border-radius: 1.2rem;
+  padding: 0 3rem;
 }
 
 .s-includes {
@@ -1072,6 +1092,10 @@ footer h3 {
   }
   footer.end .footer1::before {
     height: 0;
+  }
+
+  .serv button {
+    width: 100%;
   }
 
   header.end {

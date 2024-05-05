@@ -46,10 +46,13 @@
             </div>
           </div>
           <div class="s-body">
-            <p class="s-description" [innerHTML]="s.label"></p>
+            <p *ngIf="s.label" class="s-description" [innerHTML]="s.label"></p>
             <div *ngFor="let i of s.includes" class="s-includes">
               <div class="prefix">-</div>
-              <div [innerText]="i"></div>
+              <div [innerHTML]="i"></div>
+            </div>
+            <div *ngIf="s.action" class="w-full justify-center">
+              <button class="action-btn main-btn" [innerText]="s.action.txt" (click)="s.action.action()"></button>
             </div>
           </div>
         </div>
