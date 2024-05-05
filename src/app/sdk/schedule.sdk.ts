@@ -5,8 +5,8 @@ import { TimestampInterval } from './dto/Interval';
 
 // const endpoint = 'http://localhost:8080/api/';
 const endpoint = 'https://server.timekit.by/api/';
-// const fe = 'https://timekit.by/';
-const fe = 'http://localhost:4200/';
+const fe = 'https://timekit.by/';
+// const fe = 'http://localhost:4200/';
 const widget = fe +'public/1';
 const forms = fe + 'form/';
 
