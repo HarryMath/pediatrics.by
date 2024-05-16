@@ -124,14 +124,15 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
         'Лекции, которые остаются с вами навсегда',
         'Печатные пособия',
         'Чат, в котором в ходе семинара (~1 мес) вы можете задать вопрос опытным специалистам',
-        'Сейчас идет набор на поток <a class="link" href="https://www.instagram.com/stories/highlights/18003047930528500/">"ПРИКОРМ 7.0"</a>'
+        'На данный момент нету активных семинаров. Обычно мы проводим семинары раз в 2-3 месяца'
+        // 'Сейчас идет набор на поток <a class="link" href="https://www.instagram.com/stories/highlights/18003047930528500/">"ПРИКОРМ 7.0"</a>'
       ],
-      action: {
-        txt: 'Участвовать',
-        action: () => {
-          this.eventsService.openForm('Прикорм 7.0', 11);
-        }
-      }
+      // action: {
+      //   txt: 'Участвовать',
+      //   action: () => {
+      //     this.eventsService.openForm('Прикорм 7.0', 11);
+      //   }
+      // }
     }
   ];
 
