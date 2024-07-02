@@ -126,6 +126,7 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
         // 'Чат, в котором в ходе семинара (~1 мес) вы можете задать вопрос опытным специалистам',
         'Открыт набор на семинар <a class="link" href="https://www.instagram.com/stories/highlights/18088224736451173/">"Новорожденный"</a>. Для участия заполните форму по <a class="link" href="https://timekit.by/form/14">ссылке</a>',
         'Для участия в семинаре "Атопический дерматит" заполните форму по <a class="link" href="https://timekit.by/form/15">ссылке</a>',
+        'Для участия в семинаре "Железо" заполните форму по <a class="link" href="https://timekit.by/form/16">ссылке</a>',
         // 'На данный момент семинар "ПРИКОРМ" не проводится. Обычно мы проводим семинары раз в 2-3 месяца',
         'Сейчас идет набор на поток "ПРИКОРМ 8.0". Подробнее узнать можно у нас в <a class="link" href="https://www.instagram.com/stories/highlights/18003047930528500/">актуальном</a>. А для участия нажмите на кнопку ниже'
       ],
